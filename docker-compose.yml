@@ -1,3 +1,33 @@
 version: "3"
+networks:
+    vteam6:
+services:
+    server:
+        image: "mrrobin/vteam6-server:0.1.0"
+        volumes:
+            - "./server-data:/data"
+        container_name: "vteam6_server"
+        ports:
+            - "1337:1337"
+        networks:
+            vteam6:
+        restart:
+            "always"
 
-# TO BE DEVELOPED
+    webbclient:
+        image: "mrrobin/vteam6-webbclient:0.1.0"
+        container_name: "vteam6_webbclient"
+        ports:
+            - "1338:1338"
+        networks:
+            vteam6:
+        links:
+            - "server:vteam6_server"
+
+    client:
+        image: "mrrobin/vteam6-client:0.1.0"
+        container_name: "vteam6_client"
+        networks:
+            vteam6:
+        links:
+            - "server:vteam6_server"
