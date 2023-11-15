@@ -2,6 +2,23 @@ version: "3"
 networks:
     vteam6:
 services:
+    database:
+      container_name: vteam6_database
+      image: mariadb:latest
+      restart: always
+      volumes:
+        - ./database/sql:/docker-entrypoint-initdb.d
+      environment:
+        MYSQL_ROOT_PASSWORD: ${ROOT_PASS}
+        MYSQL_DATABASE: vteam
+        MYSQL_USER: user
+        MYSQL_PASSWORD: ${USER_PASS}
+      ports:
+        - "3306:3306"
+      networks:
+            vteam6:
+      # Test the database by excuting: docker exec -it database mariadb -uroot -p
+      
     server:
         image: "mrrobin/vteam6-server:0.1.0"
         volumes:
