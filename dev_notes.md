@@ -27,3 +27,10 @@ And to stop the server and the network, run this command:
 $ docker compose down
 ```
 
+## Database
+
+Once the database container is up and running, you can test the database by opening up the MariaDB console:
+
+```console
+$ docker exec -it database mariadb -uroot -p
+```
