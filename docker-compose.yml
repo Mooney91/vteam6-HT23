@@ -1,3 +1,21 @@
 version: "3"
-
-# TO BE DEVELOPED
+networks:
+    vteam:
+services:
+  database:
+    container_name: database
+    image: mariadb:latest
+    restart: always
+    volumes:
+      - ./database/sql:/docker-entrypoint-initdb.d
+    environment:
+      MYSQL_ROOT_PASSWORD: ${ROOT_PASS}
+      MYSQL_DATABASE: vteam
+      MYSQL_USER: user
+      MYSQL_PASSWORD: ${USER_PASS}
+    ports:
+      - "3306:3306"
+    networks:
+          vteam:
+  # Test the database by excuting: docker exec -it database mariadb -uroot -p
+  
