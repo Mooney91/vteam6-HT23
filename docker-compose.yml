@@ -1,21 +1,50 @@
 version: "3"
 networks:
-    vteam:
+    vteam6:
 services:
-  database:
-    container_name: database
-    image: mariadb:latest
-    restart: always
-    volumes:
-      - ./database/sql:/docker-entrypoint-initdb.d
-    environment:
-      MYSQL_ROOT_PASSWORD: ${ROOT_PASS}
-      MYSQL_DATABASE: vteam
-      MYSQL_USER: user
-      MYSQL_PASSWORD: ${USER_PASS}
-    ports:
-      - "3306:3306"
-    networks:
-          vteam:
-  # Test the database by excuting: docker exec -it database mariadb -uroot -p
-  
+    database:
+      container_name: vteam6_database
+      image: mariadb:latest
+      restart: always
+      volumes:
+        - ./database/sql:/docker-entrypoint-initdb.d
+      environment:
+        MYSQL_ROOT_PASSWORD: ${ROOT_PASS}
+        MYSQL_DATABASE: vteam
+        MYSQL_USER: user
+        MYSQL_PASSWORD: ${USER_PASS}
+      ports:
+        - "3306:3306"
+      networks:
+            vteam6:
+      # Test the database by excuting: docker exec -it database mariadb -uroot -p
+      
+    server:
+        image: "mrrobin/vteam6-server:0.1.0"
+        volumes:
+            - "./server-data:/data"
+        container_name: "vteam6_server"
+        ports:
+            - "1337:1337"
+        networks:
+            vteam6:
+        restart:
+            "always"
+
+    webbclient:
+        image: "mrrobin/vteam6-webbclient:0.1.0"
+        container_name: "vteam6_webbclient"
+        ports:
+            - "1338:1338"
+        networks:
+            vteam6:
+        links:
+            - "server:vteam6_server"
+
+    client:
+        image: "mrrobin/vteam6-client:0.1.0"
+        container_name: "vteam6_client"
+        networks:
+            vteam6:
+        links:
+            - "server:vteam6_server"
