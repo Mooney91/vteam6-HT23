@@ -20,9 +20,9 @@ services:
       # Test the database by excuting: docker exec -it database mariadb -uroot -p
       
     server:
-        image: "mrrobin/vteam6-server:0.1.0"
-        volumes:
-            - "./server-data:/data"
+        # image: "mrrobin/vteam6-server:0.1.0"
+        # volumes:
+        #     - "./server-data:/data"
         container_name: "vteam6_server"
         ports:
             - "1337:1337"
