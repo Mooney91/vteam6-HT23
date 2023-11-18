@@ -1,11 +1,17 @@
 const express = require('express');
-const dotenv = require('dotenv');
 const app = express();
 const port = process.env.PORT || "1337";
+const cors = require('cors');
+const dotenv = require('dotenv');
 
 dotenv.config({path: '.env'})
 
+// ROUTERS
+const CityRouter = require('./routes/City');
+
 // MIDDLEWARE
+app.use(cors());
+app.options('*', cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
@@ -14,7 +20,6 @@ app.get('/', (req, res) => {
   res.status(200).json({name:'vteam6', success:'true'})
 })
 
-const CityRouter = require('./routes/City');
 app.use('/city', CityRouter);
 
 // LISTENING
