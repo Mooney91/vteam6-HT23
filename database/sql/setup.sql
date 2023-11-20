@@ -2,7 +2,7 @@
 DROP TABLE IF EXISTS `Scooter`;
 DROP TABLE IF EXISTS `City`;
 DROP TABLE IF EXISTS `Station`;
-DROP TABLE IF EXISTS `AllowedZone`;
+DROP TABLE IF EXISTS `PermittedZone`;
 DROP TABLE IF EXISTS `User`;
 DROP TABLE IF EXISTS `RentalLog`;
 DROP TABLE IF EXISTS `ScooterLog`;
@@ -33,13 +33,13 @@ CREATE TABLE IF NOT EXISTS `Station` (
     `Location` VARCHAR(100),
     `ScooterCapacity` INT,
     `ScooterOccupancy` INT,
-    `StationType` VARCHAR(50),
+    `StationType` INT,
     `CityID` INT
 );
 
--- Create the AllowedZone table
-CREATE TABLE IF NOT EXISTS `AllowedZone` (
-    `AllowedZoneID` INT AUTO_INCREMENT PRIMARY KEY,
+-- Create the PermittedZone table
+CREATE TABLE IF NOT EXISTS `PermittedZone` (
+    `PermittedZoneID` INT AUTO_INCREMENT PRIMARY KEY,
     `ZoneName` VARCHAR(50),
     `ZoneArea` VARCHAR(500),
     `CityID` INT
@@ -99,7 +99,7 @@ CREATE TABLE IF NOT EXISTS `ActivityType` (
 -- ADD THE FOREIGN KEYS!
 ALTER TABLE `Scooter` ADD FOREIGN KEY (`StationID`) REFERENCES `Station`(`StationID`);
 ALTER TABLE `Station` ADD FOREIGN KEY (`CityID`) REFERENCES `City`(`CityID`);
-ALTER TABLE `AllowedZone` ADD FOREIGN KEY (`CityID`) REFERENCES `City`(`CityID`);
+ALTER TABLE `PermittedZone` ADD FOREIGN KEY (`CityID`) REFERENCES `City`(`CityID`);
 ALTER TABLE `User` ADD FOREIGN KEY (`PaymentType`) REFERENCES `PaymentType`(`PaymentTypeID`);
 ALTER TABLE `RentalLog` ADD FOREIGN KEY (`ScooterID`) REFERENCES `Scooter`(`ScooterID`);
 ALTER TABLE `RentalLog` ADD FOREIGN KEY (`UserID`) REFERENCES `User`(`UserID`);
@@ -109,6 +109,7 @@ ALTER TABLE `ScooterLog` ADD FOREIGN KEY (`ScooterID`) REFERENCES `Scooter`(`Sco
 ALTER TABLE `ScooterLog` ADD FOREIGN KEY (`ActivityType`) REFERENCES `ActivityType`(`ActivityTypeID`);
 ALTER TABLE `ScooterLog` ADD FOREIGN KEY (`StartStation`) REFERENCES `Station`(`StationID`);
 ALTER TABLE `ScooterLog` ADD FOREIGN KEY (`EndStation`) REFERENCES `Station`(`StationID`);
+ALTER TABLE `Station` ADD FOREIGN KEY (`StationType`) REFERENCES `StationType`(`StationTypeID`);
 
 INSERT INTO `City` (`CityName`) VALUES
     ('Stockholm'),
@@ -136,13 +137,13 @@ INSERT INTO `Scooter` (`Status`, `Location`, `Speed`, `Battery`) VALUES
     ('Available', '57.7055, 11.9668', 14.6, 70);
 
 INSERT INTO `Station` (`StationName`, `Location`, `ScooterCapacity`, `ScooterOccupancy`, `StationType`, `CityID`) VALUES
-    ('Station A', '59.3293, 18.0686', 10, 5, 'Parking', 1),
-    ('Station B', '57.7089, 11.9746', 12, 8, 'Charging', 2),
-    ('Station C', '55.605, 13.0038', 15, 7, 'Parking', 3),
-    ('Station D', '59.9139, 10.7522', 8, 2, 'Charging', 1),
-    ('Station E', '57.7055, 11.9668', 10, 6, 'Parking', 2);
+    ('Station A', '59.3293, 18.0686', 10, 5, 1, 1),
+    ('Station B', '57.7089, 11.9746', 12, 8, 2, 2),
+    ('Station C', '55.605, 13.0038', 15, 7, 1, 3),
+    ('Station D', '59.9139, 10.7522', 8, 2, 2, 1),
+    ('Station E', '57.7055, 11.9668', 10, 6, 1, 2);
 
-INSERT INTO `AllowedZone` (`ZoneName`, `ZoneArea`, `CityID`) VALUES
+INSERT INTO `PermittedZone` (`ZoneName`, `ZoneArea`, `CityID`) VALUES
     ('Södermalm', '{"type": "Polygon", "coordinates": [[[18.06046, 59.31189], [18.07034, 59.31675], [18.07557, 59.31547], [18.08274, 59.31471], [18.08477, 59.31442], [18.08464, 59.31395], [18.07935, 59.31317], [18.07546, 59.31159], [18.07467, 59.30953], [18.06046, 59.31189]]}', 1),
     ('Kungsholmen', '{"type": "Polygon", "coordinates": [[[17.98997, 59.32822], [18.01151, 59.32878], [18.01523, 59.32894], [18.01674, 59.32952], [18.02122, 59.32963], [18.02862, 59.32945], [18.02757, 59.32751], [18.02801, 59.32719], [18.02363, 59.32609], [18.01322, 59.32756], [17.98997, 59.32822]]}', 1),
     ('Gamla Stan', '{"type": "Polygon", "coordinates": [[[18.07084, 59.32533], [18.07799, 59.32429], [18.07975, 59.32512], [18.07975, 59.32611], [18.08183, 59.32633], [18.08432, 59.32591], [18.08425, 59.32532], [18.08362, 59.32457], [18.07923, 59.32438], [18.07885, 59.325], [18.075, 59.32532], [18.07439, 59.32511], [18.07189, 59.325], [18.07117, 59.32532], [18.07084, 59.32533]]}', 1);
