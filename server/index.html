@@ -1,0 +1,203 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Svenska Elsparkscyklar AB Server - a REST API</title>
+    
+</head>
+<style>
+/** A css file */
+body {
+    margin: 0 auto;
+    max-width: 700px;
+    margin-bottom: 4em;
+}
+
+h1 {
+    border-bottom: 4px double #666;
+}
+
+h2 {
+    border-bottom: 1px solid #999;
+}
+
+h3 {
+    border-bottom: 1px solid #ccc;
+}
+
+code {
+    padding: 2px;
+    background-color: #eee;
+}
+
+pre {
+    background-color: #eee;
+    padding: 0.5em;
+    border-left: 2px solid #ccc;
+}
+
+
+</style>
+<body>
+
+
+
+<div class="main-wrap">
+    <h1>REM Server - a REST Mockup API</h1>
+
+<p>This is a mockup server for development of applications working with a REST API. The server responds to any API endpoint, stores data and changes to the data in the user session.</p>
+
+<p>The server has a default dataset for the endpoint <code>api/users</code>.</p>
+
+<p>You can add your own datasets and work with them through <code>api/[datasets]</code>.</p>
+
+<h2 id="try">Try it</h2>
+
+<p>You can try out the pre-populated dataset <code>users</code>.</p>
+
+<ul>
+<li><a href="api/users">Get all users</a></li>
+<li><a href="api/users/1">Get the user with <code>id=1</code></a></li>
+</ul>
+
+<h2 id="api">API</h2>
+
+<h3 id="all">Get the dataset</h3>
+
+<p>Get the full dataset, or a part of it.</p>
+
+<pre class="hljs">GET /api/[dataset]
+GET /api/users
+</pre>
+
+<p>Results.</p>
+
+<pre class="hljs">{
+    <span class="hljs-attr">"data"</span>: [],
+    <span class="hljs-attr">"offset"</span>: <span class="hljs-number">0</span>,
+    <span class="hljs-attr">"limit"</span>: <span class="hljs-number">25</span>,
+    <span class="hljs-attr">"total"</span>: <span class="hljs-number">0</span>
+}
+
+{
+    <span class="hljs-attr">"data"</span>: [
+        {
+            <span class="hljs-attr">"id"</span>: <span class="hljs-string">"1"</span>,
+            <span class="hljs-attr">"firstName"</span>: <span class="hljs-string">"Phuong"</span>,
+            <span class="hljs-attr">"lastName"</span>: <span class="hljs-string">"Allison"</span>
+        },
+        ...
+    ],
+    <span class="hljs-attr">"offset"</span>: <span class="hljs-number">0</span>,
+    <span class="hljs-attr">"limit"</span>: <span class="hljs-number">25</span>,
+    <span class="hljs-attr">"total"</span>: <span class="hljs-number">12</span>
+}
+</pre>
+
+<p>Optional query string parameters.</p>
+
+<ul>
+<li><code>offset</code> defaults to 0.</li>
+<li><code>limit</code> defaults to 25.</li>
+</ul>
+
+<pre class="hljs">GET /api/users?offset=0&amp;limit=25
+</pre>
+
+<h3 id="one">Get one entry</h3>
+
+<p>Get one entry based on its id.</p>
+
+<pre class="hljs">GET /api/users/7
+</pre>
+
+<p>Results.</p>
+
+<pre class="hljs">{
+    <span class="hljs-attr">"id"</span>: <span class="hljs-string">"7"</span>,
+    <span class="hljs-attr">"firstName"</span>: <span class="hljs-string">"Etha"</span>,
+    <span class="hljs-attr">"lastName"</span>: <span class="hljs-string">"Nolley"</span>
+}
+</pre>
+
+<h3 id="create">Create a new entry</h3>
+
+<p>Add a new entry to a dataset, create the dataset if it does not exists and will add a id to the entry.</p>
+
+<pre class="hljs">POST /api/[dataset]
+{&quot;some&quot;: &quot;thing&quot;}
+
+POST /api/users
+{&quot;firstName&quot;: &quot;Mikael&quot;, &quot;lastName&quot;: &quot;Roos&quot;}
+</pre>
+
+<p>Results.</p>
+
+<pre class="hljs">{
+    <span class="hljs-attr">"some"</span>: <span class="hljs-string">"thing"</span>,
+    <span class="hljs-attr">"id"</span>: <span class="hljs-number">1</span>
+}
+
+{
+    <span class="hljs-attr">"firstName"</span>: <span class="hljs-string">"Mikael"</span>,
+    <span class="hljs-attr">"lastName"</span>: <span class="hljs-string">"Roos"</span>,
+    <span class="hljs-attr">"id"</span>: <span class="hljs-number">13</span>
+}
+</pre>
+
+<h3 id="upsert">Upsert/replace a entry</h3>
+
+<p>Upsert (insert/update) or replace a entry, create the dataset if it does not exists.</p>
+
+<pre class="hljs">PUT /api/[dataset]/1
+{&quot;id&quot;: 1, &quot;other&quot;: &quot;thing&quot;}
+
+PUT /api/users/13
+{&quot;id&quot;: 13, &quot;firstName&quot;: &quot;MegaMic&quot;, &quot;lastName&quot;: &quot;Roos&quot;}
+</pre>
+
+<p>The value in the id-field is updated to match the one from the PUT request value.</p>
+
+<p>Results.</p>
+
+<pre class="hljs">{
+    <span class="hljs-attr">"other"</span>: <span class="hljs-string">"thing"</span>,
+    <span class="hljs-attr">"id"</span>: <span class="hljs-number">1</span>
+}
+
+{
+    <span class="hljs-attr">"id"</span>: <span class="hljs-number">13</span>,
+    <span class="hljs-attr">"firstName"</span>: <span class="hljs-string">"MegaMic"</span>,
+    <span class="hljs-attr">"lastName"</span>: <span class="hljs-string">"Roos"</span>
+}
+</pre>
+
+<h3 id="delete">Delete a entry</h3>
+
+<p>Delete a entry.</p>
+
+<pre class="hljs">DELETE /api/[dataset]/1
+
+DELETE /api/users/13
+</pre>
+
+<p>The result will always be <code>null</code>.</p>
+
+<h2 id="other">Other REM servers</h2>
+
+<p>There are more servers doing the same thing.</p>
+
+<ul>
+<li><a href="http://rem-rest-api.herokuapp.com/">REM REST API</a></li>
+</ul>
+
+<h2 id="source">Source</h2>
+
+<p>The source for the actual REM server is an Anax module <a href="https://github.com/canax/remserver">canax/remserver</a>.</p>
+
+<p>The source for the website rem.dbwebb.se is available in <a href="https://github.com/canax/remserver-website">GitHub canax/remserver-website</a>.</p>
+</div>
+
+
+</body>
+</html>
