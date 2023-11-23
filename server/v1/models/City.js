@@ -36,7 +36,7 @@ const city = {
         try {
             const sql = `
                 SELECT
-                    CityName
+                    *
                 FROM
                     City
                 WHERE

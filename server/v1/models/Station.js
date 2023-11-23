@@ -20,7 +20,7 @@ const station = {
         try {
             const sql = `
                 SELECT
-                    StationName, Location, ScooterCapacity, ScooterOccupancy, StationType, CityID
+                    *
                 FROM
                     Station
                 WHERE
