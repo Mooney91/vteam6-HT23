@@ -20,7 +20,7 @@ const stationType = {
         try {
             const sql = `
                 SELECT
-                    StationTypeDesc
+                    *
                 FROM
                     StationType
                 WHERE
