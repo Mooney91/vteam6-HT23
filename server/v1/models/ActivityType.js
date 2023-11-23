@@ -20,7 +20,7 @@ const activityType = {
         try {
             const sql = `
                 SELECT
-                    ActivityTypeDesc
+                    *
                 FROM
                     ActivityType
                 WHERE

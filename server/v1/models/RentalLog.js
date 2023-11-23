@@ -20,7 +20,7 @@ const rentalLog = {
         try {
             const sql = `
                 SELECT
-                    ScooterID, UserID, StartTime, EndTime, StartStation, EndStation, Cost, Paid
+                    *
                 FROM
                     RentalLog
                 WHERE

@@ -20,7 +20,7 @@ const user = {
         try {
             const sql = `
                 SELECT
-                    FirstName, LastName, Password, Email, AccountBalance, PaymentType
+                    *
                 FROM
                     User
                 WHERE
