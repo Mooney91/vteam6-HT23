@@ -47,6 +47,18 @@ services:
       restart:
           "always"
 
+    admin-interface: 
+      container_name: "vteam6_admin_interface"
+      build:
+        context: ./admin-interface
+        # dockerfile: ./admin-interface/Dockerfile
+      ports:
+          - "1338:1338"
+      expose:
+          - "1338:1338"
+      networks:
+          vteam6:
+
     # webbclient:
     #     image: "mrrobin/vteam6-webbclient:0.1.0"
     #     container_name: "vteam6_webbclient"
