@@ -20,7 +20,7 @@ const permittedZone = {
         try {
             const sql = `
                 SELECT
-                    ZoneName, ZoneArea, CityID
+                    *
                 FROM
                     PermittedZone
                 WHERE

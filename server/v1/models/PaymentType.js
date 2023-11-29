@@ -20,7 +20,7 @@ const paymentType = {
         try {
             const sql = `
                 SELECT
-                    PaymentTypeDesc
+                    *
                 FROM
                     PaymentType
                 WHERE

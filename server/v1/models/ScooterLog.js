@@ -20,7 +20,7 @@ const scooterLog = {
         try {
             const sql = `
                 SELECT
-                    ScooterID, ActivityType, StartStation, EndStation
+                    *
                 FROM
                     ScooterLog
                 WHERE

@@ -37,7 +37,7 @@ const scooter = {
         try {
             const sql = `
                 SELECT
-                    Status, Location, Speed, Battery, StationID
+                    *
                 FROM
                     Scooter
                 WHERE
