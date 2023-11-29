@@ -4,6 +4,7 @@ const router = express.Router();
 const scooter = require("../models/Scooter.js");
 
 router.get('/', (req, res) => scooter.getAllScooters(req, res));
+router.get('/available', (req, res) => scooter.getAvailableScooters(req, res));
 router.get('/:id', (req, res) => scooter.getSingleScooter(req,res));
 
 router.post('/', (req, res) => scooter.createScooter(req, res));

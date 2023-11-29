@@ -16,6 +16,23 @@ const scooter = {
         }
     },
 
+    getAvailableScooters: async function(req, res) {
+        try {
+            const sql = `
+                SELECT
+                    *
+                FROM
+                    Scooter
+                WHERE
+                    Status = 'Available'
+            `;
+            const rows = await pool.query(sql);
+            res.status(200).json(rows);
+        } catch (error) {
+            res.status(400).send(error.message);
+        }
+    },
+
     getSingleScooter: async function(req, res) {
         try {
             const sql = `
