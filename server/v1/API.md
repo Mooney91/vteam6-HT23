@@ -143,6 +143,7 @@ Results:
 ```
 CityID
 CityName
+CityPosition
 ```
 
 ### Get the dataset
@@ -186,7 +187,7 @@ Results:
 [
     {
         "CityID": 1,
-        "CityName": "Stockholm"
+        "CityName": "Stockholm",
     }
 ]
 ```
