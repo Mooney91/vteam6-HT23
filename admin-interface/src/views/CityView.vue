@@ -52,16 +52,22 @@
                             </form>
                         </td>
                 </tr>
+                
             </template>
+            <MapItem />
         </table>
     </div>
 </template>
 
 <script>
     import { getCurrentInstance } from 'vue';
+    import MapItem from '../components/MapItem.vue'
 
     export default {
         name: 'CityView',
+        components: {
+            MapItem
+        },
         props: {
             backend: String
         },
