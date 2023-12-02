@@ -53,7 +53,7 @@ const city = {
      * Create a new City.
      * @function
      * @async
-     * @param {Object} req - Request (with CityName).
+     * @param {Object} req - Request (with CityName, CityPosition).
      * @param {Object} res - Response.
      * @returns {Object} - Details of the new City.
      */
@@ -61,9 +61,13 @@ const city = {
         try {
             const sql = `
                 INSERT INTO
-                    City (CityName)
-                VALUES (?)`
-            const rows = await pool.query(sql, req.body.CityName)
+                    City (CityName, CityPosition)
+                VALUES (?, ?)`
+                const values = [
+                    req.body.CityName,
+                    req.body.CityPosition,
+                ];
+                const rows = await pool.query(sql, values);
             res.status(200).json({message: 'The city was created successfully.'});
         } catch (error) {
             res.status(400).send(error.message)
@@ -82,9 +86,16 @@ const city = {
         try {
             const sql = `
                 UPDATE City
-                SET CityName = ?
+                SET 
+                    CityName = ?,
+                    CityPosition = ?
                 WHERE CityID = ?;`
-            const rows = await pool.query(sql, [req.body.CityName, req.params.id])
+                const values = [
+                    req.body.CityName,
+                    req.body.CityPosition,
+                    req.params.id
+                ];
+                const rows = await pool.query(sql, values);
             res.status(200).json({message: 'The city was updated successfully.'});
         } catch (error) {
             res.status(400).send(error.message)

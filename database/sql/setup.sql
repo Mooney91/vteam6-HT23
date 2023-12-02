@@ -23,7 +23,8 @@ CREATE TABLE IF NOT EXISTS `Scooter` (
 -- Create City table
 CREATE TABLE IF NOT EXISTS `City` (
     `CityID` INT AUTO_INCREMENT PRIMARY KEY,
-    `CityName` VARCHAR(50)
+    `CityName` VARCHAR(50),
+    `CityPosition` VARCHAR(50)
 );
 
 -- Create the Station table
@@ -111,10 +112,10 @@ ALTER TABLE `ScooterLog` ADD FOREIGN KEY (`StartStation`) REFERENCES `Station`(`
 ALTER TABLE `ScooterLog` ADD FOREIGN KEY (`EndStation`) REFERENCES `Station`(`StationID`);
 ALTER TABLE `Station` ADD FOREIGN KEY (`StationType`) REFERENCES `StationType`(`StationTypeID`);
 
-INSERT INTO `City` (`CityName`) VALUES
-    ('Stockholm'),
-    ('Gothenburg'),
-    ('Malmö');
+INSERT INTO `City` (`CityName`, `CityPosition`) VALUES
+    ('Stockholm', '59.334591, 18.063240'),
+    ('Gothenburg', '57.708870, 11.974560'),
+    ('Malmö', '55.60587, 13.00073');
 
 INSERT INTO `ActivityType` (`ActivityTypeDesc`) VALUES
     ('Parked'),
