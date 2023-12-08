@@ -91,24 +91,43 @@ const helper = {
         return currentDateTime;
     },
 
-    /*
+    getActiveUserIDs(simulatedClients) {
+        const activeUserIDs = [];
+
+        for (const simCli of simulatedClients) {
+            activeUserIDs.push(simCli.user.UserID);
+        }
+
+        return activeUserIDs;
+    },
+
     // Get a random available user
-    async getRandomAvailableUser() {
+    async getRandomAvailableUser(simulatedClients) {
         const users = await fetcher.getUsers();
+        const activeUserIDs = this.getActiveUserIDs(simulatedClients);
 
-        const randomAvailableUser = users[getRndInteger(0, users.length - 1)];
+        if (activeUserIDs.length === users) {
+            return;
+        }
 
-        // console.log(randomUser);
+        let randomAvailableUser = users[this.getRndInteger(0, users.length - 1)];
+
+        while (activeUserIDs.includes(randomAvailableUser.UserID)) {
+            randomAvailableUser = users[this.getRndInteger(0, users.length - 1)];
+        }
+
+        // console.log(randomAvailableUser);
 
         return randomAvailableUser;
     },
-    */
 
     // Get a random available scooter
     async getRandomAvailableScooter() {
         const availableScooters = await fetcher.getAvailableScooters();
 
         const randomAvailableScooter = availableScooters[this.getRndInteger(0, availableScooters.length - 1)];
+
+        // Set status of scooter to in-use
 
         // console.log(randomAvailableScooter);
 

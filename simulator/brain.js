@@ -1,22 +1,43 @@
+const helper = require("./utils").helper;
 const SC = require("./SimulatedClient").SimulatedClient;
 
-const userData = [
-    {"UserID":1,"FirstName":"Elsa","LastName":"Andersson","Password":"password1","Email":"elsa@example.com","AccountBalance":"500.00","PaymentType":1},
-    {"UserID":2,"FirstName":"Oskar","LastName":"Berg","Password":"password2","Email":"oskar@example.com","AccountBalance":"700.00","PaymentType":2},
-    {"UserID":3,"FirstName":"Maja","LastName":"Carlsson","Password":"password3","Email":"maja@example.com","AccountBalance":"300.00","PaymentType":1},
-    {"UserID":4,"FirstName":"Erik","LastName":"Dahl","Password":"password4","Email":"erik@example.com","AccountBalance":"900.00","PaymentType":2},
-    {"UserID":5,"FirstName":"Hanna","LastName":"Eriksson","Password":"password5","Email":"hanna@example.com","AccountBalance":"600.00","PaymentType":1}
-];
+const simulatedClients = [];
 
-/*
-async function test() {
-    const users = await fetcher.getUsers();
-    console.log(users);
+let timeoutID;
+
+// With a random time interval, simulate a user opening the app and going through the lifecycle
+function rndIntervalTimer() {
+    // Set a random timer between 1 and 5 seconds
+    const seconds = helper.getRndInteger(1, 5) * 1000;
+
+    timeoutID = setTimeout(() => {
+        // Clear timeout after timer finishes
+        clearTimeout(timeoutID);
+
+        // Create a new simulated client
+        createNewClient();
+    }, seconds);
 }
-*/
 
-// test();
+async function createNewClient() {
+    // Fetch an available user at random from database
+    const user = await helper.getRandomAvailableUser(simulatedClients);
 
-let sc1 = new SC(userData[0]);
-sc1.simulateLifeCycle();
+    // If we didn't run out of available users
+    if (user) {
+        const simCli = new SC(user);
+
+        simulatedClients.push(simCli);
+
+        // sc.simulateLifeCycle();
+
+        // rndIntervalTimer();
+    }
+
+    // console.log(simulatedClients);
+}
+
+// rndIntervalTimer();
+
+createNewClient();
 
