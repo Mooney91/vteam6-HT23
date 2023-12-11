@@ -10,6 +10,8 @@ router.post('/', (req, res) => rentalLog.createRentalLog(req, res));
 
 router.put('/:id', (req, res) => rentalLog.updateRentalLog(req, res));
 
+router.patch('/:id', (req, res) => rentalLog.stopRentalLog(req, res));
+
 router.delete('/', (req, res) => rentalLog.deleteAllRentalLogs(req, res));
 router.delete('/:id', (req, res) => rentalLog.deleteRentalLog(req, res));
 
