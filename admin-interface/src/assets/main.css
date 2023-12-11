@@ -4,6 +4,7 @@
 @import './table.css';
 @import './image.css';
 @import './form.css';
+@import './map.css';
 
 body {
   margin: 0;
@@ -24,7 +25,9 @@ body {
   padding: 10px;
 }
 
-
+.logo {
+  margin: 10px;
+}
 /* @import './base.css'; */
 
 /* #app {

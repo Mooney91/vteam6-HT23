@@ -10,6 +10,8 @@
     padding: 10px;
     vertical-align: middle;
     z-index: 100;
+    display: flex;
+    align-items: center;
     /* display: inline-block; */
 }
 
@@ -30,6 +32,7 @@
     padding: 16px;
     text-decoration: none;
     background-color:#f1f1f1;
+    margin-left: auto;
 }
 
 .login-button:hover {

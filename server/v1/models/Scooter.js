@@ -100,6 +100,83 @@ const scooter = {
         }
     },
 
+    parkScooter: async function(req, res) {
+        try {
+            const values = [
+                req.params.StationID,
+                req.params.id,
+            ]
+
+            const stationSQL = `
+                CALL AddScooterOccupancy(?, ?);
+            `
+            try {
+                const stationRows = await pool.query(stationSQL, values);
+                console.log("Station updated: ", stationRows)
+            } catch (error)  {
+                console.log("Station could not be updated.")
+            }
+
+            const sql = `
+                UPDATE
+                    Scooter
+                SET
+                    StationID = ?
+                WHERE
+                    ScooterID = ?
+            `
+            try {
+                const rows = await pool.query(sql, values);
+                console.log("Station updated on Scooter: ", rows);
+            } catch (error)  {
+                console.log("StationID on Scooter could not be updated.")
+            }
+
+            res.status(200).json({ message: 'The scooter was parked successfully.' });
+
+        } catch (error) {
+            res.status(400).send(error.message);
+        }
+    },
+
+    unparkScooter: async function(req, res) {
+        try {
+            const values = [
+                req.params.StationID,
+                req.params.id,
+            ]
+
+            const stationSQL = `
+                CALL RemoveScooterOccupancy(?, ?);
+            `
+            try {
+                const stationRows = await pool.query(stationSQL, values);
+                console.log("Station updated: ", stationRows)
+            } catch (error)  {
+                console.log("Station could not be updated.")
+            }
+
+            const sql = `
+                UPDATE
+                    Scooter
+                SET
+                    StationID = null
+                WHERE
+                    ScooterID = ?
+            `
+            try {
+                const rows = await pool.query(sql, [req.params.id]);
+                console.log("Station updated on Scooter: ", rows);
+            } catch (error)  {
+                console.log("StationID on Scooter could not be updated.")
+            }
+
+            res.status(200).json({ message: 'The scooter was unparked successfully.' });
+        } catch (error) {
+            res.status(400).send(error.message);
+        }
+    },
+
     deleteAllScooters: async function(req, res) {
         try {
             const sql = `
