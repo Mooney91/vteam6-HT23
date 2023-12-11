@@ -10,6 +10,8 @@ router.get('/:id', (req, res) => scooter.getSingleScooter(req,res));
 router.post('/', (req, res) => scooter.createScooter(req, res));
 
 router.put('/:id', (req, res) => scooter.updateScooter(req, res));
+router.put('/:id/park/:StationID', (req, res) => scooter.parkScooter(req, res));
+router.put('/:id/unpark/:StationID', (req, res) => scooter.unparkScooter(req, res));
 
 router.delete('/', (req, res) => scooter.deleteAllScooters(req, res));
 router.delete('/:id', (req, res) => scooter.deleteScooter(req, res));
