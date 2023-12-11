@@ -39,161 +39,935 @@ pre {
 <body>
 
 <div class="main-wrap">
-    <h1>Svenska Elsparkscyklar AB</h1>
-    <h2>A REST API for Scooter Rental (v1)</h2>
-
-    <p>This documentation will help you in getting started with the <em>Svenska Elsparkscyklar AB</em> API.</p>
-    <p>This guide will walk you through each endpoint and explain what can be achieved through using the API. If you have
-        any questions or requests concerning the API, please contact the development team directly.</p>
-
+    <h1 id="svenska-elsparkscyklar-ab">Svenska Elsparkscyklar AB</h1>
+    <h2 id="a-rest-api-for-scooter-rental-v1-">A REST API for Scooter Rental (v1)</h2>
+    <p>This documentation will help you get started with the <em>Svenska Elsparkscyklar AB</em> API.</p>
+    <p>This guide will walk you through each endpoint and explain what can be achieved through using the API. If you have any questions or requests concerning the API, please contact the development team directly.</p>
     <p><em>Group 6 - Svenska Elsparkscyklar AB</em></p>
-
-    <h2>Try it</h2>
-
+    <h2 id="try-it">Try it</h2>
     <p>You can try out the pre-populated dataset <code>City</code>.</p>
-
     <ul>
-        <li><a href="localhost:1337/v1/city">Get all cities.</a></li>
-        <li><a href="localhost:1337/v1/city/3">Get Malmö with <code>id=3</code></a></li>
+    <li><a href="localhost:1337/v1/city">Get all cities.</a></li>
+    <li><a href="localhost:1337/v1/city/3">Get Malmö with <code>id=3</code></a></li>
     </ul>
-
-    <h2>Contents</h2>
-
+    <h2 id="contents">Contents</h2>
     <ul>
-        <li><a href="#activitytype">ActivityType</a></li>
-        <li><a href="#city">City</a></li>
-        <li><a href="#paymenttype">PaymentType</a></li>
-        <li><a href="#rentallog">RentalLog</a></li>
-        <li><a href="#scooter">Scooter</a></li>
-        <li><a href="#scooterlog">ScooterLog</a></li>
-        <li><a href="#station">Station</a></li>
-        <li><a href="#stationtype">StationType</a></li>
-        <li><a href="#user">User</a></li>
+    <li><a href="#activitytype">ActivityType</a></li>
+    <li><a href="#city">City</a></li>
+    <li><a href="#paymenttype">PaymentType</a></li>
+    <li><a href="#rentallog">RentalLog</a></li>
+    <li><a href="#scooter">Scooter</a></li>
+    <li><a href="#scooterlog">ScooterLog</a></li>
+    <li><a href="#station">Station</a></li>
+    <li><a href="#stationtype">StationType</a></li>
+    <li><a href="#user">User</a></li>
+    <li><a href="#coststructure">CostStructure</a></li>
     </ul>
-
-    <h2>ActivityType</h2>
-
-    <h3>Attributes</h3>
-    <code>ActivityType</code> has the following attributes:
-    <pre>
-    ActivityTypeID
-    ActivityTypeDesc
-    </pre>
-    
-    <h3>Get the dataset</h3>
-    
+    <h2 id="activitytype">ActivityType</h2>
+    <h3 id="attributes">Attributes</h3>
+    <p><code>ActivityType</code> has the following attributes:</p>
+    <pre><code><span class="hljs-attribute">ActivityTypeID
+    ActivityTypeDesc</span>
+    </code></pre><h3 id="get-the-dataset">Get the dataset</h3>
     <p>Get the full <code>ActivityType</code> dataset.</p>
-    
-    <pre><code>GET /v1/activity-type</code></pre>
-    
-    <p>Results:</p>
-    
-    <pre><code>[
-        {
-            "ActivityTypeID": 1,
-            "ActivityTypeDesc": "Parked"
-        },
-        {
-            "ActivityTypeID": 2,
-            "ActivityTypeDesc": "Maintenance"
-        },
-        {
-            "ActivityTypeID": 3,
-            "ActivityTypeDesc": "Rental"
-        }
-    ]</code></pre>
-    
-    <h3>Get one entry</h3>
-    
+    <pre><code><span class="hljs-type">GET</span> /v1/activity-<span class="hljs-keyword">type</span>
+    </code></pre><p>Results:</p>
+    <pre><code class="lang-json">[
+      {
+        <span class="hljs-attr">"ActivityTypeID"</span>: <span class="hljs-number">1</span>,
+        <span class="hljs-attr">"ActivityTypeDesc"</span>: <span class="hljs-string">"Parked"</span>
+      },
+      {
+        <span class="hljs-attr">"ActivityTypeID"</span>: <span class="hljs-number">2</span>,
+        <span class="hljs-attr">"ActivityTypeDesc"</span>: <span class="hljs-string">"Maintenance"</span>
+      },
+      {
+        <span class="hljs-attr">"ActivityTypeID"</span>: <span class="hljs-number">3</span>,
+        <span class="hljs-attr">"ActivityTypeDesc"</span>: <span class="hljs-string">"Charging"</span>
+      },
+      {
+        <span class="hljs-attr">"ActivityTypeID"</span>: <span class="hljs-number">4</span>,
+        <span class="hljs-attr">"ActivityTypeDesc"</span>: <span class="hljs-string">"In use"</span>
+      },
+      {
+        <span class="hljs-attr">"ActivityTypeID"</span>: <span class="hljs-number">5</span>,
+        <span class="hljs-attr">"ActivityTypeDesc"</span>: <span class="hljs-string">"Free Parking"</span>
+      }
+    ]
+    </code></pre>
+    <h3 id="get-one-entry">Get one entry</h3>
     <p>Get one entry based on its id.</p>
-    
-    <pre><code>GET /v1/activity-type/:id</code></pre>
-    
-    <p>Results:</p>
-    
-    <pre><code>[
+    <pre><code><span class="hljs-type">GET</span> /v1/activity-<span class="hljs-keyword">type</span>/:id
+    </code></pre><p>Results:</p>
+    <pre><code class="lang-json">[
         {
-            "ActivityTypeID": 1,
-            "ActivityTypeDesc": "Parked"
+            <span class="hljs-attr">"ActivityTypeID"</span>: <span class="hljs-number">1</span>,
+            <span class="hljs-attr">"ActivityTypeDesc"</span>: <span class="hljs-string">"Parked"</span>
         }
-    ]</code></pre>
-    
-    <h3>Create a new entry</h3>
-    
+    ]
+    </code></pre>
+    <h3 id="create-a-new-entry">Create a new entry</h3>
     <p>Add a new entry to the dataset. All attributes are required in the <code>body</code>, except for its id.</p>
-    
-    <pre><code>POST /v1/activity-type</code></pre>
-    
-    <p>Results:</p>
-    
-    <pre><code>{ "message": "The activity type was created successfully." }</code></pre>
-    
-    <h3>Update an entry</h3>
-    
+    <pre><code><span class="hljs-type">POST</span> /v1/activity-<span class="hljs-keyword">type</span>
+    </code></pre><p>Results:</p>
+    <pre><code class="lang-json">{ <span class="hljs-attr">"message"</span>: <span class="hljs-string">"The activity type was created successfully."</span> }
+    </code></pre>
+    <h3 id="update-an-entry">Update an entry</h3>
     <p>Update an entry by providing its id. All attributes are required in the <code>body</code>, except for the id.</p>
-    
-    <pre><code>PUT /v1/activity-type/:id</code></pre>
-    
-    <p>Results:</p>
-    
-    <pre><code>{ "message": "The activity type was updated successfully." }</code></pre>
-    
-    <h3>Delete all entries</h3>
-    
+    <pre><code><span class="hljs-type">PUT</span> /v1/activity-<span class="hljs-keyword">type</span>/:id
+    </code></pre><p>Results:</p>
+    <pre><code class="lang-json">{ <span class="hljs-attr">"message"</span>: <span class="hljs-string">"The activity type was updated successfully."</span> }
+    </code></pre>
+    <h3 id="delete-all-entries">Delete all entries</h3>
     <p>Delete all entries in the dataset.</p>
-    
-    <pre><code>DELETE /v1/activity-type/</code></pre>
-    
-    <p>Results:</p>
-    
-    <pre><code>{ "message": "All activity types were deleted successfully." }</code></pre>
-    
-    <h3>Delete an entry</h3>
-    
+    <pre><code><span class="hljs-type">DELETE</span> /v1/activity-<span class="hljs-keyword">type</span>/
+    </code></pre><p>Results:</p>
+    <pre><code class="lang-json">{ <span class="hljs-attr">"message"</span>: <span class="hljs-string">"All activity types were deleted successfully."</span> }
+    </code></pre>
+    <h3 id="delete-an-entry">Delete an entry</h3>
     <p>Delete an entry by its id.</p>
-    
-    <pre><code>DELETE /v1/activity-type/:id</code></pre>
-    
-    <p>Results:</p>
-    
-    <pre><code>{ "message": "The activity type was deleted successfully." }</code></pre>
-    
-    <!-- More sections... -->
-
+    <pre><code><span class="hljs-keyword">DELETE</span> /v1/activity-<span class="hljs-keyword">type</span>/:<span class="hljs-keyword">id</span>
+    </code></pre><p>Results:</p>
+    <pre><code class="lang-json">{ <span class="hljs-attr">"message"</span>: <span class="hljs-string">"The activity type was deleted successfully."</span> }
+    </code></pre>
     <h2 id="city">City</h2>
-
-    <!-- City section content... -->
-
+    <h3 id="attributes">Attributes</h3>
+    <p><code>City</code> has the following attributes:</p>
+    <pre><code><span class="hljs-attribute">CityID
+    CityName
+    CityPosition</span>
+    </code></pre><h3 id="get-the-dataset">Get the dataset</h3>
+    <p>Get the full <code>City</code> dataset.</p>
+    <pre><code><span class="hljs-symbol">GET</span> /<span class="hljs-built_in">v1</span>/city
+    </code></pre><p>Results:</p>
+    <pre><code class="lang-json">[
+        {
+            <span class="hljs-attr">"CityID"</span>: <span class="hljs-number">1</span>,
+            <span class="hljs-attr">"CityName"</span>: <span class="hljs-string">"Stockholm"</span>
+        },
+        {
+            <span class="hljs-attr">"CityID"</span>: <span class="hljs-number">2</span>,
+            <span class="hljs-attr">"CityName"</span>: <span class="hljs-string">"Gothenburg"</span>
+        },
+        {
+            <span class="hljs-attr">"CityID"</span>: <span class="hljs-number">3</span>,
+            <span class="hljs-attr">"CityName"</span>: <span class="hljs-string">"Malmö"</span>
+        }
+    ]
+    </code></pre>
+    <h3 id="get-one-entry">Get one entry</h3>
+    <p>Get one entry based on its id.</p>
+    <pre><code>GET /v1/city/:<span class="hljs-built_in">id</span>
+    </code></pre><p>Results:</p>
+    <pre><code class="lang-json">[
+        {
+            <span class="hljs-attr">"CityID"</span>: <span class="hljs-number">1</span>,
+            <span class="hljs-attr">"CityName"</span>: <span class="hljs-string">"Stockholm"</span>,
+        }
+    ]
+    </code></pre>
+    <h3 id="create-a-new-entry">Create a new entry</h3>
+    <p>Add a new entry to the dataset. All attributes are required in the <code>body</code>, except for its id.</p>
+    <pre><code><span class="hljs-symbol">POST</span> /<span class="hljs-built_in">v1</span>/city
+    </code></pre><p>Results:</p>
+    <pre><code class="lang-json">{ <span class="hljs-attr">"message"</span>: <span class="hljs-string">"The city was created successfully."</span> }
+    </code></pre>
+    <h3 id="update-an-entry">Update an entry</h3>
+    <p>Update an entry by providing its id. All attributes are required in the <code>body</code>, except for the id.</p>
+    <pre><code>PUT /v1/city/:<span class="hljs-built_in">id</span>
+    </code></pre><p>Results:</p>
+    <pre><code class="lang-json">{ <span class="hljs-attr">"message"</span>: <span class="hljs-string">"The city was updated successfully."</span> }
+    </code></pre>
+    <h3 id="delete-all-entries">Delete all entries</h3>
+    <p>Delete all entries in the dataset.</p>
+    <pre><code><span class="hljs-keyword">DELETE</span> <span class="hljs-regexp">/v1/</span>city<span class="hljs-regexp">/</span>
+    </code></pre><p>Results:</p>
+    <pre><code class="lang-json">{ <span class="hljs-attr">"message"</span>: <span class="hljs-string">"All cities were deleted successfully."</span> }
+    </code></pre>
+    <h3 id="delete-an-entry">Delete an entry</h3>
+    <p>Delete an entry by its id.</p>
+    <pre><code><span class="hljs-keyword">DELETE</span> <span class="hljs-regexp">/v1/</span>city<span class="hljs-regexp">/:id</span>
+    </code></pre><p>Results:</p>
+    <pre><code class="lang-json">{ <span class="hljs-attr">"message"</span>: <span class="hljs-string">"The city was deleted successfully."</span> }
+    </code></pre>
     <h2 id="paymenttype">PaymentType</h2>
-
-    <!-- PaymentType section content... -->
-
+    <h3 id="attributes">Attributes</h3>
+    <p><code>PaymentType</code> has the following attributes:</p>
+    <pre><code><span class="hljs-attribute">PaymentTypeID
+    PaymentTypeDesc</span>
+    </code></pre><h3 id="get-the-dataset">Get the dataset</h3>
+    <p>Get the full <code>PaymentType</code> dataset.</p>
+    <pre><code><span class="hljs-type">GET</span> /v1/payment-<span class="hljs-keyword">type</span>
+    </code></pre><p>Results:</p>
+    <pre><code class="lang-json">[
+        {
+            <span class="hljs-attr">"PaymentTypeID"</span>: <span class="hljs-number">1</span>,
+            <span class="hljs-attr">"PaymentTypeDesc"</span>: <span class="hljs-string">"Card"</span>
+        },
+        {
+            <span class="hljs-attr">"PaymentTypeID"</span>: <span class="hljs-number">2</span>,
+            <span class="hljs-attr">"PaymentTypeDesc"</span>: <span class="hljs-string">"Swish"</span>
+        }
+    ]
+    </code></pre>
+    <h3 id="get-one-entry">Get one entry</h3>
+    <p>Get one entry based on its id.</p>
+    <pre><code><span class="hljs-type">GET</span> /v1/payment-<span class="hljs-keyword">type</span>/:id
+    </code></pre><p>Results:</p>
+    <pre><code class="lang-json">[
+        {
+            <span class="hljs-attr">"PaymentTypeID"</span>: <span class="hljs-number">1</span>,
+            <span class="hljs-attr">"PaymentTypeDesc"</span>: <span class="hljs-string">"Card"</span>
+        }
+    ]
+    </code></pre>
+    <h3 id="create-a-new-entry">Create a new entry</h3>
+    <p>Add a new entry to the dataset. All attributes are required in the <code>body</code>, except for its id.</p>
+    <pre><code><span class="hljs-type">POST</span> /v1/payment-<span class="hljs-keyword">type</span>
+    </code></pre><p>Results:</p>
+    <pre><code class="lang-json">{ <span class="hljs-attr">"message"</span>: <span class="hljs-string">"The payment type was created successfully."</span> }
+    </code></pre>
+    <h3 id="update-an-entry">Update an entry</h3>
+    <p>Update an entry by providing its id. All attributes are required in the <code>body</code>, except for the id.</p>
+    <pre><code><span class="hljs-type">PUT</span> /v1/payment-<span class="hljs-keyword">type</span>/:id
+    </code></pre><p>Results:</p>
+    <pre><code class="lang-json">{ <span class="hljs-attr">"message"</span>: <span class="hljs-string">"The payment type was updated successfully."</span> }
+    </code></pre>
+    <h3 id="delete-all-entries">Delete all entries</h3>
+    <p>Delete all entries in the dataset.</p>
+    <pre><code><span class="hljs-type">DELETE</span> /v1/payment-<span class="hljs-keyword">type</span>/
+    </code></pre><p>Results:</p>
+    <pre><code class="lang-json">{ <span class="hljs-attr">"message"</span>: <span class="hljs-string">"All payment types were deleted successfully."</span> }
+    </code></pre>
+    <h3 id="delete-an-entry">Delete an entry</h3>
+    <p>Delete an entry by its id.</p>
+    <pre><code><span class="hljs-keyword">DELETE</span> /v1/payment-<span class="hljs-keyword">type</span>/:<span class="hljs-keyword">id</span>
+    </code></pre><p>Results:</p>
+    <pre><code class="lang-json">{ <span class="hljs-attr">"message"</span>: <span class="hljs-string">"The payment type was deleted successfully."</span> }
+    </code></pre>
+    <h2 id="permittedzone">PermittedZone</h2>
+    <h3 id="attributes">Attributes</h3>
+    <p><code>PermittedZone</code> has the following attributes:</p>
+    <pre><code><span class="hljs-attribute">PermittedZoneID
+    ZoneName
+    ZoneArea
+    CityID</span>
+    </code></pre><h3 id="get-the-dataset">Get the dataset</h3>
+    <p>Get the full <code>PermittedZone</code> dataset.</p>
+    <pre><code><span class="hljs-symbol">GET</span> /<span class="hljs-built_in">v1</span>/permitted-zone
+    </code></pre><p>Results:</p>
+    <pre><code class="lang-json">[
+        {
+            "PermittedZoneID": <span class="hljs-number">1</span>,
+            "ZoneName": "Södermalm",
+            "ZoneArea": "{\"type\": \"Polygon\", \"coordinates\": [[[<span class="hljs-number">18.06046</span>, <span class="hljs-number">59.31189</span>], [<span class="hljs-number">18.07034</span>, <span class="hljs-number">59.31675</span>], [<span class="hljs-number">18.07557</span>, <span class="hljs-number">59.31547</span>], [<span class="hljs-number">18.08274</span>, <span class="hljs-number">59.31471</span>], [<span class="hljs-number">18.08477</span>, <span class="hljs-number">59.31442</span>], [<span class="hljs-number">18.08464</span>, <span class="hljs-number">59.31395</span>], [<span class="hljs-number">18.07935</span>, <span class="hljs-number">59.31317</span>], [<span class="hljs-number">18.07546</span>, <span class="hljs-number">59.31159</span>], [<span class="hljs-number">18.07467</span>, <span class="hljs-number">59.30953</span>], [<span class="hljs-number">18.06046</span>, <span class="hljs-number">59.31189</span>]]}",
+            "CityID": <span class="hljs-number">1</span>
+        },
+        {
+            "PermittedZoneID": <span class="hljs-number">2</span>,
+            "ZoneName": "Kungsholmen",
+            "ZoneArea": "{\"type\": \"Polygon\", \"coordinates\": [[[<span class="hljs-number">17.98997</span>, <span class="hljs-number">59.32822</span>], [<span class="hljs-number">18.01151</span>, <span class="hljs-number">59.32878</span>], [<span class="hljs-number">18.01523</span>, <span class="hljs-number">59.32894</span>], [<span class="hljs-number">18.01674</span>, <span class="hljs-number">59.32952</span>], [<span class="hljs-number">18.02122</span>, <span class="hljs-number">59.32963</span>], [<span class="hljs-number">18.02862</span>, <span class="hljs-number">59.32945</span>], [<span class="hljs-number">18.02757</span>, <span class="hljs-number">59.32751</span>], [<span class="hljs-number">18.02801</span>, <span class="hljs-number">59.32719</span>], [<span class="hljs-number">18.02363</span>, <span class="hljs-number">59.32609</span>], [<span class="hljs-number">18.01322</span>, <span class="hljs-number">59.32756</span>], [<span class="hljs-number">17.98997</span>, <span class="hljs-number">59.32822</span>]]}",
+            "CityID": <span class="hljs-number">1</span>
+        },
+        {
+            "PermittedZoneID": <span class="hljs-number">3</span>,
+            "ZoneName": "Gamla Stan",
+            "ZoneArea": "{\"type\": \"Polygon\", \"coordinates\": [[[<span class="hljs-number">18.07084</span>, <span class="hljs-number">59.32533</span>], [<span class="hljs-number">18.07799</span>, <span class="hljs-number">59.32429</span>], [<span class="hljs-number">18.07975</span>, <span class="hljs-number">59.32512</span>], [<span class="hljs-number">18.07975</span>, <span class="hljs-number">59.32611</span>], [<span class="hljs-number">18.08183</span>, <span class="hljs-number">59.32633</span>], [<span class="hljs-number">18.08432</span>, <span class="hljs-number">59.32591</span>], [<span class="hljs-number">18.08425</span>, <span class="hljs-number">59.32532</span>], [<span class="hljs-number">18.08362</span>, <span class="hljs-number">59.32457</span>], [<span class="hljs-number">18.07923</span>, <span class="hljs-number">59.32438</span>], [<span class="hljs-number">18.07885</span>, <span class="hljs-number">59</span>.<span class="hljs-number">325</span>], [<span class="hljs-number">18</span>.<span class="hljs-number">075</span>, <span class="hljs-number">59.32532</span>], [<span class="hljs-number">18.07439</span>, <span class="hljs-number">59.32511</span>], [<span class="hljs-number">18.07189</span>, <span class="hljs-number">59</span>.<span class="hljs-number">325</span>], [<span class="hljs-number">18.07117</span>, <span class="hljs-number">59.32532</span>], [<span class="hljs-number">18.07084</span>, <span class="hljs-number">59.32533</span>]]}",
+            "CityID": <span class="hljs-number">1</span>
+        }
+    ]
+    </code></pre>
+    <h3 id="get-one-entry">Get one entry</h3>
+    <p>Get one entry based on its id.</p>
+    <pre><code>GET /v1/permitted-zone/:<span class="hljs-built_in">id</span>
+    </code></pre><p>Results:</p>
+    <pre><code class="lang-json">[
+        {
+            "PermittedZoneID": <span class="hljs-number">1</span>,
+            "ZoneName": "Södermalm",
+            "ZoneArea": "{\"type\": \"Polygon\", \"coordinates\": [[[<span class="hljs-number">18.06046</span>, <span class="hljs-number">59.31189</span>], [<span class="hljs-number">18.07034</span>, <span class="hljs-number">59.31675</span>], [<span class="hljs-number">18.07557</span>, <span class="hljs-number">59.31547</span>], [<span class="hljs-number">18.08274</span>, <span class="hljs-number">59.31471</span>], [<span class="hljs-number">18.08477</span>, <span class="hljs-number">59.31442</span>], [<span class="hljs-number">18.08464</span>, <span class="hljs-number">59.31395</span>], [<span class="hljs-number">18.07935</span>, <span class="hljs-number">59.31317</span>], [<span class="hljs-number">18.07546</span>, <span class="hljs-number">59.31159</span>], [<span class="hljs-number">18.07467</span>, <span class="hljs-number">59.30953</span>], [<span class="hljs-number">18.06046</span>, <span class="hljs-number">59.31189</span>]]}",
+            "CityID": <span class="hljs-number">1</span>
+        }
+    ]
+    </code></pre>
+    <h3 id="create-a-new-entry">Create a new entry</h3>
+    <p>Add a new entry to the dataset. All attributes are required in the <code>body</code>, except for its id.</p>
+    <pre><code><span class="hljs-symbol">POST</span> /<span class="hljs-built_in">v1</span>/permitted-zone
+    </code></pre><p>Results:</p>
+    <pre><code class="lang-json">{ <span class="hljs-attr">"message"</span>: <span class="hljs-string">"The permitted zone was created successfully."</span> }
+    </code></pre>
+    <h3 id="update-an-entry">Update an entry</h3>
+    <p>Update an entry by providing its id. All attributes are required in the <code>body</code>, except for the id.</p>
+    <pre><code>PUT /v1/permitted-zone/:<span class="hljs-built_in">id</span>
+    </code></pre><p>Results:</p>
+    <pre><code class="lang-json">{ <span class="hljs-attr">"message"</span>: <span class="hljs-string">"The permitted zone was updated successfully."</span> }
+    </code></pre>
+    <h3 id="delete-all-entries">Delete all entries</h3>
+    <p>Delete all entries in the dataset.</p>
+    <pre><code><span class="hljs-keyword">DELETE</span> <span class="hljs-regexp">/v1/</span>permitted-zone<span class="hljs-regexp">/</span>
+    </code></pre><p>Results:</p>
+    <pre><code class="lang-json">{ <span class="hljs-attr">"message"</span>: <span class="hljs-string">"All permitted zones were deleted successfully."</span> }
+    </code></pre>
+    <h3 id="delete-an-entry">Delete an entry</h3>
+    <p>Delete an entry by its id.</p>
+    <pre><code><span class="hljs-keyword">DELETE</span> <span class="hljs-regexp">/v1/</span>permitted-zone<span class="hljs-regexp">/:id</span>
+    </code></pre><p>Results:</p>
+    <pre><code class="lang-json">{ <span class="hljs-attr">"message"</span>: <span class="hljs-string">"The permitted zone was deleted successfully."</span> }
+    </code></pre>
     <h2 id="rentallog">RentalLog</h2>
-
-    <!-- RentalLog section content... -->
-
+    <h3 id="attributes">Attributes</h3>
+    <p><code>RentalLog</code> has the following attributes:</p>
+    <pre><code><span class="hljs-attribute">RentalLogID
+    Active
+    ScooterID
+    UserID
+    StartTime
+    EndTime
+    StartStation
+    EndStation
+    Cost
+    Paid</span>
+    </code></pre><h3 id="get-the-dataset">Get the dataset</h3>
+    <p>Get the full <code>RentalLog</code> dataset.</p>
+    <pre><code><span class="hljs-keyword">GET</span> /v1/rental-<span class="hljs-built_in">log</span>
+    </code></pre><p>Results:</p>
+    <pre><code class="lang-json">[
+      {
+        <span class="hljs-attr">"RentalLogID"</span>: <span class="hljs-number">1</span>,
+        <span class="hljs-attr">"Active"</span>: <span class="hljs-number">1</span>,
+        <span class="hljs-attr">"ScooterID"</span>: <span class="hljs-number">179</span>,
+        <span class="hljs-attr">"UserID"</span>: <span class="hljs-number">1</span>,
+        <span class="hljs-attr">"StartTime"</span>: <span class="hljs-string">"2023-12-05T13:45:00.000Z"</span>,
+        <span class="hljs-attr">"EndTime"</span>: <span class="hljs-literal">null</span>,
+        <span class="hljs-attr">"StartStation"</span>: <span class="hljs-number">15</span>,
+        <span class="hljs-attr">"EndStation"</span>: <span class="hljs-literal">null</span>,
+        <span class="hljs-attr">"Cost"</span>: <span class="hljs-string">"10.00"</span>,
+        <span class="hljs-attr">"Paid"</span>: <span class="hljs-number">0</span>
+      },
+      {
+        <span class="hljs-attr">"RentalLogID"</span>: <span class="hljs-number">2</span>,
+        <span class="hljs-attr">"Active"</span>: <span class="hljs-number">1</span>,
+        <span class="hljs-attr">"ScooterID"</span>: <span class="hljs-number">184</span>,
+        <span class="hljs-attr">"UserID"</span>: <span class="hljs-number">2</span>,
+        <span class="hljs-attr">"StartTime"</span>: <span class="hljs-string">"2023-12-06T10:30:00.000Z"</span>,
+        <span class="hljs-attr">"EndTime"</span>: <span class="hljs-literal">null</span>,
+        <span class="hljs-attr">"StartStation"</span>: <span class="hljs-number">28</span>,
+        <span class="hljs-attr">"EndStation"</span>: <span class="hljs-literal">null</span>,
+        <span class="hljs-attr">"Cost"</span>: <span class="hljs-string">"10.00"</span>,
+        <span class="hljs-attr">"Paid"</span>: <span class="hljs-number">0</span>
+      },
+      {
+        <span class="hljs-attr">"RentalLogID"</span>: <span class="hljs-number">3</span>,
+        <span class="hljs-attr">"Active"</span>: <span class="hljs-number">1</span>,
+        <span class="hljs-attr">"ScooterID"</span>: <span class="hljs-number">189</span>,
+        <span class="hljs-attr">"UserID"</span>: <span class="hljs-number">3</span>,
+        <span class="hljs-attr">"StartTime"</span>: <span class="hljs-string">"2023-12-07T15:20:00.000Z"</span>,
+        <span class="hljs-attr">"EndTime"</span>: <span class="hljs-literal">null</span>,
+        <span class="hljs-attr">"StartStation"</span>: <span class="hljs-number">3</span>,
+        <span class="hljs-attr">"EndStation"</span>: <span class="hljs-literal">null</span>,
+        <span class="hljs-attr">"Cost"</span>: <span class="hljs-string">"10.00"</span>,
+        <span class="hljs-attr">"Paid"</span>: <span class="hljs-number">0</span>
+      },
+      {
+        <span class="hljs-attr">"RentalLogID"</span>: <span class="hljs-number">4</span>,
+        <span class="hljs-attr">"Active"</span>: <span class="hljs-number">1</span>,
+        <span class="hljs-attr">"ScooterID"</span>: <span class="hljs-number">194</span>,
+        <span class="hljs-attr">"UserID"</span>: <span class="hljs-number">4</span>,
+        <span class="hljs-attr">"StartTime"</span>: <span class="hljs-string">"2023-12-08T12:15:00.000Z"</span>,
+        <span class="hljs-attr">"EndTime"</span>: <span class="hljs-literal">null</span>,
+        <span class="hljs-attr">"StartStation"</span>: <span class="hljs-number">11</span>,
+        <span class="hljs-attr">"EndStation"</span>: <span class="hljs-literal">null</span>,
+        <span class="hljs-attr">"Cost"</span>: <span class="hljs-string">"10.00"</span>,
+        <span class="hljs-attr">"Paid"</span>: <span class="hljs-number">0</span>
+      },
+      {
+        <span class="hljs-attr">"RentalLogID"</span>: <span class="hljs-number">5</span>,
+        <span class="hljs-attr">"Active"</span>: <span class="hljs-number">1</span>,
+        <span class="hljs-attr">"ScooterID"</span>: <span class="hljs-number">199</span>,
+        <span class="hljs-attr">"UserID"</span>: <span class="hljs-number">5</span>,
+        <span class="hljs-attr">"StartTime"</span>: <span class="hljs-string">"2023-12-09T09:45:00.000Z"</span>,
+        <span class="hljs-attr">"EndTime"</span>: <span class="hljs-literal">null</span>,
+        <span class="hljs-attr">"StartStation"</span>: <span class="hljs-number">24</span>,
+        <span class="hljs-attr">"EndStation"</span>: <span class="hljs-literal">null</span>,
+        <span class="hljs-attr">"Cost"</span>: <span class="hljs-string">"10.00"</span>,
+        <span class="hljs-attr">"Paid"</span>: <span class="hljs-number">0</span>
+      }
+    ]
+    </code></pre>
+    <h3 id="get-one-entry">Get one entry</h3>
+    <p>Get one entry based on its id.</p>
+    <pre><code>GET /v1/rental-<span class="hljs-built_in">log</span>/:<span class="hljs-built_in">id</span>
+    </code></pre><p>Results:</p>
+    <pre><code class="lang-json">[
+      {
+        <span class="hljs-attr">"RentalLogID"</span>: <span class="hljs-number">1</span>,
+        <span class="hljs-attr">"Active"</span>: <span class="hljs-number">1</span>,
+        <span class="hljs-attr">"ScooterID"</span>: <span class="hljs-number">179</span>,
+        <span class="hljs-attr">"UserID"</span>: <span class="hljs-number">1</span>,
+        <span class="hljs-attr">"StartTime"</span>: <span class="hljs-string">"2023-12-05T13:45:00.000Z"</span>,
+        <span class="hljs-attr">"EndTime"</span>: <span class="hljs-literal">null</span>,
+        <span class="hljs-attr">"StartStation"</span>: <span class="hljs-number">15</span>,
+        <span class="hljs-attr">"EndStation"</span>: <span class="hljs-literal">null</span>,
+        <span class="hljs-attr">"Cost"</span>: <span class="hljs-string">"10.00"</span>,
+        <span class="hljs-attr">"Paid"</span>: <span class="hljs-number">0</span>
+      }
+    ]
+    </code></pre>
+    <h3 id="create-a-rental">Create a Rental</h3>
+    <p>Add a new entry to the dataset. <code>ScooterID</code>, <code>UserID</code>, and <code>StartStation</code> are required in the <code>body</code>, except for its id. If the Scooter is not being collected from a station, the <code>StationID</code> must be sent to <code>null</code>. A procedure will be called that adds the time, sets the Rental Log status as active, and the Scooter&#39;s status as <code>In use</code>.</p>
+    <pre><code><span class="hljs-keyword">POST</span> /v1/rental-<span class="hljs-built_in">log</span>
+    </code></pre><p>Results:</p>
+    <pre><code class="lang-json">{ <span class="hljs-attr">"message"</span>: <span class="hljs-string">"The rental log was created successfully."</span> }
+    </code></pre>
+    <h3 id="update-a-rental">Update a Rental</h3>
+    <p>Update an entry by providing its id. All attributes are required in the <code>body</code>, except for the id.</p>
+    <pre><code>PUT /v1/rental-<span class="hljs-built_in">log</span>/:<span class="hljs-built_in">id</span>
+    </code></pre><p>Results:</p>
+    <pre><code class="lang-json">{ <span class="hljs-attr">"message"</span>: <span class="hljs-string">"The rental log was updated successfully."</span> }
+    </code></pre>
+    <h3 id="stop-a-rental">Stop a Rental</h3>
+    <p>stop a rental by providing its id. The <code>EndStation</code> is required in the <code>body</code>, even if it is <code>null</code>.</p>
+    <pre><code>PATCH /v1/rental-<span class="hljs-built_in">log</span>/:<span class="hljs-built_in">id</span>
+    </code></pre><p>Results:</p>
+    <pre><code class="lang-json">{ <span class="hljs-attr">"message"</span>: <span class="hljs-string">"The rental log was updated successfully."</span> }
+    </code></pre>
+    <h3 id="delete-all-entries">Delete all entries</h3>
+    <p>Delete all entries in the dataset.</p>
+    <pre><code><span class="hljs-keyword">DELETE</span> /v1/rental-<span class="hljs-built_in">log</span>/
+    </code></pre><p>Results:</p>
+    <pre><code class="lang-json">{ <span class="hljs-attr">"message"</span>: <span class="hljs-string">"All rental logs were deleted successfully."</span> }
+    </code></pre>
+    <h3 id="delete-an-entry">Delete an entry</h3>
+    <p>Delete an entry by its id.</p>
+    <pre><code><span class="hljs-keyword">DELETE</span> /v1/rental-<span class="hljs-keyword">log</span>/:<span class="hljs-keyword">id</span>
+    </code></pre><p>Results:</p>
+    <pre><code class="lang-json">{ <span class="hljs-attr">"message"</span>: <span class="hljs-string">"The rental log was deleted successfully."</span> }
+    </code></pre>
     <h2 id="scooter">Scooter</h2>
-
-    <!-- Scooter section content... -->
-
+    <h3 id="attributes">Attributes</h3>
+    <p><code>Scooter</code> has the following attributes:</p>
+    <pre><code>ScooterID
+    Status
+    <span class="hljs-keyword">Location</span>
+    <span class="hljs-title">Speed</span>
+    Battery
+    StationID
+    </code></pre><h3 id="get-the-dataset">Get the dataset</h3>
+    <p>Get the full <code>Scooter</code> dataset.</p>
+    <pre><code><span class="hljs-symbol">GET</span> /<span class="hljs-built_in">v1</span>/scooter
+    </code></pre><p>Results:</p>
+    <pre><code class="lang-json">[
+      {
+        <span class="hljs-attr">"ScooterID"</span>: <span class="hljs-number">1</span>,
+        <span class="hljs-attr">"Status"</span>: <span class="hljs-string">"Parked"</span>,
+        <span class="hljs-attr">"Location"</span>: <span class="hljs-string">"59.3293, 18.0686"</span>,
+        <span class="hljs-attr">"Speed"</span>: <span class="hljs-string">"0.00"</span>,
+        <span class="hljs-attr">"Battery"</span>: <span class="hljs-number">61</span>,
+        <span class="hljs-attr">"StationID"</span>: <span class="hljs-number">1</span>
+      },
+      {
+        <span class="hljs-attr">"ScooterID"</span>: <span class="hljs-number">2</span>,
+        <span class="hljs-attr">"Status"</span>: <span class="hljs-string">"Parked"</span>,
+        <span class="hljs-attr">"Location"</span>: <span class="hljs-string">"59.3293, 18.0686"</span>,
+        <span class="hljs-attr">"Speed"</span>: <span class="hljs-string">"0.00"</span>,
+        <span class="hljs-attr">"Battery"</span>: <span class="hljs-number">55</span>,
+        <span class="hljs-attr">"StationID"</span>: <span class="hljs-number">1</span>
+      },
+      {
+        <span class="hljs-attr">"ScooterID"</span>: <span class="hljs-number">3</span>,
+        <span class="hljs-attr">"Status"</span>: <span class="hljs-string">"Parked"</span>,
+        <span class="hljs-attr">"Location"</span>: <span class="hljs-string">"59.3293, 18.0686"</span>,
+        <span class="hljs-attr">"Speed"</span>: <span class="hljs-string">"0.00"</span>,
+        <span class="hljs-attr">"Battery"</span>: <span class="hljs-number">18</span>,
+        <span class="hljs-attr">"StationID"</span>: <span class="hljs-number">1</span>
+      },
+      {
+        <span class="hljs-attr">"ScooterID"</span>: <span class="hljs-number">4</span>,
+        <span class="hljs-attr">"Status"</span>: <span class="hljs-string">"Parked"</span>,
+        <span class="hljs-attr">"Location"</span>: <span class="hljs-string">"59.3293, 18.0686"</span>,
+        <span class="hljs-attr">"Speed"</span>: <span class="hljs-string">"0.00"</span>,
+        <span class="hljs-attr">"Battery"</span>: <span class="hljs-number">45</span>,
+        <span class="hljs-attr">"StationID"</span>: <span class="hljs-number">1</span>
+      },
+      {
+        <span class="hljs-attr">"ScooterID"</span>: <span class="hljs-number">5</span>,
+        <span class="hljs-attr">"Status"</span>: <span class="hljs-string">"Parked"</span>,
+        <span class="hljs-attr">"Location"</span>: <span class="hljs-string">"59.3293, 18.0686"</span>,
+        <span class="hljs-attr">"Speed"</span>: <span class="hljs-string">"0.00"</span>,
+        <span class="hljs-attr">"Battery"</span>: <span class="hljs-number">41</span>,
+        <span class="hljs-attr">"StationID"</span>: <span class="hljs-number">1</span>
+      }
+    ]
+    </code></pre>
+    <h3 id="get-one-entry">Get one entry</h3>
+    <p>Get one entry based on its id.</p>
+    <pre><code>GET /v1/scooter/:<span class="hljs-built_in">id</span>
+    </code></pre><p>Results:</p>
+    <pre><code class="lang-json">[
+        {
+            <span class="hljs-attr">"ScooterID"</span>: <span class="hljs-number">1</span>,
+            <span class="hljs-attr">"Status"</span>: <span class="hljs-string">"Parked"</span>,
+            <span class="hljs-attr">"Location"</span>: <span class="hljs-string">"59.3293, 18.0686"</span>,
+            <span class="hljs-attr">"Speed"</span>: <span class="hljs-string">"0.00"</span>,
+            <span class="hljs-attr">"Battery"</span>: <span class="hljs-number">61</span>,
+            <span class="hljs-attr">"StationID"</span>: <span class="hljs-number">1</span>
+        }
+    ]
+    </code></pre>
+    <h3 id="create-a-new-entry">Create a new entry</h3>
+    <p>Add a new entry to the dataset. All attributes are required in the <code>body</code>, except for its id.</p>
+    <pre><code><span class="hljs-symbol">POST</span> /<span class="hljs-built_in">v1</span>/scooter
+    </code></pre><p>Results:</p>
+    <pre><code class="lang-json">{ <span class="hljs-attr">"message"</span>: <span class="hljs-string">"The scooter was created successfully."</span> }
+    </code></pre>
+    <h3 id="update-an-entry">Update an entry</h3>
+    <p>Update an entry by providing its id. All attributes are required in the <code>body</code>, except for the id.</p>
+    <pre><code>PUT /v1/scooter/:<span class="hljs-built_in">id</span>
+    </code></pre><p>Results:</p>
+    <pre><code class="lang-json">{ <span class="hljs-attr">"message"</span>: <span class="hljs-string">"The scooter was updated successfully."</span> }
+    </code></pre>
+    <h3 id="park-a-scooter">Park a Scooter</h3>
+    <p>Update an entry by providing its <code>id</code> and <code>StationID</code>.</p>
+    <pre><code>PUT /v1/scooter/<span class="hljs-symbol">:id/park/</span><span class="hljs-symbol">:StationID</span>
+    </code></pre><p>Results:</p>
+    <pre><code class="lang-json">{ <span class="hljs-attr">"message"</span>: <span class="hljs-string">"The scooter was parked successfully."</span> }
+    </code></pre>
+    <h3 id="delete-all-entries">Delete all entries</h3>
+    <p>Delete all entries in the dataset.</p>
+    <pre><code><span class="hljs-keyword">DELETE</span> <span class="hljs-regexp">/v1/</span>scooter<span class="hljs-regexp">/</span>
+    </code></pre><p>Results:</p>
+    <pre><code class="lang-json">{ <span class="hljs-attr">"message"</span>: <span class="hljs-string">"All scooters were deleted successfully."</span> }
+    </code></pre>
+    <h3 id="unpark-a-scooter">Unpark a Scooter</h3>
+    <p>Update an entry by providing its <code>id</code> and <code>StationID</code>.</p>
+    <pre><code>PUT /v1/scooter/<span class="hljs-symbol">:id/park/</span><span class="hljs-symbol">:StationID</span>
+    </code></pre><p>Results:</p>
+    <pre><code class="lang-json">{ <span class="hljs-attr">"message"</span>: <span class="hljs-string">"The scooter was unparked successfully."</span> }
+    </code></pre>
+    <h3 id="delete-an-entry">Delete an entry</h3>
+    <p>Delete an entry by its id.</p>
+    <pre><code><span class="hljs-keyword">DELETE</span> <span class="hljs-regexp">/v1/</span>scooter<span class="hljs-regexp">/:id</span>
+    </code></pre><p>Results:</p>
+    <pre><code class="lang-json">{ <span class="hljs-attr">"message"</span>: <span class="hljs-string">"The scooter was deleted successfully."</span> }
+    </code></pre>
     <h2 id="scooterlog">ScooterLog</h2>
-
-    <!-- ScooterLog section content... -->
-
+    <p><strong>PLEASE NOTE THAT SCOOTERLOG IS NOT IN USE IN THIS VERSION.</strong></p>
+    <h3 id="attributes">Attributes</h3>
+    <p><code>ScooterLog</code> has the following attributes:</p>
+    <pre><code><span class="hljs-keyword">ScooterLogID
+    </span><span class="hljs-keyword">ScooterID
+    </span>ActivityType
+    StartStation
+    EndStation
+    </code></pre><h3 id="get-the-dataset">Get the dataset</h3>
+    <p>Get the full <code>ScooterLog</code> dataset.</p>
+    <pre><code><span class="hljs-keyword">GET</span> /v1/scooter-<span class="hljs-built_in">log</span>
+    </code></pre><p>Results:</p>
+    <pre><code class="lang-json">[
+        {
+            <span class="hljs-attr">"ScooterLogID"</span>: <span class="hljs-number">1</span>,
+            <span class="hljs-attr">"ScooterID"</span>: <span class="hljs-number">1</span>,
+            <span class="hljs-attr">"ActivityType"</span>: <span class="hljs-number">1</span>,
+            <span class="hljs-attr">"StartStation"</span>: <span class="hljs-number">1</span>,
+            <span class="hljs-attr">"EndStation"</span>: <span class="hljs-number">2</span>
+        },
+        {
+            <span class="hljs-attr">"ScooterLogID"</span>: <span class="hljs-number">2</span>,
+            <span class="hljs-attr">"ScooterID"</span>: <span class="hljs-number">2</span>,
+            <span class="hljs-attr">"ActivityType"</span>: <span class="hljs-number">2</span>,
+            <span class="hljs-attr">"StartStation"</span>: <span class="hljs-number">2</span>,
+            <span class="hljs-attr">"EndStation"</span>: <span class="hljs-number">3</span>
+        },
+        {
+            <span class="hljs-attr">"ScooterLogID"</span>: <span class="hljs-number">3</span>,
+            <span class="hljs-attr">"ScooterID"</span>: <span class="hljs-number">3</span>,
+            <span class="hljs-attr">"ActivityType"</span>: <span class="hljs-number">1</span>,
+            <span class="hljs-attr">"StartStation"</span>: <span class="hljs-number">3</span>,
+            <span class="hljs-attr">"EndStation"</span>: <span class="hljs-number">1</span>
+        },
+        {
+            <span class="hljs-attr">"ScooterLogID"</span>: <span class="hljs-number">4</span>,
+            <span class="hljs-attr">"ScooterID"</span>: <span class="hljs-number">4</span>,
+            <span class="hljs-attr">"ActivityType"</span>: <span class="hljs-number">3</span>,
+            <span class="hljs-attr">"StartStation"</span>: <span class="hljs-number">4</span>,
+            <span class="hljs-attr">"EndStation"</span>: <span class="hljs-number">2</span>
+        },
+        {
+            <span class="hljs-attr">"ScooterLogID"</span>: <span class="hljs-number">5</span>,
+            <span class="hljs-attr">"ScooterID"</span>: <span class="hljs-number">5</span>,
+            <span class="hljs-attr">"ActivityType"</span>: <span class="hljs-number">2</span>,
+            <span class="hljs-attr">"StartStation"</span>: <span class="hljs-number">1</span>,
+            <span class="hljs-attr">"EndStation"</span>: <span class="hljs-number">3</span>
+        }
+    ]
+    </code></pre>
+    <h3 id="get-one-entry">Get one entry</h3>
+    <p>Get one entry based on its id.</p>
+    <pre><code>GET /v1/scooter-<span class="hljs-built_in">log</span>/:<span class="hljs-built_in">id</span>
+    </code></pre><p>Results:</p>
+    <pre><code class="lang-json">[
+        {
+            <span class="hljs-attr">"ScooterLogID"</span>: <span class="hljs-number">1</span>,
+            <span class="hljs-attr">"ScooterID"</span>: <span class="hljs-number">1</span>,
+            <span class="hljs-attr">"ActivityType"</span>: <span class="hljs-number">1</span>,
+            <span class="hljs-attr">"StartStation"</span>: <span class="hljs-number">1</span>,
+            <span class="hljs-attr">"EndStation"</span>: <span class="hljs-number">2</span>
+        }
+    ]
+    </code></pre>
+    <h3 id="create-a-new-entry">Create a new entry</h3>
+    <p>Add a new entry to the dataset. All attributes are required in the <code>body</code>, except for its id.</p>
+    <pre><code><span class="hljs-keyword">POST</span> /v1/scooter-<span class="hljs-built_in">log</span>
+    </code></pre><p>Results:</p>
+    <pre><code class="lang-json">{ <span class="hljs-attr">"message"</span>: <span class="hljs-string">"The scooter log was created successfully."</span> }
+    </code></pre>
+    <h3 id="update-an-entry">Update an entry</h3>
+    <p>Update an entry by providing its id. All attributes are required in the <code>body</code>, except for the id.</p>
+    <pre><code>PUT /v1/scooter-<span class="hljs-built_in">log</span>/:<span class="hljs-built_in">id</span>
+    </code></pre><p>Results:</p>
+    <pre><code class="lang-json">{ <span class="hljs-attr">"message"</span>: <span class="hljs-string">"The scooter log was updated successfully."</span> }
+    </code></pre>
+    <h3 id="delete-all-entries">Delete all entries</h3>
+    <p>Delete all entries in the dataset.</p>
+    <pre><code><span class="hljs-keyword">DELETE</span> /v1/scooter-<span class="hljs-built_in">log</span>/
+    </code></pre><p>Results:</p>
+    <pre><code class="lang-json">{ <span class="hljs-attr">"message"</span>: <span class="hljs-string">"All scooter logs were deleted successfully."</span> }
+    </code></pre>
+    <h3 id="delete-an-entry">Delete an entry</h3>
+    <p>Delete an entry by its id.</p>
+    <pre><code><span class="hljs-keyword">DELETE</span> /v1/scooter-<span class="hljs-keyword">log</span>/:<span class="hljs-keyword">id</span>
+    </code></pre><p>Results:</p>
+    <pre><code class="lang-json">{ <span class="hljs-attr">"message"</span>: <span class="hljs-string">"The scooter log was deleted successfully."</span> }
+    </code></pre>
     <h2 id="station">Station</h2>
-
-    <!-- Station section content... -->
-
+    <h3 id="attributes">Attributes</h3>
+    <p><code>Station</code> has the following attributes:</p>
+    <pre><code>StationID
+    StationName
+    <span class="hljs-keyword">Location</span>
+    <span class="hljs-title">ScooterCapacity</span>
+    ScooterOccupancy
+    StationType
+    CityID
+    </code></pre><h3 id="get-the-dataset">Get the dataset</h3>
+    <p>Get the full <code>Station</code> dataset.</p>
+    <pre><code><span class="hljs-symbol">GET</span> /<span class="hljs-built_in">v1</span>/station
+    </code></pre><p>Results:</p>
+    <pre><code class="lang-json">[
+        {
+            <span class="hljs-attr">"StationID"</span>: <span class="hljs-number">1</span>,
+            <span class="hljs-attr">"StationName"</span>: <span class="hljs-string">"Central Station"</span>,
+            <span class="hljs-attr">"Location"</span>: <span class="hljs-string">"59.3293,18.0686"</span>,
+            <span class="hljs-attr">"ScooterCapacity"</span>: <span class="hljs-number">10</span>,
+            <span class="hljs-attr">"ScooterOccupancy"</span>: <span class="hljs-number">5</span>,
+            <span class="hljs-attr">"StationType"</span>: <span class="hljs-number">1</span>,
+            <span class="hljs-attr">"CityID"</span>: <span class="hljs-number">1</span>
+        },
+        {
+            <span class="hljs-attr">"StationID"</span>: <span class="hljs-number">2</span>,
+            <span class="hljs-attr">"StationName"</span>: <span class="hljs-string">"Sergels Torg"</span>,
+            <span class="hljs-attr">"Location"</span>: <span class="hljs-string">"59.3346,18.0635"</span>,
+            <span class="hljs-attr">"ScooterCapacity"</span>: <span class="hljs-number">10</span>,
+            <span class="hljs-attr">"ScooterOccupancy"</span>: <span class="hljs-number">8</span>,
+            <span class="hljs-attr">"StationType"</span>: <span class="hljs-number">2</span>,
+            <span class="hljs-attr">"CityID"</span>: <span class="hljs-number">1</span>
+        },
+        {
+            <span class="hljs-attr">"StationID"</span>: <span class="hljs-number">3</span>,
+            <span class="hljs-attr">"StationName"</span>: <span class="hljs-string">"Gamla Stan"</span>,
+            <span class="hljs-attr">"Location"</span>: <span class="hljs-string">"59.3258,18.0719"</span>,
+            <span class="hljs-attr">"ScooterCapacity"</span>: <span class="hljs-number">10</span>,
+            <span class="hljs-attr">"ScooterOccupancy"</span>: <span class="hljs-number">4</span>,
+            <span class="hljs-attr">"StationType"</span>: <span class="hljs-number">1</span>,
+            <span class="hljs-attr">"CityID"</span>: <span class="hljs-number">1</span>
+        },
+        {
+            <span class="hljs-attr">"StationID"</span>: <span class="hljs-number">4</span>,
+            <span class="hljs-attr">"StationName"</span>: <span class="hljs-string">"Södermalm"</span>,
+            <span class="hljs-attr">"Location"</span>: <span class="hljs-string">"59.3154,18.0675"</span>,
+            <span class="hljs-attr">"ScooterCapacity"</span>: <span class="hljs-number">10</span>,
+            <span class="hljs-attr">"ScooterOccupancy"</span>: <span class="hljs-number">6</span>,
+            <span class="hljs-attr">"StationType"</span>: <span class="hljs-number">2</span>,
+            <span class="hljs-attr">"CityID"</span>: <span class="hljs-number">1</span>
+        },
+        {
+            <span class="hljs-attr">"StationID"</span>: <span class="hljs-number">5</span>,
+            <span class="hljs-attr">"StationName"</span>: <span class="hljs-string">"Vasastan"</span>,
+            <span class="hljs-attr">"Location"</span>: <span class="hljs-string">"59.3470,18.0487"</span>,
+            <span class="hljs-attr">"ScooterCapacity"</span>: <span class="hljs-number">10</span>,
+            <span class="hljs-attr">"ScooterOccupancy"</span>: <span class="hljs-number">7</span>,
+            <span class="hljs-attr">"StationType"</span>: <span class="hljs-number">1</span>,
+            <span class="hljs-attr">"CityID"</span>: <span class="hljs-number">1</span>
+        }
+    ]
+    </code></pre>
+    <h3 id="get-one-entry">Get one entry</h3>
+    <p>Get one entry based on its id.</p>
+    <pre><code>GET /v1/station/:<span class="hljs-built_in">id</span>
+    </code></pre><p>Results:</p>
+    <pre><code class="lang-json">[
+        {
+            <span class="hljs-attr">"StationID"</span>: <span class="hljs-number">1</span>,
+            <span class="hljs-attr">"StationName"</span>: <span class="hljs-string">"Central Station"</span>,
+            <span class="hljs-attr">"Location"</span>: <span class="hljs-string">"59.3293,18.0686"</span>,
+            <span class="hljs-attr">"ScooterCapacity"</span>: <span class="hljs-number">10</span>,
+            <span class="hljs-attr">"ScooterOccupancy"</span>: <span class="hljs-number">5</span>,
+            <span class="hljs-attr">"StationType"</span>: <span class="hljs-number">1</span>,
+            <span class="hljs-attr">"CityID"</span>: <span class="hljs-number">1</span>
+        }
+    ]
+    </code></pre>
+    <h3 id="create-a-new-entry">Create a new entry</h3>
+    <p>Add a new entry to the dataset. All attributes are required in the <code>body</code>, except for its id.</p>
+    <pre><code><span class="hljs-symbol">POST</span> /<span class="hljs-built_in">v1</span>/station
+    </code></pre><p>Results:</p>
+    <pre><code class="lang-json">{ <span class="hljs-attr">"message"</span>: <span class="hljs-string">"The station was created successfully."</span> }
+    </code></pre>
+    <h3 id="update-an-entry">Update an entry</h3>
+    <p>Update an entry by providing its id. All attributes are required in the <code>body</code>, except for the id.</p>
+    <pre><code>PUT /v1/station/:<span class="hljs-built_in">id</span>
+    </code></pre><p>Results:</p>
+    <pre><code class="lang-json">{ <span class="hljs-attr">"message"</span>: <span class="hljs-string">"The station was updated successfully."</span> }
+    </code></pre>
+    <h3 id="delete-all-entries">Delete all entries</h3>
+    <p>Delete all entries in the dataset.</p>
+    <pre><code><span class="hljs-keyword">DELETE</span> <span class="hljs-regexp">/v1/</span>station<span class="hljs-regexp">/</span>
+    </code></pre><p>Results:</p>
+    <pre><code class="lang-json">{ <span class="hljs-attr">"message"</span>: <span class="hljs-string">"All stations were deleted successfully."</span> }
+    </code></pre>
+    <h3 id="delete-an-entry">Delete an entry</h3>
+    <p>Delete an entry by its id.</p>
+    <pre><code><span class="hljs-keyword">DELETE</span> <span class="hljs-regexp">/v1/</span>station<span class="hljs-regexp">/:id</span>
+    </code></pre><p>Results:</p>
+    <pre><code class="lang-json">{ <span class="hljs-attr">"message"</span>: <span class="hljs-string">"The station was deleted successfully."</span> }
+    </code></pre>
     <h2 id="stationtype">StationType</h2>
-
-    <!-- StationType section content... -->
-
+    <h3 id="attributes">Attributes</h3>
+    <p><code>StationType</code> has the following attributes:</p>
+    <pre><code><span class="hljs-attribute">StationTypeID
+    StationTypeDesc</span>
+    </code></pre><h3 id="get-the-dataset">Get the dataset</h3>
+    <p>Get the full <code>StationType</code> dataset.</p>
+    <pre><code><span class="hljs-type">GET</span> /v1/station-<span class="hljs-keyword">type</span>
+    </code></pre><p>Results:</p>
+    <pre><code class="lang-json">[
+        {
+            <span class="hljs-attr">"StationTypeID"</span>: <span class="hljs-number">1</span>,
+            <span class="hljs-attr">"StationTypeDesc"</span>: <span class="hljs-string">"Parking"</span>
+        },
+        {
+            <span class="hljs-attr">"StationTypeID"</span>: <span class="hljs-number">2</span>,
+            <span class="hljs-attr">"StationTypeDesc"</span>: <span class="hljs-string">"Charging"</span>
+        }
+    ]
+    </code></pre>
+    <h3 id="get-one-entry">Get one entry</h3>
+    <p>Get one entry based on its id.</p>
+    <pre><code><span class="hljs-type">GET</span> /v1/station-<span class="hljs-keyword">type</span>/:id
+    </code></pre><p>Results:</p>
+    <pre><code class="lang-json">[
+        {
+            <span class="hljs-attr">"StationTypeID"</span>: <span class="hljs-number">1</span>,
+            <span class="hljs-attr">"StationTypeDesc"</span>: <span class="hljs-string">"Parking"</span>
+        }
+    ]
+    </code></pre>
+    <h3 id="create-a-new-entry">Create a new entry</h3>
+    <p>Add a new entry to the dataset. All attributes are required in the <code>body</code>, except for its id.</p>
+    <pre><code><span class="hljs-type">POST</span> /v1/station-<span class="hljs-keyword">type</span>
+    </code></pre><p>Results:</p>
+    <pre><code class="lang-json">{ <span class="hljs-attr">"message"</span>: <span class="hljs-string">"The station type was created successfully."</span> }
+    </code></pre>
+    <h3 id="update-an-entry">Update an entry</h3>
+    <p>Update an entry by providing its id. All attributes are required in the <code>body</code>, except for the id.</p>
+    <pre><code><span class="hljs-type">PUT</span> /v1/station-<span class="hljs-keyword">type</span>/:id
+    </code></pre><p>Results:</p>
+    <pre><code class="lang-json">{ <span class="hljs-attr">"message"</span>: <span class="hljs-string">"The station type was updated successfully."</span> }
+    </code></pre>
+    <h3 id="delete-all-entries">Delete all entries</h3>
+    <p>Delete all entries in the dataset.</p>
+    <pre><code><span class="hljs-type">DELETE</span> /v1/station-<span class="hljs-keyword">type</span>/
+    </code></pre><p>Results:</p>
+    <pre><code class="lang-json">{ <span class="hljs-attr">"message"</span>: <span class="hljs-string">"All station types were deleted successfully."</span> }
+    </code></pre>
+    <h3 id="delete-an-entry">Delete an entry</h3>
+    <p>Delete an entry by its id.</p>
+    <pre><code><span class="hljs-keyword">DELETE</span> /v1/station-<span class="hljs-keyword">type</span>/:<span class="hljs-keyword">id</span>
+    </code></pre><p>Results:</p>
+    <pre><code class="lang-json">{ <span class="hljs-attr">"message"</span>: <span class="hljs-string">"The station type was deleted successfully."</span> }
+    </code></pre>
     <h2 id="user">User</h2>
-
-    <!-- User section content... -->
-
-    <h2>Source</h2>
-    <p>The source code for the <em>Svenska Elsparkscyklar AB</em> system can be found on <a
-            href="https://github.com/Mooney91/vteam6-HT23">GitHub</a>.</p>
+    <h3 id="attributes">Attributes</h3>
+    <p><code>User</code> has the following attributes:</p>
+    <pre><code><span class="hljs-attribute">UserID
+    FirstName
+    LastName
+    Password
+    Email
+    AccountBalance
+    PaymentType</span>
+    </code></pre><h3 id="get-the-dataset">Get the dataset</h3>
+    <p>Get the full <code>User</code> dataset.</p>
+    <pre><code><span class="hljs-symbol">GET</span> /<span class="hljs-built_in">v1</span>/user
+    </code></pre><p>Results:</p>
+    <pre><code class="lang-json">[
+        {
+            <span class="hljs-attr">"UserID"</span>: <span class="hljs-number">1</span>,
+            <span class="hljs-attr">"FirstName"</span>: <span class="hljs-string">"Elsa"</span>,
+            <span class="hljs-attr">"LastName"</span>: <span class="hljs-string">"Andersson"</span>,
+            <span class="hljs-attr">"Password"</span>: <span class="hljs-string">"password1"</span>,
+            <span class="hljs-attr">"Email"</span>: <span class="hljs-string">"elsa@example.com"</span>,
+            <span class="hljs-attr">"AccountBalance"</span>: <span class="hljs-number">500.00</span>,
+            <span class="hljs-attr">"PaymentType"</span>: <span class="hljs-number">1</span>
+        },
+        {
+            <span class="hljs-attr">"UserID"</span>: <span class="hljs-number">2</span>,
+            <span class="hljs-attr">"FirstName"</span>: <span class="hljs-string">"Oskar"</span>,
+            <span class="hljs-attr">"LastName"</span>: <span class="hljs-string">"Berg"</span>,
+            <span class="hljs-attr">"Password"</span>: <span class="hljs-string">"password2"</span>,
+            <span class="hljs-attr">"Email"</span>: <span class="hljs-string">"oskar@example.com"</span>,
+            <span class="hljs-attr">"AccountBalance"</span>: <span class="hljs-number">700.00</span>,
+            <span class="hljs-attr">"PaymentType"</span>: <span class="hljs-number">2</span>
+        },
+        {
+            <span class="hljs-attr">"UserID"</span>: <span class="hljs-number">3</span>,
+            <span class="hljs-attr">"FirstName"</span>: <span class="hljs-string">"Maja"</span>,
+            <span class="hljs-attr">"LastName"</span>: <span class="hljs-string">"Carlsson"</span>,
+            <span class="hljs-attr">"Password"</span>: <span class="hljs-string">"password3"</span>,
+            <span class="hljs-attr">"Email"</span>: <span class="hljs-string">"maja@example.com"</span>,
+            <span class="hljs-attr">"AccountBalance"</span>: <span class="hljs-number">300.00</span>,
+            <span class="hljs-attr">"PaymentType"</span>: <span class="hljs-number">1</span>
+        },
+        {
+            <span class="hljs-attr">"UserID"</span>: <span class="hljs-number">4</span>,
+            <span class="hljs-attr">"FirstName"</span>: <span class="hljs-string">"Erik"</span>,
+            <span class="hljs-attr">"LastName"</span>: <span class="hljs-string">"Dahl"</span>,
+            <span class="hljs-attr">"Password"</span>: <span class="hljs-string">"password4"</span>,
+            <span class="hljs-attr">"Email"</span>: <span class="hljs-string">"erik@example.com"</span>,
+            <span class="hljs-attr">"AccountBalance"</span>: <span class="hljs-number">900.00</span>,
+            <span class="hljs-attr">"PaymentType"</span>: <span class="hljs-number">2</span>
+        },
+        {
+            <span class="hljs-attr">"UserID"</span>: <span class="hljs-number">5</span>,
+            <span class="hljs-attr">"FirstName"</span>: <span class="hljs-string">"Hanna"</span>,
+            <span class="hljs-attr">"LastName"</span>: <span class="hljs-string">"Eriksson"</span>,
+            <span class="hljs-attr">"Password"</span>: <span class="hljs-string">"password5"</span>,
+            <span class="hljs-attr">"Email"</span>: <span class="hljs-string">"hanna@example.com"</span>,
+            <span class="hljs-attr">"AccountBalance"</span>: <span class="hljs-number">600.00</span>,
+            <span class="hljs-attr">"PaymentType"</span>: <span class="hljs-number">1</span>
+        }
+    ]
+    </code></pre>
+    <h3 id="get-one-entry">Get one entry</h3>
+    <p>Get one entry based on its id.</p>
+    <pre><code>GET /v1/user/:<span class="hljs-built_in">id</span>
+    </code></pre><p>Results:</p>
+    <pre><code class="lang-json">[
+        {
+            <span class="hljs-attr">"UserID"</span>: <span class="hljs-number">1</span>,
+            <span class="hljs-attr">"FirstName"</span>: <span class="hljs-string">"Elsa"</span>,
+            <span class="hljs-attr">"LastName"</span>: <span class="hljs-string">"Andersson"</span>,
+            <span class="hljs-attr">"Password"</span>: <span class="hljs-string">"password1"</span>,
+            <span class="hljs-attr">"Email"</span>: <span class="hljs-string">"elsa@example.com"</span>,
+            <span class="hljs-attr">"AccountBalance"</span>: <span class="hljs-number">500.00</span>,
+            <span class="hljs-attr">"PaymentType"</span>: <span class="hljs-number">1</span>
+        }
+    ]
+    </code></pre>
+    <h3 id="create-a-new-entry">Create a new entry</h3>
+    <p>Add a new entry to the dataset. All attributes are required in the <code>body</code>, except for its id.</p>
+    <pre><code><span class="hljs-symbol">POST</span> /<span class="hljs-built_in">v1</span>/user
+    </code></pre><p>Results:</p>
+    <pre><code class="lang-json">{ <span class="hljs-attr">"message"</span>: <span class="hljs-string">"The user was created successfully."</span> }
+    </code></pre>
+    <h3 id="update-an-entry">Update an entry</h3>
+    <p>Update an entry by providing its id. All attributes are required in the <code>body</code>, except for the id.</p>
+    <pre><code>PUT /v1/user/:<span class="hljs-built_in">id</span>
+    </code></pre><p>Results:</p>
+    <pre><code class="lang-json">{ <span class="hljs-attr">"message"</span>: <span class="hljs-string">"The user was updated successfully."</span> }
+    </code></pre>
+    <h3 id="delete-all-entries">Delete all entries</h3>
+    <p>Delete all entries in the dataset.</p>
+    <pre><code><span class="hljs-keyword">DELETE</span> <span class="hljs-regexp">/v1/u</span>ser<span class="hljs-regexp">/</span>
+    </code></pre><p>Results:</p>
+    <pre><code class="lang-json">{ <span class="hljs-attr">"message"</span>: <span class="hljs-string">"All users were deleted successfully."</span> }
+    </code></pre>
+    <h3 id="delete-an-entry">Delete an entry</h3>
+    <p>Delete an entry by its id.</p>
+    <pre><code><span class="hljs-keyword">DELETE</span> /v1/<span class="hljs-keyword">user</span>/:<span class="hljs-keyword">id</span>
+    </code></pre><p>Results:</p>
+    <pre><code class="lang-json">{ <span class="hljs-attr">"message"</span>: <span class="hljs-string">"The user was deleted successfully."</span> }
+    </code></pre>
+    <h2 id="coststructure">CostStructure</h2>
+    <h3 id="attributes">Attributes</h3>
+    <p><code>CostStructure</code> has the following attributes:</p>
+    <pre><code><span class="hljs-attribute">CostID
+    CostDesc
+    CostAmount</span>
+    </code></pre><h3 id="get-the-dataset">Get the dataset</h3>
+    <p>Get the full <code>CostStructure</code> dataset.</p>
+    <pre><code><span class="hljs-keyword">GET</span> /v1/cost-<span class="hljs-keyword">structure</span>
+    </code></pre><p>Results:</p>
+    <pre><code class="lang-json">[
+      {
+        <span class="hljs-attr">"CostID"</span>: <span class="hljs-number">1</span>,
+        <span class="hljs-attr">"CostDesc"</span>: <span class="hljs-string">"Fixed"</span>,
+        <span class="hljs-attr">"CostAmount"</span>: <span class="hljs-string">"10.00"</span>
+      },
+      {
+        <span class="hljs-attr">"CostID"</span>: <span class="hljs-number">2</span>,
+        <span class="hljs-attr">"CostDesc"</span>: <span class="hljs-string">"Time-based"</span>,
+        <span class="hljs-attr">"CostAmount"</span>: <span class="hljs-string">"3.00"</span>
+      },
+      {
+        <span class="hljs-attr">"CostID"</span>: <span class="hljs-number">3</span>,
+        <span class="hljs-attr">"CostDesc"</span>: <span class="hljs-string">"Fine"</span>,
+        <span class="hljs-attr">"CostAmount"</span>: <span class="hljs-string">"10.00"</span>
+      },
+      {
+        <span class="hljs-attr">"CostID"</span>: <span class="hljs-number">4</span>,
+        <span class="hljs-attr">"CostDesc"</span>: <span class="hljs-string">"Discount"</span>,
+        <span class="hljs-attr">"CostAmount"</span>: <span class="hljs-string">"-5.00"</span>
+      }
+    ]
+    </code></pre>
+    <h3 id="get-one-entry">Get one entry</h3>
+    <p>Get one entry based on its id.</p>
+    <pre><code><span class="hljs-keyword">GET</span> /v1/cost-<span class="hljs-keyword">structure</span>/:id
+    </code></pre><p>Results:</p>
+    <pre><code class="lang-json">[
+      {
+        <span class="hljs-attr">"CostID"</span>: <span class="hljs-number">1</span>,
+        <span class="hljs-attr">"CostDesc"</span>: <span class="hljs-string">"Fixed"</span>,
+        <span class="hljs-attr">"CostAmount"</span>: <span class="hljs-string">"10.00"</span>
+      }
+    ]
+    </code></pre>
+    <h3 id="create-a-new-entry">Create a new entry</h3>
+    <p>Add a new entry to the dataset. All attributes are required in the <code>body</code>, except for its id.</p>
+    <pre><code><span class="hljs-symbol">POST</span> /<span class="hljs-built_in">v1</span>/cost-<span class="hljs-keyword">structure</span>
+    </code></pre><p>Results:</p>
+    <pre><code class="lang-json">{ <span class="hljs-attr">"message"</span>: <span class="hljs-string">"The cost structure was created successfully."</span> }
+    </code></pre>
+    <h3 id="update-an-entry">Update an entry</h3>
+    <p>Update an entry by providing its id. All attributes are required in the <code>body</code>, except for the id.</p>
+    <pre><code>PUT /v1/cost-structure/:<span class="hljs-built_in">id</span>
+    </code></pre><p>Results:</p>
+    <pre><code class="lang-json">{ <span class="hljs-attr">"message"</span>: <span class="hljs-string">"The cost structure was updated successfully."</span> }
+    </code></pre>
+    <h3 id="delete-all-entries">Delete all entries</h3>
+    <p>Delete all entries in the dataset.</p>
+    <pre><code><span class="hljs-keyword">DELETE</span> <span class="hljs-regexp">/v1/</span>cost-structure<span class="hljs-regexp">/</span>
+    </code></pre><p>Results:</p>
+    <pre><code class="lang-json">{ <span class="hljs-attr">"message"</span>: <span class="hljs-string">"All cost structures were deleted successfully."</span> }
+    </code></pre>
+    <h3 id="delete-an-entry">Delete an entry</h3>
+    <p>Delete an entry by its id.</p>
+    <pre><code><span class="hljs-keyword">DELETE</span> /v1/<span class="hljs-keyword">cost</span>-structure/:<span class="hljs-keyword">id</span>
+    </code></pre><p>Results:</p>
+    <pre><code class="lang-json">{ <span class="hljs-attr">"message"</span>: <span class="hljs-string">"The cost structure was deleted successfully."</span> }
+    </code></pre>
+    <h2 id="source">Source</h2>
+    <p>The source code for the <em>Svenska Elsparkscyklar AB</em> system can be found on <a href="https://github.com/Mooney91/vteam6-HT23">GitHub</a>.</p>
 </body>
 </html>
