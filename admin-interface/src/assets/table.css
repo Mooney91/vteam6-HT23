@@ -1,8 +1,9 @@
-.database-table table {
+.database-table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
     width: 100%;
     border-radius: 25%;
+    margin-top: 10px
 }
   
 .database-table td, th {
