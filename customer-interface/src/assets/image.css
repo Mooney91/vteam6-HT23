@@ -1,0 +1,13 @@
+.add {
+    vertical-align: middle;
+    padding-right: 5px;
+    filter: invert(25%) sepia(68%) saturate(6837%) hue-rotate(116deg) brightness(94%) contrast(103%);
+}
+
+.edit {
+    filter: invert(62%) sepia(100%) saturate(1821%) hue-rotate(1deg) brightness(104%) contrast(103%);
+}
+
+.delete {
+    filter: invert(11%) sepia(98%) saturate(6844%) hue-rotate(7deg) brightness(109%) contrast(116%);
+}
