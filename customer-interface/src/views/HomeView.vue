@@ -3,11 +3,12 @@
 </script>
 
 <template>
-    <h2>Welcome to the Customer Application!</h2>
     <div v-if="isAuthenticated">
-      <h4> {{ user.email }}</h4>
-      <h4> {{ user.name }}</h4>
-      <h4> {{ user.picture }}</h4>
+      <h2>Welcome {{ user.name }}!</h2>
+    </div>
+    <div v-else>
+      <h2>Welcome Customer!</h2>
+      <h3>Use the login button to gain access to the application!</h3>
     </div>
 </template>
 
