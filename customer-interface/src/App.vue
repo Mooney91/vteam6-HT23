@@ -13,7 +13,7 @@ export default {
     },
     data()  {
         return {
-            backend: process.env.BACKEND
+            backend: "http://localhost:1337"
         }
     }
 }

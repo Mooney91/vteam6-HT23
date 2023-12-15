@@ -15,7 +15,6 @@
   },
   "dependencies": {
     "@auth0/auth0-vue": "^2.3.3",
-    "dotenv": "^16.3.1",
     "normalize.css": "^8.0.1",
     "pinia": "^2.1.7",
     "vue": "^3.3.4",

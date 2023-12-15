@@ -16,10 +16,10 @@ app.use(router)
 
 app.use(
     createAuth0({
-        domain: process.env.AUTH0_DOMAIN,
-        clientId: process.env.AUTH0_CLIENT_ID,
+        domain: "dev-yl46b5m8hfqpht5q.us.auth0.com",
+        clientId: "sD3sE4NcrhKampbYzR0wzpf3spojmDx5",
         authorizationParams: {
-            redirect_uri: process.env.AUTH0_REDIRECT_URI
+            redirect_uri: "http://localhost:1339/"
         }
     })
 )
