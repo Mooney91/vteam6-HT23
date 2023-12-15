@@ -4,7 +4,5 @@
 </script>
 
 <template>
-    <main>
         <LoginItem />
-    </main>
 </template>

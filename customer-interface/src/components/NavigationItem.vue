@@ -16,13 +16,11 @@ export default {
 </script>
 
 <template>
-    <div v-if="isAuthenticated">
-        <div class="navigation">
-            <RouterLink to="/home">Home</RouterLink>
-            <RouterLink to="/account">Account History</RouterLink>
-            <RouterLink to="/prepaid">Prepaid</RouterLink>
-            <RouterLink to="/about">About</RouterLink>
-        </div>
+    <div v-if="isAuthenticated" class="navigation">
+        <RouterLink to="/home">Home</RouterLink>
+        <RouterLink to="/account">Account History</RouterLink>
+        <RouterLink to="/prepaid">Prepaid</RouterLink>
+        <RouterLink to="/about">About</RouterLink>
     </div>
 </template>
 

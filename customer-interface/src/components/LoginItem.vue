@@ -1,5 +1,4 @@
 
-
 <template>
     <div v-if="isAuthenticated">
         <button @click="logout">Logout</button>
