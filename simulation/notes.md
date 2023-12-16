@@ -1,0 +1,1 @@
+* Setup SQLite database: sqlite3 trip.sqlt < setup.sql
