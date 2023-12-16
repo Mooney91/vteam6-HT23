@@ -27,41 +27,47 @@
             </tr>
             <template v-for="item in items" :key="item.CityID">
                 <tr>
-                <td>{{ item.CityID }}</td>
-                <td>{{ item.CityName }}</td>
-                <td>{{ item.CityPosition }}</td>
-                <td @click="toggleEditForm(item.CityID)">
-                    <img alt="edit icon" class="edit" src="@/assets/pen-to-square-solid.svg" width="15" height="15" />
-                </td>
-                <td @click="deleteCity(item.CityID)">
-                    <img alt="delete icon" class="delete" src="@/assets/trash-can-solid.svg" width="15" height="15" />
-                </td>
+                    <td>{{ item.CityID }}</td>
+                    <td>{{ item.CityName }}</td>
+                    <td>{{ item.CityPosition }}</td>
+                    <td @click="toggleEditForm(item.CityID)">
+                        <img alt="edit icon" class="edit" src="@/assets/pen-to-square-solid.svg" width="15" height="15" />
+                    </td>
+                    <td @click="deleteCity(item.CityID)">
+                        <img alt="delete icon" class="delete" src="@/assets/trash-can-solid.svg" width="15" height="15" />
+                    </td>
                 </tr>
                 <tr v-if="editForms[item.CityID]">
-                        <div style="display: none;">
-                            {{ CityID = item.CityID }}
-                        </div>
-                        <td colspan="5">
-                            <form @submit.prevent="updateCity">
-                                <input type="hidden" id="CityID" v-model="CityID" readonly>
-                                <label for="CityName">City Name:</label>
-                                <input type="text" id="CityName" v-model="CityName" required>
-                                <label for="CityPosition">City Position:</label>
-                                <input type="text" id="CityPosition" v-model="CityPosition" required>
-                                <button type="submit">Update City</button>
-                            </form>
-                        </td>
+                    <div style="display: none;">
+                        {{ CityID = item.CityID }}
+                    </div>
+                    <td colspan="5">
+                        <form @submit.prevent="updateCity">
+                            <input type="hidden" id="CityID" v-model="CityID" readonly>
+                            <label for="CityName">City Name:</label>
+                            <input type="text" id="CityName" v-model="CityName" required>
+                            <label for="CityPosition">City Position:</label>
+                            <input type="text" id="CityPosition" v-model="CityPosition" required>
+                            <button type="submit">Update City</button>
+                        </form>
+                    </td>
                 </tr>
             </template>
         </table>
+        <MapItem :items="items"/>
     </div>
 </template>
 
 <script>
     import { getCurrentInstance } from 'vue';
+    import { ref } from 'vue';  // Import ref from Vue
+    import MapItem from '../components/MapItem.vue'
 
     export default {
         name: 'CityView',
+        components: {
+            MapItem
+        },
         props: {
             backend: String
         },
@@ -77,7 +83,7 @@
             };
         },
         methods: {
-            forceRerender() {
+            async forceRerender() {
                 this.componentKey += 1;
             },
             async fetchCity() {
@@ -114,6 +120,7 @@
                         }),
                         })
                     const result = await response.json();
+                    this.componentKey += 1;
                     return result;
                 } catch (error) {
                     console.error('Error creating city:', error);
@@ -149,7 +156,13 @@
                         }),
                         })
                     const result = await response.json();
-                
+                    
+                    // Rerender the view!
+                    const index = this.items.findIndex(item => item.CityID === this.CityID);
+                    if (index !== -1) {
+                        this.$set(this.items, index, result);
+                    }
+
                     return result;
                 } catch (error) {
                     console.error('Error creating city:', error);
@@ -169,8 +182,9 @@
                             'Content-Type': 'application/json',
                         },
                         })
+
                     const result = await response.json();
-                    
+                    this.items = this.items.filter(item => item.CityID !== CityID);
                     return result;
                 } catch (error) {
                     console.error('Error deleting city:', error);

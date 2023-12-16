@@ -12,6 +12,7 @@ dotenv.config({path: '.env'})
 const ActivityTypeV1 = require('./v1/routes/ActivityType');
 const PermittedZoneV1 = require('./v1/routes/PermittedZone');
 const CityRouterV1 = require('./v1/routes/City');
+const CostStructureV1 = require('./v1/routes/CostStructure');
 const PaymentTypeV1 = require('./v1/routes/PaymentType');
 const RentalLogV1 = require('./v1/routes/RentalLog');
 const ScooterV1 = require('./v1/routes/Scooter');
@@ -39,12 +40,12 @@ app.get('/', (req, res) => {
 
 app.get('/v1',function(req,res){
   res.sendFile(path.join(__dirname+'/index.html'));
-  //__dirname : It will resolve to your project folder.
 });
 
 app.use('/v1/activity-type', ActivityTypeV1);
 app.use('/v1/permitted-zone', PermittedZoneV1);
 app.use('/v1/city', CityRouterV1);
+app.use('/v1/cost-structure', CostStructureV1);
 app.use('/v1/payment-type', PaymentTypeV1);
 app.use('/v1/rental-log', RentalLogV1);
 app.use('/v1/scooter', ScooterV1);
