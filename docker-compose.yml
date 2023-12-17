@@ -59,6 +59,18 @@ services:
       networks:
           vteam6:
 
+    customer-interface: 
+      container_name: "vteam6_customer_interface"
+      build:
+        context: ./customer-interface
+        # dockerfile: ./customer-interface/Dockerfile
+      ports:
+          - "1339:1339"
+      expose:
+          - "1339:1339"
+      networks:
+          vteam6:
+
     # webbclient:
     #     image: "mrrobin/vteam6-webbclient:0.1.0"
     #     container_name: "vteam6_webbclient"
