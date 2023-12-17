@@ -1,9 +1,11 @@
 const helper = require("./utils").helper;
 const SQLiter = require("./utils").SQLiter;
 
+let requestsMade = 0;
+
 // Generate trips for all stations
 async function generateTrips() {
-    const stations = await helper.getStations();
+    const stations = await helper.getAllStations();
 
     // Open connection to SQLite database
     const dbc = SQLiter.getDBConnection();
@@ -34,6 +36,7 @@ async function generateTrips() {
 async function generateTrip(dbc, cityID, origin, destination) {
 
     const waypoints = await fetchWaypoints(origin, destination);
+    // const waypoints = "test";
 
     if (waypoints) {
         const trip = [cityID, origin, destination, waypoints.toString()];
@@ -61,12 +64,21 @@ async function fetchWaypoints(origin, destination) {
     const url = "https://api.openrouteservice.org/v2/directions/cycling-electric"
     const apiKey = "5b3ce3597851110001cf624820729cd7892e4b7488a775715f073283";
     
-    const originArr = origin.split(", ");
-    const destinationArr = destination.split(", ");
+    const originArr = origin.split(",");
+    const destinationArr = destination.split(",");
 
     const response = await fetch(`${url}?api_key=${apiKey}&start=${originArr[1]},${originArr[0]}&end=${destinationArr[1]},${destinationArr[0]}`);
     
-    const obj = await response.json();
+    requestsMade++;
+
+    if (requestsMade % 40 === 0) {
+        console.log("Waiting 60 seconds for rate limit to reset.");
+
+        await new Promise(r => setTimeout(r, 60000));
+    }
+
+    const obj = await response.json(); // console.log(obj);
+    
     const waypoints = obj.features[0].geometry.coordinates;
 
     switchLatLon(waypoints);
