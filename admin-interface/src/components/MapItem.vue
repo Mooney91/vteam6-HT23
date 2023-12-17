@@ -1,5 +1,5 @@
 <template>
-  <div style="height:700px; width:100%x">
+  <div style="height:100vh; width:100%x">
     <l-map class="map" ref="map" v-model:zoom="zoom" :center="[57.5477, 14.0157]" :use-global-leaflet="false">
       <l-tile-layer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -9,7 +9,7 @@
 
       <template v-for="item in items">
         <l-marker :lat-lng="item.CityPosition.split(',')">
-          <l-icon icon-anchor="[0, 0]" icon-size="[25, 25]">
+          <l-icon className='dummy' icon-anchor="[0, 0]" icon-size="[25, 25]">
             <img src="@/assets/city-solid.png" alt="Custom Marker Icon">
           </l-icon>
         </l-marker>
@@ -35,7 +35,7 @@
     },
     data() {
       return {
-        zoom: 7,
+        zoom: 6,
         coordinates: [55.50788, 13.23515],
       }
     },

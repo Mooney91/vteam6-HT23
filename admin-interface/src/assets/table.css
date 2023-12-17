@@ -14,4 +14,8 @@
   
 .database-table tr:nth-child(even) {
     background-color: #f1f1f1;
-  }
+}
+
+.database-table tr:hover {
+    background: #fbdbff;
+}

@@ -1,8 +1,6 @@
 .header {
-    /* position: fixed; */
     position: sticky; 
     top: 0;
-    /* width: 100%; */
     height: 50px;
     grid-area: header;
     background-color: #333;
@@ -12,7 +10,6 @@
     z-index: 100;
     display: flex;
     align-items: center;
-    /* display: inline-block; */
 }
 
 /* .title {
@@ -22,13 +19,8 @@
 .login-button {
     grid-area: login;
     vertical-align: middle;
-    /* width: 100%; */
-    /* height: 50px; */
     float: right;
-    /* display: inline; */
-    /* text-align: right; */
-    /* justify-self: end; */
-    color: black;
+    color: #000000;
     padding: 16px;
     text-decoration: none;
     background-color:#f1f1f1;
