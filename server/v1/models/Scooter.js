@@ -107,6 +107,32 @@ const scooter = {
                 req.params.id,
             ]
 
+            const stationTypeSQL = `
+                SELECT StationType
+                FROM Station
+                WHERE StationID = ?;
+            `
+
+            let stationTypeRows;
+
+            try {
+                stationTypeRows = await pool.query(stationTypeSQL, [req.params.StationID]);
+                console.log("StationType fetched: ", stationTypeRows);
+            } catch (error)  {
+                console.log("StationID on Scooter could not be updated.")
+            }
+
+            let scooterStatus;
+
+            if (stationTypeRows[0].StationType === 1) {
+                scooterStatus = "Parked";
+            } else if (stationTypeRows[0].StationType === 2) {
+                scooterStatus = "Charging";
+            }
+
+            console.log(stationTypeRows);
+            console.log(scooterStatus);
+
             const stationSQL = `
                 CALL AddScooterOccupancy(?, ?);
             `
@@ -121,12 +147,17 @@ const scooter = {
                 UPDATE
                     Scooter
                 SET
+                    Status = ?,
                     StationID = ?
                 WHERE
                     ScooterID = ?
             `
             try {
-                const rows = await pool.query(sql, values);
+                const rows = await pool.query(sql, [
+                    scooterStatus,
+                    req.params.StationID,
+                    req.params.id
+                ]);
                 console.log("Station updated on Scooter: ", rows);
             } catch (error)  {
                 console.log("StationID on Scooter could not be updated.")

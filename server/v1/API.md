@@ -806,6 +806,20 @@ Results:
 { "message": "The scooter was parked successfully." }
 ```
 
+### Unpark a Scooter
+
+Update an entry by providing its `id` and `StationID`.
+
+```
+PUT /v1/scooter/:id/unpark/:StationID
+```
+
+Results:
+
+```json
+{ "message": "The scooter was unparked successfully." }
+```
+
 ### Delete all entries
 
 Delete all entries in the dataset.
@@ -818,20 +832,6 @@ Results:
 
 ```json
 { "message": "All scooters were deleted successfully." }
-```
-
-### Unpark a Scooter
-
-Update an entry by providing its `id` and `StationID`.
-
-```
-PUT /v1/scooter/:id/park/:StationID
-```
-
-Results:
-
-```json
-{ "message": "The scooter was unparked successfully." }
 ```
 
 ### Delete an entry

@@ -8,6 +8,7 @@
     margin: 5px;
     background-color: #90ee90;
     border-radius: 25px;
+    display: block
 }
 
 .edit-form {
@@ -16,4 +17,5 @@
     margin: 5px;
     background-color: #ffa07a;
     border-radius: 25px;
+    display: block
 }
