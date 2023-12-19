@@ -1,5 +1,5 @@
 <template>
-    <div class="about">
+    <div class="other">
         <h1>Rental Logs</h1>
         <h2>Manage all the rentals in the system.</h2>
 
@@ -53,7 +53,7 @@
                 <td @click="deleteRentalLog(item.RentalLogID)">
                     <img alt="delete icon" class="delete" src="@/assets/trash-can-solid.svg" width="15" height="15" />
                 </td>
-                <td @click="stopRentalLog(item.RentalLogID, 3)">
+                <td @click="stopRentalLog(item.RentalLogID, null)">
                     <button>Stop Rental</button>
                 </td>
                 </tr>
@@ -144,15 +144,9 @@
                             'Content-Type': 'application/json',
                         },
                         body: JSON.stringify({
-                            // Active: true,
                             ScooterID: this.ScooterID,
                             UserID: this.UserID,
-                            // StartTime: time.toISOString(),
-                            // EndTime: null,
                             StartStation: this.StartStation,
-                            // EndStation: null,
-                            // Cost: 0,
-                            // Paid: false,
                         }),
                         })
                     const result = await response.json();
@@ -161,20 +155,6 @@
                     // console.error('Error creating rental:', error);
                     throw error;
                 }
-
-                // const options = {
-                //     method: 'PUT',
-                //     url: `${this.backend}/v1/city`,
-                //     headers: {
-                //         'Content-Type': 'application/json',
-                //     },
-                //     body: `{"CityName":${this.CityName}, "CityPosition": ${this.CityPosition}}`,
-                // };
-
-                // fetch(`${this.backend}/v1/city`, options)
-                //     .then(response => response.json())
-                //     .then(response => console.log(response))
-                //     .catch(err => console.error(err));
             },
             async updateRentalLog() {
                 try {

@@ -1,24 +1,26 @@
 <!--
 <script setup>
-import TheWelcome from '../components/TheWelcome.vue'
+import HomeItem from '../components/HomeItem.vue'
 </script>
 
 <template>
   <main>
-    <TheWelcome />
+    <HomeItem />
   </main>
 </template>
 -->
 
 <template>
   <div v-if="isAuthenticated">
-      <button @click="logout">Logout</button>
-      <h4> {{ user.email }}</h4>
-      <h4> {{ user.name }}</h4>
-      <h4> {{ user.picture }}</h4>
+      <h1>Welcome {{ user.name }}!</h1>
+      <p>This is the administrative interface (admin panel) for <i>Svenska Elsparkscyklar AB</i>.</p>
+      <p>Here you can view and manage data in the system.</p>
   </div>
   <div v-else>
-      <button @click="login">Login</button>
+      <h1>Welcome!</h1>
+      <h2>Use the login button to gain access to the application!</h2>
+      <p>This is the administrative interface (admin panel) for <i>Svenska Elsparkscyklar AB</i>.</p>
+      <p>Here you can view and manage data in the system.</p>
   </div>
 </template>
 
