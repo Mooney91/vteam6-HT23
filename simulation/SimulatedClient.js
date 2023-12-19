@@ -1,33 +1,24 @@
-const helper = require("./utils").helper;
-const tripFinder = require("./utils").tripFinder;
+const publicHelper = require("./utils").publicHelper;
 
-const interval = 3;
+const interval = 1;
 let intervalID;
 
 let tripIndex = 0;
 
 class SimulatedClient {
-    constructor(user) {
+    constructor(user, scooter) {
         this.user = user;
-        this.scooter = null;
+        this.scooter = scooter;
         this.trip = null;
-
-        this.login();
-    }
-
-    // Login
-    login() {
-        console.log(`User ${this.user.FirstName} with ID ${this.user.UserID} logging in!`);
 
         this.rentScooter();
     }
 
     // Rent scooter
     async rentScooter() {
-        const scooter = await helper.getRandomAvailableScooter();
-        this.scooter = scooter;
-
         console.log(`User ${this.user.FirstName} with ID ${this.user.UserID} renting Scooter with ID ${this.scooter.ScooterID}!`);
+
+        publicHelper.startRent(this.user, this.scooter);
 
         this.useScooter();
     }
@@ -36,9 +27,7 @@ class SimulatedClient {
     async useScooter() {
         console.log(`User ${this.user.FirstName} with ID ${this.user.UserID} using Scooter with ID ${this.scooter.ScooterID}!`);
 
-        this.trip = await tripFinder.getRandomTrip(this.scooter.Location);
-
-        console.log("Scooter currently at: " + JSON.stringify(this.scooter.Location));
+        this.trip = await publicHelper.getRandomMatchingTrip(this.scooter.Location.replace(/\s/g, ""));
 
         if (this.trip) {
             intervalID = setInterval(() => this.moveScooter(), interval * 1000);
@@ -47,7 +36,8 @@ class SimulatedClient {
 
     // Move scooter through all its waypoints to destination
     moveScooter() {
-        if (tripIndex === this.trip.Waypoints.length) {
+        // if (tripIndex === this.trip.Waypoints.length) {
+        if (tripIndex === 5) {
             this.scooter.Location = this.trip.Destination;
     
             console.log("Moving scooter to: " + JSON.stringify(this.scooter.Location));
@@ -64,9 +54,15 @@ class SimulatedClient {
         }
     }
 
+    updateScooterLocation() {
+        // Update scooter location in database / web sockets
+    }
+
     // Return scooter
     returnScooter() {
         console.log("Returning a scooter!");
+
+        publicHelper.stopRent(this.user, this.scooter);
     }
 }
 

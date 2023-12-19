@@ -1,22 +1,53 @@
-const BASE_URL = "http://localhost:1337";
-
 const sqlite3 = require('sqlite3').verbose();
 
-const fetcher = {
-    async _getData(endpoint) {
-        const response = await fetch(`${BASE_URL}/v1/${endpoint}`);
+const fetchHelper = {
+    BASE_URL: "http://localhost:1337",
+
+    async getData(endpoint) {
+        const response = await fetch(`${this.BASE_URL}/v1/${endpoint}`);
 
         const data = await response.json();
 
         return data;
     },
 
-    // Create a new RentalLog entry and insert into database
-    async _createRent(user, scooter) {
+    async updateData(endpoint, data = null) {
+        const response = await fetch(`${this.BASE_URL}/v1/${endpoint}`,
+            {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data),
+            });
+        
+        console.log("updateData response: ");
+        console.log(response);
+        // return response.json();
+    },
+
+    async createData(endpoint, data) {
+        const response = await fetch(`${this.BASE_URL}/v1/${endpoint}`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data),
+            });
+
+        console.log("createData response: ");
+        console.log(response);
+        // return response.json();
+    }
+};
+
+const rentHelper = {
+    async createRent(user, scooter) {
         const data = {
             "ScooterID": scooter.ScooterID,
             "UserID": user.UserID,
-            "StartTime": internal._getCurrentDateTime(),
+            "StartTime": this._getCurrentDateTime(),
             // "EndTime": "2023-01-01T09:30:00",
             "StartStation": scooter.StationID,
             // "EndStation": 2,
@@ -24,22 +55,7 @@ const fetcher = {
             // "Paid": true
         };
 
-        const response = await fetch(`${BASE_URL}/v1/rental-log`, 
-            {
-                method: "POST", // *GET, POST, PUT, DELETE, etc.
-                // mode: "cors", // no-cors, *cors, same-origin
-                // cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-                // credentials: "same-origin", // include, *same-origin, omit
-                headers: {
-                    "Content-Type": "application/json",
-                    // 'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                // redirect: "follow", // manual, *follow, error
-                // referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-                body: JSON.stringify(data), // body data type must match "Content-Type" header
-            });
-
-        return response.json(); // parses JSON response into native JavaScript objects
+        await fetchHelper.createData("rental-log", data);
     },
 
     // Get current date, time like 2023-01-01T09:00:00
@@ -57,64 +73,60 @@ const fetcher = {
         const second = date.getSeconds()
 
         const currentDateTime = `${year}-${month}-${day}T${hour}:${minute}:${second}`;
-       
+        
         return currentDateTime;
     }
-};
+}
 
-const helper = {
-    // Get a random integer between min and max (both inclusive)
-    getRndInteger(min, max) {
-        return Math.floor(Math.random() * (max - min + 1) ) + min;
-    },
+const userHelper = {
+    users: [],
 
-    async getAllStations() {
-        const stations = await fetcher._getData("station");
-
-        return stations;
-    },
-
-    // Get a random available user
-    async getRandomAvailableUser(simulatedClients) {
-        const users = await fetcher._getData("user");
-
-        const activeUserIDs = this._getActiveUserIDs(simulatedClients);
-
-        if (activeUserIDs.length === users) {
-            return;
+    async getUsers() {
+        if (this.users.length === 0) {
+            this.users = await fetchHelper.getData("user");
         }
 
-        let randomAvailableUser = users[this.getRndInteger(0, users.length - 1)];
-
-        while (activeUserIDs.includes(randomAvailableUser.UserID)) {
-            randomAvailableUser = users[this.getRndInteger(0, users.length - 1)];
-        }
-
-        return randomAvailableUser;
+        return this.users;
     },
 
-    // Create an array of active user IDs from simulatedClients
-    _getActiveUserIDs(simulatedClients) {
-        const activeUserIDs = [];
-
-        for (const simCli of simulatedClients) {
-            activeUserIDs.push(simCli.user.UserID);
-        }
-
-        return activeUserIDs;
-    },
-
-    // Get a random available scooter
-    async getRandomAvailableScooter() {
-        const availableScooters = await fetcher._getData("scooter/available");
-
-        const randomAvailableScooter = availableScooters[this.getRndInteger(0, availableScooters.length - 1)];
-
-        return randomAvailableScooter;
+    recycleUser(user) {
+        this.users.push(user);
     }
-};
+}
 
-const SQLiter = {
+const scooterHelper = {
+    scooters: [],
+
+    async getScooters() {
+        if (this.scooters.length === 0) {
+            this.scooters = await fetchHelper.getData("scooter");
+        }
+
+        return this.scooters;
+    },
+
+    async unparkScooter(scooter) {
+        // Update an entry by providing its `id` and `StationID`. PUT /v1/scooter/:id/unpark/:StationID
+
+        const endpoint = `scooter/${scooter.ScooterID}/unpark/${scooter.StationID}`;
+ 
+        await fetchHelper.updateData(endpoint);
+    },
+
+    /*
+    async parkScooter(scooter) {
+        const endpoint = `scooter/${scooter.ScooterID}/park/${scooter.StationID}`;
+ 
+        await fetchHelper.updateData(endpoint);
+    },
+    */
+
+    recycleScooter(scooter) {
+        this.scooters.push(scooter);
+    }
+}
+
+const SQLiteHelper = {
     // Get connection to SQLite database
     getDBConnection() {
         dbc = new sqlite3.Database('./db/trip.sqlt', sqlite3.OPEN_READWRITE, (err) => {
@@ -140,30 +152,24 @@ const SQLiter = {
     }
 };
 
-const tripFinder = {
-    // Get a random trip with location either matching origin or destination
-    async getRandomTrip(location) {
-        const dbc = SQLiter.getDBConnection();
+const tripHelper = {
+    // Get trips with location either matching origin or destination
+    async getMatchingTrips(location) {
+        const dbc = SQLiteHelper.getDBConnection();
 
         const matchingTrips = await this._findTrips(dbc, location);
 
-        SQLiter.closeDBConnection(dbc);
+        SQLiteHelper.closeDBConnection(dbc);
 
-        const selectedTrip = matchingTrips[0];
-
-        if (selectedTrip) {
-            selectedTrip.Waypoints = this._wpStringToArray(selectedTrip.Waypoints);
-        }
-
-        return selectedTrip;
+        return matchingTrips;
     },
 
     // Find trips with location either matching origin or destination
     async _findTrips(dbc, location) {
         return new Promise((resolve, reject) => {
-            const sql = "SELECT * FROM Trip WHERE ORIGIN = ?";
+            const sql = "SELECT * FROM Trip WHERE Origin = ? OR Destination = ?";
 
-            dbc.all(sql, location, (err, row) => {
+            dbc.all(sql, [location, location], (err, row) => {
                 if (err) reject(err);
 
                 resolve(row);
@@ -172,7 +178,7 @@ const tripFinder = {
     },
 
     // Convert a string of waypoints to an array
-    _wpStringToArray(wpString) {
+    waypointsStringToArray(wpString) {
         const waypoints = [];
 
         const wpArr = wpString.split(",");
@@ -184,7 +190,93 @@ const tripFinder = {
         }
 
         return waypoints;
+    },
+
+    // Reverse the direction of a trip
+    reverseTrip(trip) {
+        const origin = trip.Origin;
+
+        trip.Origin = trip.Destination;
+        trip.Destination = origin;
+
+        trip.Waypoints.reverse();
     }
 }
 
-module.exports = { helper, SQLiter, tripFinder };
+const publicHelper = {
+    _getRndInteger(min, max) {
+        return Math.floor(Math.random() * (max - min + 1) ) + min;
+    },
+
+    async getRandomAvailableUser() {
+        const users = await userHelper.getUsers();
+
+        let index = this._getRndInteger(0, users.length - 1);
+    
+        const user = users.splice(index, 1)[0];
+    
+        return user;
+    },
+
+    async getRandomAvailableScooter() {
+        const scooters = await scooterHelper.getScooters();
+
+        let index = this._getRndInteger(0, scooters.length - 1);
+
+        while (scooters[index].Status != "Parked") {
+            index = this._getRndInteger(0, scooters.length - 1);
+        }
+    
+        const scooter = scooters.splice(index, 1)[0];
+    
+        return scooter;
+    },
+
+    // Get a trip from SQLite database with location matching either origin or destination
+    async getRandomMatchingTrip(location) {
+        const matchingTrips = await tripHelper.getMatchingTrips(location);
+
+        if (matchingTrips.length === 0) {
+            return;
+        }
+
+        const index = this._getRndInteger(0, matchingTrips.length - 1);
+
+        const selectedTrip = matchingTrips[index];
+
+        selectedTrip.Waypoints = tripHelper.waypointsStringToArray(selectedTrip.Waypoints);
+
+        if (location === selectedTrip.Destination) {
+            tripHelper.reverseTrip(selectedTrip);
+        }
+
+        return selectedTrip;
+    },
+
+    async startRent(user, scooter) {
+        // 1. Create RentalLog entry (Active?, ScooterID, UserID, StartTime, StartStation) : RentalLogID
+        rentHelper.createRent(user, scooter);
+
+        // 2. Update Scooter (ScooterID) | (Status, StationID)
+        scooterHelper.unparkScooter(scooter);
+
+        // 3. Update Station (StationID) | (ScooterOccupancy)
+    },
+
+    async stopRent(user, scooter) {
+        // 1. Calculate cost ((EndTime - StartTime) * price + fee) : cost
+        // 2. Charge User (cost) : paid
+
+        // 1. Update RentalLog entry (RentalLogID) | (Active?, EndStation, Cost?, Paid?)
+        // 2. Update Scooter (ScooterID) | (Status, Location?, Battery?, StationID)
+        // 3. Update Station (StationID) | (ScooterOccupancy)
+
+        // Recycle user
+        userHelper.recycleUser(user);
+
+        // Recycle scooter
+        scooterHelper.recycleScooter(scooter);
+    }
+}
+
+module.exports = { publicHelper };
