@@ -36,6 +36,7 @@ jobs:
         for app in */; do
           if [ "$app" != "database/" ]; then
             cd "$app"
+            printf "$app\ n"
             npm ci
             npm run build --if-present
             npm test
