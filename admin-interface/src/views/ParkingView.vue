@@ -5,10 +5,10 @@
       <h2>Manage the Parking Stations in the system.</h2>
       <p><img src="@/assets/square-parking-solid.svg" class="parking" alt="Parking Icon" style="vertical-align: middle; padding: 5px;">Parking</p>
       <div v-if="addForm">
-                <div @click="addForm = !addForm"><img alt="add icon" class="add" src="@/assets/circle-plus-solid.svg" width="30" height="30" />Add a Charging Station</div>
+                <div @click="addForm = !addForm"><img alt="add icon" class="add" src="@/assets/circle-plus-solid.svg" width="30" height="30" />Add a Parking Station</div>
             </div>
             <div v-else>
-                <div @click="addForm = !addForm"><img alt="minus icon" class="add" src="@/assets/circle-minus-solid.svg" width="30" height="30" />Add a Charging Station</div>
+                <div @click="addForm = !addForm"><img alt="minus icon" class="add" src="@/assets/circle-minus-solid.svg" width="30" height="30" />Add a Parking Station</div>
                 <form @submit.prevent="createStation" class="add-form">
                     <label for="StationName">Name:</label>
                     <input type="text" id="StationName" v-model="StationName" required>
@@ -18,7 +18,7 @@
                     <input type="number" id="ScooterCapacity" v-model="ScooterCapacity" required>
                     <label for="CityID">City ID:</label>
                     <input type="number" id="CityID" v-model="CityID" required>
-                    <button type="submit">Create Charging Station</button>
+                    <button type="submit">Create Parking Station</button>
                 </form>
             </div>
       <table class="database-table">
@@ -32,7 +32,7 @@
                 <th></th>
                 <th></th>
             </tr>
-            <template v-for="item in charging" :key="item.StationID">
+            <template v-for="item in parking" :key="item.StationID">
                 <tr @click="zoomToScooter(item)">
                     <td>{{ item.StationID }}</td>
                     <td>{{ item.StationName }}</td>
@@ -65,7 +65,7 @@
                                 <input type="number" id="StationType" v-model="StationType" required>
                                 <label for="CityID">City ID:</label>
                                 <input type="number" id="CityID" v-model="CityID" required>
-                                <button type="submit">Update Charging Station</button>
+                                <button type="submit">Update Parking Station</button>
                             </form>
                         </td>
                     </tr>
@@ -81,7 +81,7 @@
           name="OpenStreetMap"
         ></l-tile-layer>>
   
-        <template v-for="item in charging">
+        <template v-for="item in parking">
           <l-marker :lat-lng="item.Location.split(',')">
             <l-icon className='dummy' icon-anchor="[0, 0]" icon-size="[25, 25]">
               <img src="@/assets/square-parking-solid.svg" class="parking" alt="Parking Icon">
@@ -200,7 +200,7 @@
                         })
 
                     const result = await response.json();
-                    this.charging = this.charging.filter(item => item.StationID !== StationID);
+                    this.parking = this.parking.filter(item => item.StationID !== StationID);
                     return result;
                 } catch (error) {
                     console.error('Error deleting station:', error);
@@ -252,7 +252,7 @@
                     const result = await response.json();
                     
                     // Rerender the view!
-                    const index = this.charging.findIndex(item => item.StationID === this.StationID);
+                    const index = this.parking.findIndex(item => item.StationID === this.StationID);
                     if (index !== -1) {
                         this.$set(this.items, index, result);
                     }
