@@ -34,7 +34,7 @@ jobs:
     - run: npm install
       working-directory: ./admin-interface
       
-    - run: npm run eslint
+    - run: npm run lint
       working-directory: ./admin-interface
 
     - run: npm run test
