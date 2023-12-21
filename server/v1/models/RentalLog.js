@@ -51,12 +51,12 @@ const rentalLog = {
              // Check if the insert was successful
             if (rows.affectedRows > 0) {
                 // Call AddRentalLog: add fixed fee, update Scooter Status
-                console.log(rows.RentalLogID)
+                console.log(rows.insertId)
                 const sqlCall = 'CALL AddRentalLog(?, ?)';
                 const valuesCall = [rows.insertId, req.body.ScooterID];
                 await pool.query(sqlCall, valuesCall);
 
-                res.status(200).json({ message: 'The rental log was created successfully.' });
+                res.status(200).json({ RentalLogID: rows.insertId });
             } else {
                 res.status(400).json({ message: 'Failed to create the rental log.' });
             }
