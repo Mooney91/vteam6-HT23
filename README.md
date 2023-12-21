@@ -10,6 +10,8 @@ This system is comprised of a database, an API (server), three interfaces/apps, 
 
 ## admin-interface (Administrative Interface)
 
+`admin-interface` is the administrative interface or admin panel for the system. You can view all the scooters and charging/parking stations as well as update data here.
+
 If you want to test this service individually, then you can execute `docker-compose up admin-interface`; however, it is recommended to run `docker-compose up database server admin-interface` since the `database` and API (`server`) for its functionality.
 
 ## customer-interface (Customer Interface)
