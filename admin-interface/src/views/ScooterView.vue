@@ -123,13 +123,12 @@
     // import { getCurrentInstance } from 'vue';
     // import { ref } from 'vue';  // Import ref from Vue
     // import { RouterLink, RouterView } from 'vue-router'
-    import { Vue } from 'vue';
     import ScooterMapItem from '../components/ScooterMapItem.vue'
 
     export default {
         name: 'ScooterView',
         components: {
-            ScooterMapItem
+            ScooterMapItem,
         },
         props: {
             backend: String
@@ -291,7 +290,7 @@
                     // Rerender the view!
                     const index = this.items.findIndex(item => item.ScooterID === this.ScooterID);
                     if (index !== -1) {
-                        Vue.set(this.items, index, result);
+                        Vue.set(this.items, index, result); // eslint-disable-line no-undef
                     }
 
                     return result;
@@ -352,7 +351,7 @@
                     // Rerender the view!
                     const index = this.items.findIndex(item => item.ScooterID === this.ScooterID);
                     if (index !== -1) {
-                        Vue.set(this.items, index, result);
+                        Vue.set(this.items, index, result); // eslint-disable-line no-undef
                     }
 
                     return result;
