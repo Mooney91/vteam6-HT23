@@ -803,7 +803,7 @@ PUT /v1/scooter/:id/park/:StationID
 Results:
 
 ```json
-{ "message": "The scooter was parked successfully." }
+{ "RentalLogID": "301" }
 ```
 
 ### Unpark a Scooter
@@ -1263,6 +1263,7 @@ Password
 Email
 AccountBalance
 PaymentType
+Role
 ```
 
 ### Get the dataset
@@ -1284,7 +1285,8 @@ Results:
         "Password": "password1",
         "Email": "elsa@example.com",
         "AccountBalance": 500.00,
-        "PaymentType": 1
+        "PaymentType": 1,
+        "Role": "Customer"
     },
     {
         "UserID": 2,
@@ -1293,7 +1295,8 @@ Results:
         "Password": "password2",
         "Email": "oskar@example.com",
         "AccountBalance": 700.00,
-        "PaymentType": 2
+        "PaymentType": 2,
+        "Role": "Customer"
     },
     {
         "UserID": 3,
@@ -1302,7 +1305,8 @@ Results:
         "Password": "password3",
         "Email": "maja@example.com",
         "AccountBalance": 300.00,
-        "PaymentType": 1
+        "PaymentType": 1,
+        "Role": "Customer"
     },
     {
         "UserID": 4,
@@ -1311,7 +1315,8 @@ Results:
         "Password": "password4",
         "Email": "erik@example.com",
         "AccountBalance": 900.00,
-        "PaymentType": 2
+        "PaymentType": 2,
+        "Role": "Customer"
     },
     {
         "UserID": 5,
@@ -1320,7 +1325,8 @@ Results:
         "Password": "password5",
         "Email": "hanna@example.com",
         "AccountBalance": 600.00,
-        "PaymentType": 1
+        "PaymentType": 1,
+        "Role": "Customer"
     }
 ]
 ```
@@ -1344,7 +1350,8 @@ Results:
         "Password": "password1",
         "Email": "elsa@example.com",
         "AccountBalance": 500.00,
-        "PaymentType": 1
+        "PaymentType": 1,
+        "Role": "Customer"
     }
 ]
 ```

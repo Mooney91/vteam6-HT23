@@ -1,8 +1,11 @@
 <script>
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterLink } from 'vue-router'
 import { useAuth0 } from '@auth0/auth0-vue';
 
 export default {
+    components: {
+      RouterLink,
+    },
     setup() {
         const auth0 = useAuth0();
 
@@ -16,8 +19,9 @@ export default {
 </script>
 
 <template>
-    <div v-if="isAuthenticated">
-        <div class="navigation">
+    
+    <div class="navigation">
+        <div v-if="isAuthenticated">
             <RouterLink to="/map"><img src="@/assets/map-location-dot-solid.svg" class="map-icon"></RouterLink>
             <RouterLink to="/city">Cities</RouterLink>
             <RouterLink to="/scooter">Scooters</RouterLink>
@@ -28,6 +32,7 @@ export default {
             <RouterLink to="/settings">Settings</RouterLink>
         </div>
     </div>
+    
 </template>
 
 <style>

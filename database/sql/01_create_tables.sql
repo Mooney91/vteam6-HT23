@@ -54,7 +54,8 @@ CREATE TABLE IF NOT EXISTS `User` (
     `Password` VARCHAR(100),
     `Email` VARCHAR(100),
     `AccountBalance` DECIMAL(10, 2),
-    `PaymentType` INT
+    `PaymentType` INT,
+    `Role` VARCHAR(50)
 );
 
 -- Create RentalLog

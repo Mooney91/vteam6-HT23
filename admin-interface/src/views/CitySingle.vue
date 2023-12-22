@@ -59,7 +59,7 @@
         name="OpenStreetMap"
       ></l-tile-layer>>
 
-      <template v-for="item in charging">
+      <template :key="item.StationID" v-for="item in charging">
         <l-marker :lat-lng="item.Location.split(',')">
           <l-icon className='dummy' icon-anchor="[0, 0]" icon-size="[25, 25]">
             <img src="@/assets/charging-station-solid.svg" class="charging" alt="Charging Icon">
@@ -76,7 +76,7 @@
         </l-marker>
       </template>
 
-      <template v-for="item in parking">
+      <template :key="item.StationID" v-for="item in parking">
         <l-marker :lat-lng="item.Location.split(',')">
           <l-icon className='dummy' icon-anchor="[0, 0]" icon-size='[25, 25]'>
             <img src="@/assets/square-parking-solid.svg" class="parking" alt="Parking Icon">
@@ -93,7 +93,7 @@
         </l-marker>
       </template>
 
-      <template v-for="item in scooters">
+      <template :key="item.ScooterID" v-for="item in scooters">
         <l-marker :icon="redDotIcon" :lat-lng="item.Location.split(',')">
           <l-popup>
             <div>
@@ -138,7 +138,7 @@ export default {
         parking: [],
         city: null,
         scooters: null,
-        redDotIcon: L.divIcon({
+        redDotIcon: L.divIcon({ // eslint-disable-line no-undef
             className: 'red-dot-icon',
             html: `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
                         <circle cx="20" cy="20" r="14" fill="#FF0000" stroke="#742227" stroke-width="2" />
@@ -192,8 +192,6 @@ export default {
                     }
                 }
 
-
-
                 return result;
             } catch (error) {
                 console.error('Error fetching station data:', error);
@@ -219,7 +217,7 @@ export default {
             this.zoom = 20;
         },
     },
-    async created() {
+    async beforeMount() {
             try {
                 await this.fetchCity();
                 await this.fetchScooters();
