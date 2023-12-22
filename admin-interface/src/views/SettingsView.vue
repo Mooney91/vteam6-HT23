@@ -41,9 +41,9 @@
 </template>
 
 <script>
-    import { getCurrentInstance } from 'vue';
-    import { ref } from 'vue';
-    import { RouterLink, RouterView } from 'vue-router'
+    // import { getCurrentInstance } from 'vue';
+    // import { ref } from 'vue';
+    // import { RouterLink, RouterView } from 'vue-router'
 
     export default {
         name: 'SettingsView',
@@ -59,27 +59,26 @@
                 CostID: '',
                 CostDesc: '',
                 CostAmount: '',
-
-                backend: this.backend
+                // backend: this.backend
             };
         },
         methods: {
             async forceRerender() {
                 this.componentKey += 1;
             },
-            async fetchCostStructures() {
-                try {
-                    const response = await fetch(`${this.backend}/v1/cost-structure`);
-                    const result = await response.json();
+            // async fetchCostStructures() {
+            //     try {
+            //         const response = await fetch(`${this.backend}/v1/cost-structure`);
+            //         const result = await response.json();
 
-                    this.items = result;
+            //         this.items = result;
                     
-                    return result;
-                } catch (error) {
-                    console.error('Error fetching station data:', error);
-                    throw error;
-                }
-            },
+            //         return result;
+            //     } catch (error) {
+            //         console.error('Error fetching station data:', error);
+            //         throw error;
+            //     }
+            // },
             async fetchCostStructures() {
                 try {
                     const response = await fetch(`${this.backend}/v1/cost-structure`);

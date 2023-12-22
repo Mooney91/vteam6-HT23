@@ -81,7 +81,7 @@
           name="OpenStreetMap"
         ></l-tile-layer>>
   
-        <template v-for="item in parking">
+        <template :key="item.StationID" v-for="item in parking">
           <l-marker :lat-lng="item.Location.split(',')">
             <l-icon className='dummy' icon-anchor="[0, 0]" icon-size="[25, 25]">
               <img src="@/assets/square-parking-solid.svg" class="parking" alt="Parking Icon">

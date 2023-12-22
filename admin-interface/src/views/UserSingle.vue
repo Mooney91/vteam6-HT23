@@ -2,6 +2,7 @@
     <div class="about">
       <div class="small-content">
       <h2>{{user.UserID }}. {{user.FirstName}} {{user.LastName}}</h2>
+      <h3>{{user.Role }}</h3>
       <p>All rental logs for {{user.FirstName}} {{user.LastName}}.</p>
       <p><b>Current Account Balance:</b> {{ user.AccountBalance }} SEK</p>
   

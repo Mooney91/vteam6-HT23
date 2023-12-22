@@ -7,7 +7,7 @@
         name="OpenStreetMap"
       ></l-tile-layer>>
 
-      <template v-for="item in items">
+      <template :key="item.ScooterID" v-for="item in items">
         <l-marker :icon="redDotIcon" :lat-lng="item.Location.split(',')">
           <l-popup>
             <div>
@@ -27,15 +27,14 @@
   
 <script>
   import "leaflet/dist/leaflet.css";
-  import {LMap, LTileLayer, LMarker, LIcon, LPopup } from "@vue-leaflet/vue-leaflet";;
+  import {LMap, LTileLayer, LMarker, LPopup} from "@vue-leaflet/vue-leaflet";;
 
   export default {
     components: {
       LMap,
       LTileLayer,
       LMarker,
-      LIcon,
-      LPopup
+      LPopup,
     },
     props: {
         items: Object
@@ -44,7 +43,7 @@
       return {
         zoom: 6,
         coordinates: [57.5477, 14.0157],
-        redDotIcon: L.divIcon({
+        redDotIcon: L.divIcon({ // eslint-disable-line no-undef
             className: 'red-dot-icon',
             html: `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
                         <circle cx="20" cy="20" r="14" fill="#FF0000" stroke="#742227" stroke-width="2" />

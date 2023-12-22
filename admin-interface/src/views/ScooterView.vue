@@ -88,7 +88,7 @@
                             <form @submit.prevent="updateChargingStation">
                                 <label for="StationID">StationID:</label>
                                 <select id="ChargingStationID" name="StationID" size="1" v-model="ChargingStationID" required>
-                                    <template v-for="item in charging" >
+                                    <template :key="item.StationID" v-for="item in charging" >
                                         <option :value="item.StationID">{{item.StationID}}</option>
                                     </template>
                                 </select>
@@ -104,7 +104,7 @@
                             <form @submit.prevent="updateParkingStation">
                                 <label for="StationID">StationID:</label>
                                 <select id="ParkingStationID" name="StationID" size="1" v-model="ParkingStationID" required>
-                                    <template v-for="item in parking" >
+                                    <template :key="item.StationID" v-for="item in parking" >
                                         <option :value="item.StationID">{{item.StationID}}</option>
                                     </template>
                                 </select>
@@ -120,10 +120,10 @@
 </template>
 
 <script>
-    import { getCurrentInstance } from 'vue';
-    import { ref } from 'vue';  // Import ref from Vue
-    import { RouterLink, RouterView } from 'vue-router'
-    // import { Vue } from 'vue';
+    // import { getCurrentInstance } from 'vue';
+    // import { ref } from 'vue';  // Import ref from Vue
+    // import { RouterLink, RouterView } from 'vue-router'
+    import { Vue } from 'vue';
     import ScooterMapItem from '../components/ScooterMapItem.vue'
 
     export default {
@@ -152,7 +152,7 @@
                 ParkingStationID: '',
                 charging: [],
                 parking: [],
-                backend: this.backend
+                // backend: this.backend
             };
         },
         methods: {
@@ -212,7 +212,6 @@
                             Location: this.Location,
                             Speed: this.Speed,
                             Battery: this.Battery,
-                            Speed: this.Speed,
                             StationID: null
                         }),
                         })
@@ -238,7 +237,6 @@
                             Location: this.Location,
                             Speed: this.Speed,
                             Battery: this.Battery,
-                            Speed: this.Speed,
                             StationID: this.StationID
                         }),
                         })

@@ -93,7 +93,7 @@
 </template>
 
 <script>
-    import { getCurrentInstance } from 'vue';
+    // import { getCurrentInstance } from 'vue';
 
     export default {
         name: 'RentalView',
@@ -137,7 +137,6 @@
             },
             async createRentalLog() {
                 try {
-                    const time = new Date();
                     const response = await fetch(`${this.backend}/v1/rental-log`, {
                         method: 'POST',
                         headers: {
@@ -152,7 +151,7 @@
                     const result = await response.json();
                     return result;
                 } catch (error) {
-                    // console.error('Error creating rental:', error);
+                    console.error('Error creating rental:', error);
                     throw error;
                 }
             },

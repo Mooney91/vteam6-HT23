@@ -1,5 +1,5 @@
 FROM node:18
 
-WORKDIR webbclient
+WORKDIR /customer-app
 
 # TODO

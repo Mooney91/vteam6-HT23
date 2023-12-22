@@ -75,15 +75,16 @@
 </template>
 
 <script>
-    import { getCurrentInstance } from 'vue';
-    import { ref } from 'vue';  // Import ref from Vue
-    import { RouterLink, RouterView } from 'vue-router'
+    // import { getCurrentInstance } from 'vue';
+    // import { ref } from 'vue';  // Import ref from Vue
+    import { RouterLink } from 'vue-router'
     import MapItem from '../components/MapItem.vue'
 
     export default {
         name: 'CityView',
         components: {
-            MapItem
+            MapItem,
+            RouterLink
         },
         props: {
             backend: String
@@ -97,7 +98,7 @@
                 CityID: '',
                 CityName: '',
                 CityPosition: '',
-                backend: this.backend
+                // backend: this.backend
             };
         },
         methods: {

@@ -7,8 +7,8 @@
         name="OpenStreetMap"
       ></l-tile-layer>>
 
-      <template v-for="item in items">
-        <l-marker :lat-lng="item.CityPosition.split(',')">
+      <template :key="item.CityID" v-for="item in items">
+        <l-marker  :lat-lng="item.CityPosition.split(',')">
           <l-icon className='dummy' icon-anchor="[0, 0]" icon-size="[25, 25]">
             <img src="@/assets/city-solid.png" alt="Custom Marker Icon">
           </l-icon>
