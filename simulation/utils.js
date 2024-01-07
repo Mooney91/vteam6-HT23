@@ -11,7 +11,7 @@ const fetchHelper = {
         return data;
     },
 
-    async updateData(endpoint, data = null) {
+    async updateData(endpoint, data) {
         const response = await fetch(`${this.BASE_URL}/v1/${endpoint}`,
             {
                 method: "PUT",
@@ -21,8 +21,9 @@ const fetchHelper = {
                 body: JSON.stringify(data),
             });
         
-        console.log("updateData response: ");
-        console.log(response);
+        // console.log("updateData response: ");
+        // console.log(response);
+
         // return response.json();
     },
 
@@ -36,8 +37,9 @@ const fetchHelper = {
                 body: JSON.stringify(data),
             });
 
-        console.log("createData response: ");
-        console.log(response);
+        // console.log("createData response: ");
+        // console.log(response);
+        
         // return response.json();
     }
 };
@@ -47,49 +49,66 @@ const rentHelper = {
         const data = {
             "ScooterID": scooter.ScooterID,
             "UserID": user.UserID,
-            "StartTime": this._getCurrentDateTime(),
-            // "EndTime": "2023-01-01T09:30:00",
-            "StartStation": scooter.StationID,
-            // "EndStation": 2,
-            // "Cost": 10.00,
-            // "Paid": true
+            "StartStation": scooter.StationID
         };
 
         await fetchHelper.createData("rental-log", data);
     },
 
-    // Get current date, time like 2023-01-01T09:00:00
-    _getCurrentDateTime() {
-        const date = new Date();
+    async stopRent(RentalLogID, scooter) {
+        console.log(RentalLogID);
+        console.log(scooter);
 
-        // Date
-        const year = date.getFullYear();
-        const month = date.getMonth() + 1;
-        const day = date.getDate();
-        
-        // Time
-        const hour = date.getHours();
-        const minute = date.getMinutes();
-        const second = date.getSeconds()
+        // router.patch('/:id', (req, res) => rentalLog.stopRentalLog(req, res));
+    }
+}
 
-        const currentDateTime = `${year}-${month}-${day}T${hour}:${minute}:${second}`;
-        
-        return currentDateTime;
+const stationHelper = {
+    stations: [],
+
+    async initStations() {
+        if (this.stations.length === 0) {
+            this.stations = await fetchHelper.getData("station");
+        }
+    },
+
+    async getStations() {
+        await this.initStations();
+
+        return this.stations;
+    },
+
+    async getMatchingStation(location) {
+        await this.initStations();
+
+        for (i = 0; i < this.stations.length - 1; i++) {
+            const station = this.stations[i];
+
+            if (station.Location === location) {
+                return station.StationID;
+            }
+        }
     }
 }
 
 const userHelper = {
     users: [],
 
-    async getUsers() {
+    async initUsers() {
         if (this.users.length === 0) {
             this.users = await fetchHelper.getData("user");
         }
+    },
+
+    async getUsers() {
+        await this.initUsers();
 
         return this.users;
     },
 
-    recycleUser(user) {
+    async recycleUser(user) {
+        await this.initUsers();
+
         this.users.push(user);
     }
 }
@@ -97,31 +116,33 @@ const userHelper = {
 const scooterHelper = {
     scooters: [],
 
-    async getScooters() {
+    async initScooters() {
         if (this.scooters.length === 0) {
             this.scooters = await fetchHelper.getData("scooter");
         }
+    },
+
+    async getScooters() {
+        await this.initScooters();
 
         return this.scooters;
     },
 
     async unparkScooter(scooter) {
-        // Update an entry by providing its `id` and `StationID`. PUT /v1/scooter/:id/unpark/:StationID
-
         const endpoint = `scooter/${scooter.ScooterID}/unpark/${scooter.StationID}`;
- 
+
         await fetchHelper.updateData(endpoint);
     },
 
-    /*
     async parkScooter(scooter) {
         const endpoint = `scooter/${scooter.ScooterID}/park/${scooter.StationID}`;
  
         await fetchHelper.updateData(endpoint);
     },
-    */
 
-    recycleScooter(scooter) {
+    async recycleScooter(scooter) {
+        await this.initScooters();
+
         this.scooters.push(scooter);
     }
 }
@@ -258,23 +279,26 @@ const publicHelper = {
         rentHelper.createRent(user, scooter);
 
         // 2. Update Scooter (ScooterID) | (Status, StationID)
+        // 3. Update Station (StationID) | (ScooterOccupancy)
         scooterHelper.unparkScooter(scooter);
 
-        // 3. Update Station (StationID) | (ScooterOccupancy)
+        // return rentalLogID;
     },
 
-    async stopRent(user, scooter) {
+    async stopRent(RentalLogID, user, scooter) {
         // 1. Calculate cost ((EndTime - StartTime) * price + fee) : cost
         // 2. Charge User (cost) : paid
 
         // 1. Update RentalLog entry (RentalLogID) | (Active?, EndStation, Cost?, Paid?)
+        scooter.StationID = await stationHelper.getMatchingStation(scooter.Location);
+        rentHelper.stopRent(RentalLogID, scooter);
+
         // 2. Update Scooter (ScooterID) | (Status, Location?, Battery?, StationID)
         // 3. Update Station (StationID) | (ScooterOccupancy)
+        scooterHelper.parkScooter(scooter);
 
-        // Recycle user
+        // Recycle user and scooter
         userHelper.recycleUser(user);
-
-        // Recycle scooter
         scooterHelper.recycleScooter(scooter);
     }
 }

@@ -61,8 +61,9 @@ class SimulatedClient {
     // Return scooter
     returnScooter() {
         console.log("Returning a scooter!");
+        console.log(this.scooter.Location);
 
-        publicHelper.stopRent(this.user, this.scooter);
+        publicHelper.stopRent("tmp", this.user, this.scooter);
     }
 }
 
