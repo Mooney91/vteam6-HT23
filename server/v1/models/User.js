@@ -37,8 +37,8 @@ const user = {
         try {
             const sql = `
                 INSERT INTO
-                    User (FirstName, LastName, Password, Email, AccountBalance, PaymentType)
-                VALUES (?, ?, ?, ?, ?, ?)
+                    User (FirstName, LastName, Password, Email, AccountBalance, PaymentType, Role)
+                VALUES (?, ?, ?, ?, ?, ?, ?)
             `;
             const values = [
                 req.body.FirstName,
@@ -46,7 +46,8 @@ const user = {
                 req.body.Password,
                 req.body.Email,
                 req.body.AccountBalance,
-                req.body.PaymentType
+                req.body.PaymentType,
+                req.body.Role
             ];
             const rows = await pool.query(sql, values);
             res.status(200).json({ message: 'The user was created successfully.' });
@@ -66,7 +67,8 @@ const user = {
                     Password = ?,
                     Email = ?,
                     AccountBalance = ?,
-                    PaymentType = ?
+                    PaymentType = ?,
+                    Role = ?
                 WHERE
                     UserID = ?;
             `;
@@ -77,6 +79,7 @@ const user = {
                 req.body.Email,
                 req.body.AccountBalance,
                 req.body.PaymentType,
+                req.body.Role,
                 req.params.id
             ];
             const rows = await pool.query(sql, values);

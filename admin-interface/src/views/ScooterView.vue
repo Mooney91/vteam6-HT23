@@ -36,6 +36,7 @@
                     <th></th>
                     <th></th>
                     <th></th>
+                    <th></th>
                 </tr>
                 <template v-for="item in items" :key="item.ScooterID">
                     <tr @click="zoomToScooter(item)">
@@ -55,6 +56,9 @@
                             <img alt="edit icon" class="edit" src="@/assets/pen-to-square-solid.svg" width="15" height="15" />
                         </td>
                         <td @click="deleteScooter(item.ScooterID)">
+                            <img alt="delete icon" class="delete" src="@/assets/trash-can-solid.svg" width="15" height="15" />
+                        </td>
+                        <td @click="unparkScooter(item.ScooterID, item.StationID)">
                             <img alt="delete icon" class="delete" src="@/assets/trash-can-solid.svg" width="15" height="15" />
                         </td>
                     </tr>
@@ -84,7 +88,7 @@
                             <form @submit.prevent="updateChargingStation">
                                 <label for="StationID">StationID:</label>
                                 <select id="ChargingStationID" name="StationID" size="1" v-model="ChargingStationID" required>
-                                    <template v-for="item in charging" >
+                                    <template :key="item.StationID" v-for="item in charging" >
                                         <option :value="item.StationID">{{item.StationID}}</option>
                                     </template>
                                 </select>
@@ -100,7 +104,7 @@
                             <form @submit.prevent="updateParkingStation">
                                 <label for="StationID">StationID:</label>
                                 <select id="ParkingStationID" name="StationID" size="1" v-model="ParkingStationID" required>
-                                    <template v-for="item in parking" >
+                                    <template :key="item.StationID" v-for="item in parking" >
                                         <option :value="item.StationID">{{item.StationID}}</option>
                                     </template>
                                 </select>
@@ -116,16 +120,15 @@
 </template>
 
 <script>
-    import { getCurrentInstance } from 'vue';
-    import { ref } from 'vue';  // Import ref from Vue
-    import { RouterLink, RouterView } from 'vue-router'
-    // import { Vue } from 'vue';
+    // import { getCurrentInstance } from 'vue';
+    // import { ref } from 'vue';  // Import ref from Vue
+    // import { RouterLink, RouterView } from 'vue-router'
     import ScooterMapItem from '../components/ScooterMapItem.vue'
 
     export default {
         name: 'ScooterView',
         components: {
-            ScooterMapItem
+            ScooterMapItem,
         },
         props: {
             backend: String
@@ -148,7 +151,7 @@
                 ParkingStationID: '',
                 charging: [],
                 parking: [],
-                backend: this.backend
+                // backend: this.backend
             };
         },
         methods: {
@@ -208,7 +211,6 @@
                             Location: this.Location,
                             Speed: this.Speed,
                             Battery: this.Battery,
-                            Speed: this.Speed,
                             StationID: null
                         }),
                         })
@@ -234,7 +236,6 @@
                             Location: this.Location,
                             Speed: this.Speed,
                             Battery: this.Battery,
-                            Speed: this.Speed,
                             StationID: this.StationID
                         }),
                         })
@@ -289,7 +290,7 @@
                     // Rerender the view!
                     const index = this.items.findIndex(item => item.ScooterID === this.ScooterID);
                     if (index !== -1) {
-                        Vue.set(this.items, index, result);
+                        Vue.set(this.items, index, result); // eslint-disable-line no-undef
                     }
 
                     return result;
@@ -333,6 +334,33 @@
             zoomToScooter(item) {
                 this.$refs.map.zoomToScooter(item);
             },
+
+            async unparkScooter(ScooterID, StationID) {
+
+                console.log(ScooterID)
+                console.log(StationID)
+                try {
+                    const response = await fetch(`${this.backend}/v1/scooter/${ScooterID}/unpark/${StationID}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        })
+                    const result = await response.json();
+                    
+                    // Rerender the view!
+                    const index = this.items.findIndex(item => item.ScooterID === this.ScooterID);
+                    if (index !== -1) {
+                        Vue.set(this.items, index, result); // eslint-disable-line no-undef
+                    }
+
+                    return result;
+                } catch (error) {
+                    console.error('Error updating scooter:', error);
+                    throw error;
+                }
+            },
+
 
         },
         async mounted() {

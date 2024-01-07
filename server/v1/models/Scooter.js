@@ -191,12 +191,13 @@ const scooter = {
                 UPDATE
                     Scooter
                 SET
-                    StationID = null
+                    StationID = null,
+                    Status = ?
                 WHERE
                     ScooterID = ?
             `
             try {
-                const rows = await pool.query(sql, [req.params.id]);
+                const rows = await pool.query(sql, [req.params.id, "Not parked"]);
                 console.log("Station updated on Scooter: ", rows);
             } catch (error)  {
                 console.log("StationID on Scooter could not be updated.")

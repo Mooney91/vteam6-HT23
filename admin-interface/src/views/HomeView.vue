@@ -11,6 +11,7 @@ import HomeItem from '../components/HomeItem.vue'
 -->
 
 <template>
+
   <div v-if="isAuthenticated">
       <h1>Welcome {{ user.name }}!</h1>
       <p>This is the administrative interface (admin panel) for <i>Svenska Elsparkscyklar AB</i>.</p>

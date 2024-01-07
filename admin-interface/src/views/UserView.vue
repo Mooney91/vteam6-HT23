@@ -23,6 +23,8 @@
                 <input type="number" id="AccountBalance" v-model="AccountBalance" required>
                 <label for="PaymentType">Payment Type:</label>
                 <input type="number" id="PaymentType" v-model="PaymentType" required>
+                <label for="Role">Role:</label>
+                <input type="text" id="Role" v-model="Role" required>
                 <button type="submit">Create User</button>
             </form>
         </div>
@@ -36,6 +38,7 @@
                 <th>Email</th>
                 <th>Account Balance</th>
                 <th>Payment Type</th>
+                <th>Role</th>
                 <th></th>
                 <th></th>
             </tr>
@@ -60,6 +63,7 @@
                 <td>{{ item.Email }}</td>
                 <td>{{ item.AccountBalance }}</td>
                 <td>{{ item.PaymentType }}</td>
+                <td>{{ item.Role }}</td>
                 <td @click="toggleEditForm(item.UserID)">
                     <img alt="edit icon" class="edit" src="@/assets/pen-to-square-solid.svg" width="15" height="15" />
                 </td>
@@ -87,6 +91,8 @@
                                 <input type="number" id="AccountBalance" v-model="AccountBalance" required>
                                 <label for="PaymentType">Payment Type:</label>
                                 <input type="number" id="PaymentType" v-model="PaymentType" required>
+                                <label for="Role">Role:</label>
+                                <input type="text" id="Role" v-model="Role" required>
                                 <button type="submit">Update User</button>
                             </form>
                         </td>
@@ -99,7 +105,7 @@
 </template>
 
 <script>
-    import { getCurrentInstance } from 'vue';
+    // import { getCurrentInstance } from 'vue';
 
     export default {
         name: 'UserView',
@@ -117,6 +123,7 @@
                 LastName: '',
                 Password: '',
                 Email: '',
+                Role: '',
                 AccountBalance: 0,
                 PaymentType: 0,
             };
@@ -146,7 +153,6 @@
             },
             async createUser() {
                 try {
-                    const time = new Date();
                     const response = await fetch(`${this.backend}/v1/user`, {
                         method: 'POST',
                         headers: {
@@ -159,13 +165,14 @@
                             Password: this.Password,
                             Email: this.Email,
                             AccountBalance: this.AccountBalance,
-                            PaymentType: this.PaymentType
+                            PaymentType: this.PaymentType,
+                            Role: this.Role
                         }),
                         })
                     const result = await response.json();
                     return result;
                 } catch (error) {
-                    // console.error('Error creating user:', error);
+                    console.error('Error creating user:', error);
                     throw error;
                 }
             },
@@ -183,7 +190,8 @@
                             Password: this.Password,
                             Email: this.Email,
                             AccountBalance: this.AccountBalance,
-                            PaymentType: this.PaymentType
+                            PaymentType: this.PaymentType,
+                            Role: this.Role
                         }),
                         })
                     const result = await response.json();
