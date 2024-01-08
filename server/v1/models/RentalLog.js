@@ -56,7 +56,7 @@ const rentalLog = {
                 const valuesCall = [rows.insertId, req.body.ScooterID];
                 await pool.query(sqlCall, valuesCall);
 
-                res.status(200).json({ RentalLogID: rows.insertId });
+                res.status(200).json({ RentalLogID: Number(rows.insertId) });
             } else {
                 res.status(400).json({ message: 'Failed to create the rental log.' });
             }

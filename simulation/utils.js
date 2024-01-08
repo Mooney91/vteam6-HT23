@@ -6,13 +6,13 @@ const fetchHelper = {
     async getData(endpoint) {
         const response = await fetch(`${this.BASE_URL}/v1/${endpoint}`);
 
-        const data = await response.json();
+        const parsedResponse = await response.json();
 
-        return data;
+        return parsedResponse;
     },
 
     async updateData(endpoint, data) {
-        const response = await fetch(`${this.BASE_URL}/v1/${endpoint}`,
+        await fetch(`${this.BASE_URL}/v1/${endpoint}`,
             {
                 method: "PUT",
                 headers: {
@@ -20,11 +20,6 @@ const fetchHelper = {
                 },
                 body: JSON.stringify(data),
             });
-        
-        // console.log("updateData response: ");
-        // console.log(response);
-
-        // return response.json();
     },
 
     async createData(endpoint, data) {
@@ -37,10 +32,20 @@ const fetchHelper = {
                 body: JSON.stringify(data),
             });
 
-        // console.log("createData response: ");
-        // console.log(response);
-        
-        // return response.json();
+        const parsedResponse = await response.json();
+
+        return parsedResponse;
+    },
+
+    async patchData(endpoint, data) {
+        await fetch(`${this.BASE_URL}/v1/${endpoint}`,
+            {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data),
+            });
     }
 };
 
@@ -52,14 +57,17 @@ const rentHelper = {
             "StartStation": scooter.StationID
         };
 
-        await fetchHelper.createData("rental-log", data);
+        const rentalLogID = await fetchHelper.createData("rental-log", data);
+
+        return rentalLogID;
     },
 
-    async stopRent(RentalLogID, scooter) {
-        console.log(RentalLogID);
-        console.log(scooter);
+    async stopRent(rentalLogID, scooter) {
+        const data = {
+            "EndStation": scooter.StationID,
+        };
 
-        // router.patch('/:id', (req, res) => rentalLog.stopRentalLog(req, res));
+        await fetchHelper.patchData("rental-log/" + rentalLogID, data);
     }
 }
 
@@ -276,22 +284,22 @@ const publicHelper = {
 
     async startRent(user, scooter) {
         // 1. Create RentalLog entry (Active?, ScooterID, UserID, StartTime, StartStation) : RentalLogID
-        rentHelper.createRent(user, scooter);
+        const rentalLogID = await rentHelper.createRent(user, scooter);
 
         // 2. Update Scooter (ScooterID) | (Status, StationID)
         // 3. Update Station (StationID) | (ScooterOccupancy)
         scooterHelper.unparkScooter(scooter);
 
-        // return rentalLogID;
+        return rentalLogID.RentalLogID;
     },
 
-    async stopRent(RentalLogID, user, scooter) {
+    async stopRent(rentalLogID, user, scooter) {
         // 1. Calculate cost ((EndTime - StartTime) * price + fee) : cost
         // 2. Charge User (cost) : paid
 
         // 1. Update RentalLog entry (RentalLogID) | (Active?, EndStation, Cost?, Paid?)
         scooter.StationID = await stationHelper.getMatchingStation(scooter.Location);
-        rentHelper.stopRent(RentalLogID, scooter);
+        rentHelper.stopRent(rentalLogID, scooter);
 
         // 2. Update Scooter (ScooterID) | (Status, Location?, Battery?, StationID)
         // 3. Update Station (StationID) | (ScooterOccupancy)

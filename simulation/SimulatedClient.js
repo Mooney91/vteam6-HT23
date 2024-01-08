@@ -9,6 +9,7 @@ class SimulatedClient {
     constructor(user, scooter) {
         this.user = user;
         this.scooter = scooter;
+        this.rentalLogID = null;
         this.trip = null;
 
         this.rentScooter();
@@ -18,7 +19,7 @@ class SimulatedClient {
     async rentScooter() {
         console.log(`User ${this.user.FirstName} with ID ${this.user.UserID} renting Scooter with ID ${this.scooter.ScooterID}!`);
 
-        publicHelper.startRent(this.user, this.scooter);
+        this.rentalLogID = await publicHelper.startRent(this.user, this.scooter);
 
         this.useScooter();
     }
@@ -61,9 +62,8 @@ class SimulatedClient {
     // Return scooter
     returnScooter() {
         console.log("Returning a scooter!");
-        console.log(this.scooter.Location);
 
-        publicHelper.stopRent("tmp", this.user, this.scooter);
+        publicHelper.stopRent(this.rentalLogID, this.user, this.scooter);
     }
 }
 
