@@ -5,6 +5,8 @@ This documentation will help you get started with the _Svenska Elsparkscyklar AB
 
 This guide will walk you through each endpoint and explain what can be achieved through using the API. If you have any questions or requests concerning the API, please contact the development team directly.
 
+**All requests must include an API key in Headers.**
+
 *Group 6 - Svenska Elsparkscyklar AB*
 
 ## Try it
