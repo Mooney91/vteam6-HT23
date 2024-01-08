@@ -97,7 +97,12 @@
           },
           async fetchUser() {
                   try {
-                      const response = await fetch(`${this.backend}/v1/user/${this.id}`);
+                      const response = await fetch(`${this.backend}/v1/user/${this.id}`, {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'x-api-key': '79mozjohim15b1xk79jfj7m6tfcj0tnczn5s',
+                        },
+                      });
                       const result = await response.json();
   
                       this.user = result[0];
@@ -110,7 +115,12 @@
               },
           async fetchRentalLogs() {
               try {
-                  const response = await fetch(`${this.backend}/v1/rental-log`);
+                  const response = await fetch(`${this.backend}/v1/rental-log`, {
+                    headers: {
+                            'Content-Type': 'application/json',
+                            'x-api-key': '79mozjohim15b1xk79jfj7m6tfcj0tnczn5s',
+                        },
+                  });
                   const result = await response.json();
   
                   for (let element of result) {

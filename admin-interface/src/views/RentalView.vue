@@ -118,7 +118,12 @@
             },
             async fetchRentalLog() {
                 try {
-                    const response = await fetch(`${this.backend}/v1/rental-log`);
+                    const response = await fetch(`${this.backend}/v1/rental-log`, {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'x-api-key': '79mozjohim15b1xk79jfj7m6tfcj0tnczn5s',
+                        },
+                    });
                     const result = await response.json();
 
                     // Initialize editForms with RentalLogIDs as keys
@@ -141,6 +146,7 @@
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
+                            'x-api-key': '79mozjohim15b1xk79jfj7m6tfcj0tnczn5s',
                         },
                         body: JSON.stringify({
                             ScooterID: this.ScooterID,
@@ -161,6 +167,7 @@
                         method: 'PUT',
                         headers: {
                             'Content-Type': 'application/json',
+                            'x-api-key': '79mozjohim15b1xk79jfj7m6tfcj0tnczn5s',
                         },
                         body: JSON.stringify({
                             Active: this.Active,
@@ -191,6 +198,7 @@
                         method: 'DELETE',
                         headers: {
                             'Content-Type': 'application/json',
+                            'x-api-key': '79mozjohim15b1xk79jfj7m6tfcj0tnczn5s',
                         },
                         })
                     const result = await response.json();
@@ -209,6 +217,7 @@
                         method: 'PATCH',
                         headers: {
                             'Content-Type': 'application/json',
+                            'x-api-key': '79mozjohim15b1xk79jfj7m6tfcj0tnczn5s',
                             },
                         body: JSON.stringify({
                             EndStation: EndStation

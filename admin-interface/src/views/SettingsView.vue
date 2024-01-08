@@ -81,7 +81,12 @@
             // },
             async fetchCostStructures() {
                 try {
-                    const response = await fetch(`${this.backend}/v1/cost-structure`);
+                    const response = await fetch(`${this.backend}/v1/cost-structure`, {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'x-api-key': '79mozjohim15b1xk79jfj7m6tfcj0tnczn5s',
+                        },
+                    });
                     const result = await response.json();
 
                     // Initialize editForms with CostIDs as keys
@@ -104,6 +109,7 @@
                         method: 'PUT',
                         headers: {
                             'Content-Type': 'application/json',
+                            'x-api-key': '79mozjohim15b1xk79jfj7m6tfcj0tnczn5s',
                         },
                         body: JSON.stringify({
                             CostDesc: this.CostDesc,

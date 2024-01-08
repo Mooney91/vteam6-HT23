@@ -22,15 +22,27 @@ const StationTypeV1 = require('./v1/routes/StationType');
 const UserV1 = require('./v1/routes/User');
 
 // MIDDLEWARE
+const { validateKey } = require('./middleware/apikeys');
+const { createUser } = require('./middleware/apikeys');
+
 app.use(cors());
 app.options('*', cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+app.use('/v1', validateKey);
+
 // ROUTES
 app.get('/', (req, res) => {
-  res.status(200).json({name:'vteam6', success:'true'})
+  res.sendFile(path.join(__dirname+'/index.html'));
+  // res.status(200).json({name:'vteam6', success:'true'})
 })
+
+app.post('/register', (req, res) => {
+  let name = req.body.name;
+  let user = createUser(name, req);
+  res.status(201).send({ data: user });
+});
 
 // VERSION 01
 // app.get(`/v1`, (req, res) => {
@@ -39,7 +51,7 @@ app.get('/', (req, res) => {
 // });
 
 app.get('/v1',function(req,res){
-  res.sendFile(path.join(__dirname+'/index.html'));
+  res.sendFile(path.join(__dirname+'/v1.html'));
 });
 
 app.use('/v1/activity-type', ActivityTypeV1);
