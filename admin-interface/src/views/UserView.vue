@@ -134,7 +134,12 @@
             },
             async fetchUsers() {
                 try {
-                    const response = await fetch(`${this.backend}/v1/user`);
+                    const response = await fetch(`${this.backend}/v1/user`, {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'x-api-key': '79mozjohim15b1xk79jfj7m6tfcj0tnczn5s',
+                        },
+                    });
                     const result = await response.json();
 
                     // Initialize editForms with UserIDs as keys
@@ -157,6 +162,7 @@
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
+                            'x-api-key': '79mozjohim15b1xk79jfj7m6tfcj0tnczn5s',
                         },
                         body: JSON.stringify({
                             UserID: this.UserID,
@@ -182,6 +188,7 @@
                         method: 'PUT',
                         headers: {
                             'Content-Type': 'application/json',
+                            'x-api-key': '79mozjohim15b1xk79jfj7m6tfcj0tnczn5s',
                         },
                         body: JSON.stringify({
                             UserID: this.UserID,
@@ -211,6 +218,7 @@
                         method: 'DELETE',
                         headers: {
                             'Content-Type': 'application/json',
+                            'x-api-key': '79mozjohim15b1xk79jfj7m6tfcj0tnczn5s',
                         },
                         })
                     const result = await response.json();

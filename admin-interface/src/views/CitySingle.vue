@@ -155,7 +155,12 @@ export default {
         },
         async fetchCity() {
                 try {
-                    const response = await fetch(`${this.backend}/v1/city/${this.id}`);
+                    const response = await fetch(`${this.backend}/v1/city/${this.id}`, {
+                      headers: {
+                            'Content-Type': 'application/json',
+                            'x-api-key': '79mozjohim15b1xk79jfj7m6tfcj0tnczn5s',
+                        },
+                    });
                     const result = await response.json();
 
                     this.city = result[0];
@@ -169,7 +174,12 @@ export default {
             },
         async fetchStations() {
             try {
-                const response = await fetch(`${this.backend}/v1/station`);
+                const response = await fetch(`${this.backend}/v1/station`, {
+                  headers: {
+                            'Content-Type': 'application/json',
+                            'x-api-key': '79mozjohim15b1xk79jfj7m6tfcj0tnczn5s',
+                        },
+                });
                 const result = await response.json();
 
                 for (let element of result) {
@@ -200,7 +210,12 @@ export default {
         },
         async fetchScooters() {
             try {
-                const response = await fetch(`${this.backend}/v1/scooter`);
+                const response = await fetch(`${this.backend}/v1/scooter`, {
+                  headers: {
+                            'Content-Type': 'application/json',
+                            'x-api-key': '79mozjohim15b1xk79jfj7m6tfcj0tnczn5s',
+                        },
+                });
                 const result = await response.json();
 
                 this.scooters = result;

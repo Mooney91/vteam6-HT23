@@ -108,7 +108,12 @@
           },
           async fetchStations() {
               try {
-                  const response = await fetch(`${this.backend}/v1/station`);
+                  const response = await fetch(`${this.backend}/v1/station`, {
+                    headers: {
+                            'Content-Type': 'application/json',
+                            'x-api-key': '79mozjohim15b1xk79jfj7m6tfcj0tnczn5s',
+                        },
+                  });
                   const result = await response.json();
   
                   for (let element of result) {
@@ -134,7 +139,12 @@
           },
           async fetchScooters() {
               try {
-                  const response = await fetch(`${this.backend}/v1/scooter`);
+                  const response = await fetch(`${this.backend}/v1/scooter`, {
+                    headers: {
+                            'Content-Type': 'application/json',
+                            'x-api-key': '79mozjohim15b1xk79jfj7m6tfcj0tnczn5s',
+                        },
+                  });
                   const result = await response.json();
   
                   this.scooters = result;
