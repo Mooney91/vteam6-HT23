@@ -136,6 +136,18 @@ const scooterHelper = {
         return this.scooters;
     },
 
+    async updateScooter(scooter) {
+        const data = {
+            "Location": scooter.Location,
+            "Speed": scooter.Speed,
+            "Battery": scooter.Battery
+        };
+        
+        const endpoint = `scooter/${scooter.ScooterID}`;
+
+        fetchHelper.updateData(endpoint, data);
+    },
+
     async unparkScooter(scooter) {
         const endpoint = `scooter/${scooter.ScooterID}/unpark/${scooter.StationID}`;
 
@@ -293,6 +305,10 @@ const publicHelper = {
         return rentalLogID.RentalLogID;
     },
 
+    async updateScooter(scooter) {
+        scooterHelper.updateScooter(scooter);
+    },
+
     async stopRent(rentalLogID, user, scooter) {
         // 1. Calculate cost ((EndTime - StartTime) * price + fee) : cost
         // 2. Charge User (cost) : paid
@@ -303,6 +319,7 @@ const publicHelper = {
 
         // 2. Update Scooter (ScooterID) | (Status, Location?, Battery?, StationID)
         // 3. Update Station (StationID) | (ScooterOccupancy)
+        console.log(scooter);
         scooterHelper.parkScooter(scooter);
 
         // Recycle user and scooter
