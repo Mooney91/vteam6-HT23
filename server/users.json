@@ -1,50 +1,54 @@
 [
-    {
-        "id": 1,
-        "api_key": "79mozjohim15b1xk79jfj7m6tfcj0tnczn5s",
-        "name": "admin-interface",
-        "host": "http://127.0.0.1:1338",
-        "usage": [
-            {
-                "date": "2024-01-01",
-                "count": 0
-            }
-        ]
-    },
-    {
-        "id": 2,
-        "api_key": "n7fov6opbjzqllsd53aduh1k1xcgx0mtqbi0",
-        "name": "customer-interface",
-        "host": "http://127.0.0.1:1339",
-        "usage": [
-            {
-                "date": "2024-01-01",
-                "count": 0
-            }
-        ]
-    },
-    {
-        "id": 3,
-        "api_key": "p6jzni39z780u50kd3p0d14sh7uekpby5qpz",
-        "name": "customer-app",
-        "host": "http://127.0.0.1:1340",
-        "usage": [
-            {
-                "date": "2024-01-01",
-                "count": 0
-            }
-        ]
-    },
-    {
-        "id": 4,
-        "api_key": "0vp11wmhkqns8oiwg4kirbu5e1ytpixfvc0q",
-        "name": "simulation",
-        "host": "http://127.0.0.1:1341",
-        "usage": [
-            {
-                "date": "2024-01-01",
-                "count": 0
-            }
-        ]
-    }
+  {
+    "id": 1,
+    "api_key": "79mozjohim15b1xk79jfj7m6tfcj0tnczn5s",
+    "name": "admin-interface",
+    "host": "http://127.0.0.1:1338",
+    "usage": [
+      {
+        "date": "2024-01-01",
+        "count": 0
+      },
+      {
+        "date": "2024-01-09",
+        "count": 22
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "api_key": "n7fov6opbjzqllsd53aduh1k1xcgx0mtqbi0",
+    "name": "customer-interface",
+    "host": "http://127.0.0.1:1339",
+    "usage": [
+      {
+        "date": "2024-01-01",
+        "count": 0
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "api_key": "p6jzni39z780u50kd3p0d14sh7uekpby5qpz",
+    "name": "customer-app",
+    "host": "http://127.0.0.1:1340",
+    "usage": [
+      {
+        "date": "2024-01-01",
+        "count": 0
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "api_key": "0vp11wmhkqns8oiwg4kirbu5e1ytpixfvc0q",
+    "name": "simulation",
+    "host": "http://127.0.0.1:1341",
+    "usage": [
+      {
+        "date": "2024-01-01",
+        "count": 0
+      }
+    ]
+  }
 ]
