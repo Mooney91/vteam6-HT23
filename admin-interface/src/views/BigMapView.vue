@@ -69,6 +69,7 @@
   <script>
   import "leaflet/dist/leaflet.css";
   import {LMap, LTileLayer, LMarker, LIcon, LPopup } from "@vue-leaflet/vue-leaflet";
+  // import io from "socket.io-client";
   
   export default {
       name: 'BigMap',
@@ -85,6 +86,7 @@
       },
       data() {
         return {
+          // socket: null,
           zoom: 6,
           coordinates: null,
           charging: [],
@@ -155,17 +157,51 @@
                   throw error;
               }
           },
+
+          // async updateData() {
+            // Check if socket is up and running
+            // console.log(this.socket)
+            // this.socket.on('connection', () => {
+            //     console.log('Connected to socket server');
+            // });
+
+            // Update scooters with new data from socket
+            // this.socket.on("scooter", (data) => {
+            //     for (i in data) {
+            //         for (scooter in this.scooters) {
+            //             if (scooter.ScooterID === i.ScooterID) {
+            //                 Object.assign(scooter, i);
+            //             } else {
+            //               this.scooters.push(i)
+            //             }
+            //         }
+            //     }
+            // })
+
+          // },
+
           zoomToScooter(item) {
               console.log(item)
               this.coordinates = item.Location.split(',');
               this.zoom = 20;
           },
       },
-      async created() {
+      async mounted() {
               try {
                 //   await this.fetchCity();
+                  
+                  // this.socket = io(this.backend);
+                  // console.log(this.socket)
                   await this.fetchScooters();
                   await this.fetchStations();
+
+                  setInterval(async () => {
+                    await this.fetchStations();
+                    await this.fetchScooters();
+                    // Add more data fetching and map updating if needed
+                  }, 5000);
+
+                  // await this.updateData()
               } catch (error) {
               console.error('Error in created lifecycle hook:', error);
               }

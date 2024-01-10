@@ -59,7 +59,7 @@ const validateKey = (req, res, next) => {
           });
         } else {
           account.usage[usageIndex].count++;
-          console.log('Good API call', account.usage[usageIndex]);
+          console.log(`Good API call: ${account.name}`, account.usage[usageIndex]);
           writeUsersToFile(users);
           next();
         }
