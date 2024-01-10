@@ -1,0 +1,15 @@
+{
+  "name": "simulation",
+  "version": "1.0.0",
+  "description": "",
+  "main": "simulator.js",
+  "scripts": {
+    "start": "node simulator.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "vteam6",
+  "license": "ISC",
+  "dependencies": {
+    "sqlite3": "^5.1.6"
+  }
+}

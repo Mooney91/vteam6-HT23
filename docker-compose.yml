@@ -80,3 +80,14 @@ services:
     #   networks:
     #       vteam6:
 
+    simulation: 
+      container_name: "vteam6_simulation"
+      build:
+        context: ./simulation
+        # dockerfile: ./simulation/Dockerfile
+      ports:
+          - "1341:1341"
+      expose:
+          - "1341:1341"
+      networks:
+          vteam6:

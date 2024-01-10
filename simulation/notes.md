@@ -6,3 +6,4 @@
 # Misc
 * Build docker: docker-compose build --no-cache
 * access database: docker exec -it vteam6_database mariadb -uroot -pvteam6
+* clear docker stuff: docker system prune

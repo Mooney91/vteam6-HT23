@@ -1,22 +1,35 @@
 const sqlite3 = require('sqlite3').verbose();
 
 const fetchHelper = {
-    BASE_URL: "http://localhost:1337",
+    // BASE_URL: "http://localhost:1337",
+    BASE_URL: "http://vteam6_server:1337",
+
+    // vteam6_server
 
     async getData(endpoint) {
-        const response = await fetch(`${this.BASE_URL}/v1/${endpoint}`);
-
+        const test = `${this.BASE_URL}/v1/${endpoint}`;
+        console.log("url: ", test);
+        const response = await fetch(`${this.BASE_URL}/v1/${endpoint}`,
+            {
+                method: "GET",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-api-key': '0vp11wmhkqns8oiwg4kirbu5e1ytpixfvc0q'
+                }
+            });
+            
         const parsedResponse = await response.json();
 
         return parsedResponse;
     },
-
+    
     async updateData(endpoint, data) {
         await fetch(`${this.BASE_URL}/v1/${endpoint}`,
             {
                 method: "PUT",
                 headers: {
-                    "Content-Type": "application/json",
+                    'Content-Type': 'application/json',
+                    'x-api-key': '0vp11wmhkqns8oiwg4kirbu5e1ytpixfvc0q'
                 },
                 body: JSON.stringify(data),
             });
@@ -27,7 +40,8 @@ const fetchHelper = {
             {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json",
+                    'Content-Type': 'application/json',
+                    'x-api-key': '0vp11wmhkqns8oiwg4kirbu5e1ytpixfvc0q'
                 },
                 body: JSON.stringify(data),
             });
@@ -42,7 +56,8 @@ const fetchHelper = {
             {
                 method: "PATCH",
                 headers: {
-                    "Content-Type": "application/json",
+                    'Content-Type': 'application/json',
+                    'x-api-key': '0vp11wmhkqns8oiwg4kirbu5e1ytpixfvc0q'
                 },
                 body: JSON.stringify(data),
             });
@@ -142,7 +157,7 @@ const scooterHelper = {
             "Speed": scooter.Speed,
             "Battery": scooter.Battery
         };
-        
+
         const endpoint = `scooter/${scooter.ScooterID}`;
 
         fetchHelper.updateData(endpoint, data);
