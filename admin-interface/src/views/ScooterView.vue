@@ -123,6 +123,8 @@
     // import { getCurrentInstance } from 'vue';
     // import { ref } from 'vue';  // Import ref from Vue
     // import { RouterLink, RouterView } from 'vue-router'
+    // import leaflet from "leaflet/dist/leaflet-src.esm.js";
+    // import 'leaflet/dist/leaflet-src.esm.js';
     import ScooterMapItem from '../components/ScooterMapItem.vue'
 
     export default {

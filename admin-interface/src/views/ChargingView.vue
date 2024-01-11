@@ -79,7 +79,7 @@
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           layer-type="base"
           name="OpenStreetMap"
-        ></l-tile-layer>>
+        ></l-tile-layer>
   
         <template :key="item.StationID" v-for="item in charging">
           <l-marker :lat-lng="item.Location.split(',')">
@@ -103,6 +103,7 @@
   </template>
   
   <script>
+//   import leaflet from "leaflet/dist/leaflet-src.esm.js";
   import "leaflet/dist/leaflet.css";
   import {LMap, LTileLayer, LMarker, LIcon, LPopup } from "@vue-leaflet/vue-leaflet";
   
