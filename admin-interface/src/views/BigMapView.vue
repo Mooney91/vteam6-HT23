@@ -67,6 +67,7 @@
   </template>
   
   <script>
+  import L from 'leaflet';
   import "leaflet/dist/leaflet.css";
   import {LMap, LTileLayer, LMarker, LIcon, LPopup } from "@vue-leaflet/vue-leaflet";
   // import io from "socket.io-client";

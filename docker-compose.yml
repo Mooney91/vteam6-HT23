@@ -17,7 +17,7 @@ services:
       ports:
         - "3306:3306"
       expose:
-        - "3306:3306"
+        - "3306"
       networks:
             vteam6:
       # Test the database by excuting: docker exec -it database mariadb -uroot -p
@@ -30,7 +30,7 @@ services:
       ports:
           - "1337:1337"
       expose:
-          - "1337:1337"
+          - "1337"
       networks:
           vteam6:
       environment:
@@ -52,7 +52,7 @@ services:
       ports:
           - "1338:1338"
       expose:
-          - "1338:1338"
+          - "1338"
       networks:
           vteam6:
 
@@ -64,7 +64,7 @@ services:
       ports:
           - "1339:1339"
       expose:
-          - "1339:1339"
+          - "1339"
       networks:
           vteam6:
 
@@ -76,7 +76,7 @@ services:
     #   ports:
     #       - "1340:1340"
     #   expose:
-    #       - "1340:1340"
+    #       - "1340"
     #   networks:
     #       vteam6:
 
@@ -88,6 +88,6 @@ services:
       ports:
           - "1341:1341"
       expose:
-          - "1341:1341"
+          - "1341"
       networks:
           vteam6:
