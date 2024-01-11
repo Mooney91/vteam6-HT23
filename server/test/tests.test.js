@@ -1,6 +1,6 @@
-const test = require("node:test");
-const assert = require("node:assert");
+const test = require('node:test')
+const assert = require('node:assert')
 
-test("some test", (t) => {
+test('some test', (t) => {
   assert.strictEqual(1, 1)
 })
