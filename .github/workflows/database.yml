@@ -8,15 +8,31 @@ jobs:
 
     services:
       mariadb:
+       # image: mariadb:latest
+       # env:
+       #   MYSQL_ROOT_PASSWORD: root_password
+       #   MYSQL_DATABASE: test_database
+       #   MYSQL_USER: test_user
+       #   MYSQL_PASSWORD: test_password
+       # ports:
+       #   - 3306:3306
+       # options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+        container_name: vteam6_database
         image: mariadb:latest
-        env:
-          MYSQL_ROOT_PASSWORD: root_password
-          MYSQL_DATABASE: test_database
-          MYSQL_USER: test_user
-          MYSQL_PASSWORD: test_password
+        restart: always
+        volumes:
+          - ./database/sql:/docker-entrypoint-initdb.d
+        environment:
+          MYSQL_ROOT_PASSWORD: ${ROOT_PASS}
+          MYSQL_DATABASE: vteam
+          MYSQL_USER: user
+          MYSQL_PASSWORD: ${USER_PASS}
         ports:
-          - 3306:3306
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+          - "3306:3306"
+        expose:
+          - "3306:3306"
+        networks:
+              vteam6:
 
     steps:
       - name: Checkout Repository
