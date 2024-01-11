@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
-    "lint": "eslint . --ext .js,.jsx,.cjs,.mjs --fix -c ./.eslintrc.js",
+    "lint": "eslint . --ext .js,.jsx,.cjs,.mjs --fix -c .eslintrc.js",
     "test": "node --test"
   },
   "author": "vteam6",
