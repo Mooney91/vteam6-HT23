@@ -39,7 +39,7 @@ jobs:
     - run: npm run lint
       working-directory: ./server
       env:
-        ESLINT_CONFIG_PATH: ./server/.eslintrc.js
+        ESLINT_CONFIG_PATH: ./.eslintrc.js
 
 
     - run: npm run test
