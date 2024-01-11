@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
-    "lint": "eslint . --ext .js,.jsx,.cjs,.mjs --fix",
+    "lint": "eslint . --ext .js,.jsx,.cjs,.mjs --fix --config $ESLINT_CONFIG_PATH",
     "test": "node --test"
   },
   "author": "vteam6",
