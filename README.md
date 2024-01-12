@@ -40,6 +40,8 @@ If you want to test this service individually, then you can execute `docker-comp
 
 ## customer-interface (Customer Interface)
 
+[![customer-interface CI](https://github.com/Mooney91/vteam6-HT23/actions/workflows/customer-interface.yml/badge.svg)](https://github.com/Mooney91/vteam6-HT23/actions/workflows/customer-interface.yml)
+
 ## customer-app (Customer Mobile Application)
 
 ## Simulator (Simulator and Scooter Program/Brain)
