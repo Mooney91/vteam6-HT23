@@ -36,7 +36,7 @@ jobs:
       
     - run: cat ./server/.eslintrc.js
 
-    - run: npm run lint -- --config=/.eslintrc.js
+    - run: npm run lint -- --config=./.eslintrc.js
       working-directory: ./server
 
     - run: npm run test
