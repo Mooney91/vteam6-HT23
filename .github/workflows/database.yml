@@ -29,8 +29,8 @@ jobs:
       - name: Wait for MariaDB to start
         run: sleep 20
 
-      - name: Verify MariaDB connection manually
-        run: mysql -h 127.0.0.1 -u user -ppassword -e "SHOW DATABASES;"
+      #- name: Verify MariaDB connection manually
+      #  run: mysql -h 127.0.0.1 -u user -ppassword -e "SHOW DATABASES;"
 
       - name: Verify MariaDB connection
         env:
