@@ -30,7 +30,7 @@ jobs:
         run: sleep 10
 
       - name: Verify MariaDB connection manually
-        run: mysql -h localhost -u user -ppassword -e "SHOW DATABASES;
+        run: mysql -h localhost -u user -ppassword -e "SHOW DATABASES;"
 
       - name: Verify MariaDB connection
         env:
