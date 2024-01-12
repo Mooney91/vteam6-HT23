@@ -69,19 +69,22 @@ app.use('/v1/user', UserV1)
 // CREATE SERVER
 const http = require('http')
 const httpServer = http.createServer(app)
+
+// TO IMPLEMENT SOCKETS
+//
 // const corsOrigin = {
 //   origin: '*',
 //   methods: ['GET', 'POST']
 // }
-
+//
 // SOCKETS
 // var io = require("socket.io")(httpServer, corsOrigin);
-
+//
 // io.sockets.on('connection', async function(socket) {
 //     console.log('Connection Successful: ', socket.id);
-
+//
 // let result = await ScooterV1.getAllScooters();
-
+//
 // io.emit("scooter", result);
 // })
 

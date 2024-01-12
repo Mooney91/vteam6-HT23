@@ -103,7 +103,7 @@
   </template>
   
   <script>
-//   import leaflet from "leaflet/dist/leaflet-src.esm.js";
+  import leaflet from "leaflet/dist/leaflet-src.esm.js";
   import "leaflet/dist/leaflet.css";
   import {LMap, LTileLayer, LMarker, LIcon, LPopup } from "@vue-leaflet/vue-leaflet";
   

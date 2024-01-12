@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils';
 import ChargingView from '../ChargingView.vue';
 
+
 describe('ChargingView', () => {
   it('renders properly', async () => {
     const wrapper = mount(ChargingView, {
