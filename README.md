@@ -24,7 +24,7 @@ You can run this service individually by executing `docker-compose up database`.
 
 ## Server
 
-[![server CI](https://github.com/Mooney91/vteam6-HT23/actions/workflows/server.yml/badge.svg)](https://github.com/Mooney91/vteam6-HT23/actions/workflows/server.yml)
+[![server CI](https://github.com/Mooney91/vteam6-HT23/actions/workflows/server.yml/badge.svg)](https://github.com/Mooney91/vteam6-HT23/actions/workflows/server.yml) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 This is the system's API. The current version is v1 and documentation can be found in the `server/v1` directory. 
 
