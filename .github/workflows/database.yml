@@ -20,6 +20,9 @@ jobs:
         options: --health-cmd="mysqladmin ping" --health-interval=5s --health-timeout=2s --health-retries=3
 
     steps:
+      - name: Change ownership of database directory
+        run: sudo chown -R $USER:$USER database
+        
       - name: Checkout code
         uses: actions/checkout@v2
 
