@@ -23,6 +23,11 @@
   import "leaflet/dist/leaflet.css";
   import {LMap, LTileLayer, LMarker, LIcon } from "@vue-leaflet/vue-leaflet";;
 
+  /**
+   * Vue component representing a map with custom markers.
+   * @component
+   * @module MapItem
+   */
   export default {
     components: {
       LMap,
@@ -30,9 +35,20 @@
       LMarker,
       LIcon
     },
+    
+    /**
+     * Props representing the items to be displayed on the map.
+     * @prop {Object} items - Array of items with CityID and CityPosition properties.
+     */
     props: {
         items: Object
     },
+
+    /**
+     * Data function that returns the initial data for the component.
+     * @function
+     * @returns {Object} The initial data object.
+     */
     data() {
       return {
         zoom: 6,
