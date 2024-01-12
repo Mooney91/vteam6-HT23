@@ -1,18 +1,35 @@
 name: database CI
-
-on: [push, pull_request]
+on: [push]
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
 
-
-  #build:
+    services:
+      mariadb:
+        image: mariadb:latest
+        volumes:
+          - ./database/sql:/docker-entrypoint-initdb.d
+        ports:
+          - 3306
+        env:
+          MYSQL_USER: user
+          MYSQL_PASSWORD: password
+          MYSQL_DATABASE: test
+          MYSQL_ROOT_PASSWORD: password
+        options: --health-cmd="mysqladmin ping" --health-interval=5s --health-timeout=2s --health-retries=3
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Build the Docker image
-      run: docker-compose up database
+      - uses: actions/checkout@v1
+
+      - name: Verify MariaDB connection
+        env:
+          PORT: ${{ job.services.mariadb.ports[3306] }}
+        run: |
+          while ! mysqladmin ping -h"127.0.0.1" -P"$PORT" --silent; do
+            sleep 1
+          done          
+
     #services:
       #mariadb:
        # image: mariadb:latest
