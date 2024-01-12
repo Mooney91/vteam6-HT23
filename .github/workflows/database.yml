@@ -7,7 +7,7 @@ jobs:
 
     services:
       mariadb:
-        image: mariadb:10.5
+        image: mariadb:latest
         volumes:
           - ./database/sql:/docker-entrypoint-initdb.d
         ports:
@@ -24,7 +24,7 @@ jobs:
         run: sudo chown -R $USER:$USER database
         
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Wait for MariaDB to start
         run: sleep 20
