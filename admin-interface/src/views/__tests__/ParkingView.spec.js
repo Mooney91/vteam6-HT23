@@ -11,15 +11,10 @@ describe('ParkingView', () => {
       },
     });
 
-    // You can add more specific assertions based on your component's behavior
     expect(wrapper.find('h1').text()).toBe('Parking Stations');
 
-    // For async operations, you may need to wait for Vue to update the DOM
     await wrapper.vm.$nextTick();
 
-    // For example, you can test if the component fetches data and updates the DOM accordingly
     expect(wrapper.find('.database-table').exists()).toBe(true);
   });
-
-  // Add more test cases as needed
 });

@@ -1,3 +1,5 @@
+// Code adapted from a YouTube tutorial by Steve Griffith: https://www.youtube.com/watch?v=cF_MCAmuoI4
+
 const fs = require('fs')
 const path = require('path')
 
