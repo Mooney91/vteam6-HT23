@@ -200,7 +200,7 @@
                     await this.fetchStations();
                     await this.fetchScooters();
                     // Add more data fetching and map updating if needed
-                  }, 5000);
+                  }, 3000);
 
                   // await this.updateData()
               } catch (error) {

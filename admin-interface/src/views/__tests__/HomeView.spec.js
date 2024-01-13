@@ -11,12 +11,8 @@ describe('HomeView', () => {
       },
     });
 
-    // You can add more specific assertions based on your component's behavior
     expect(wrapper.find('h1').text()).toBe('Welcome!');
 
-    // For async operations, you may need to wait for Vue to update the DOM
     await wrapper.vm.$nextTick();
   });
-
-  // Add more test cases as needed
 });
