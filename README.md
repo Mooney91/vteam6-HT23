@@ -36,12 +36,28 @@ You can run this service individually by executing `docker-compose up database s
 
 `admin-interface` is the administrative interface or admin panel for the system. You can view all the scooters and charging/parking stations as well as update data here.
 
-If you want to test this service individually, then you can execute `docker-compose up admin-interface`; however, it is recommended to run `docker-compose up database server admin-interface` since the `database` and API (`server`) for its functionality.
+If you want to test this service individually, then you can execute `docker-compose up admin-interface`; however, it is recommended to run `docker-compose up database server admin-interface` since the `database` and API (`server`) are required  for its functionality.
 
 ## customer-interface (Customer Interface)
 
 [![customer-interface CI](https://github.com/Mooney91/vteam6-HT23/actions/workflows/customer-interface.yml/badge.svg)](https://github.com/Mooney91/vteam6-HT23/actions/workflows/customer-interface.yml)
 
+The customer can log into the interface and see details of their account, such as travel history and costs. The customer can also put money into their account.
+
+If you want to test this service individually, then you can execute `docker-compose up customer-interface`; however, it is recommended to run `docker-compose up database server customer-interface` since the `database` and API (`server`) are required  for its functionality.
+
 ## customer-app (Customer Mobile Application)
 
-## Simulator (Simulator and Scooter Program/Brain)
+[![customer-app CI](https://github.com/Mooney91/vteam6-HT23/actions/workflows/customer-app.yml/badge.svg)](https://github.com/Mooney91/vteam6-HT23/actions/workflows/customer-app.yml)
+
+The customer can use this app to rent, use, and lend back a specific scooter.
+
+If you want to test this service individually, then you can execute `docker-compose up customer-app`; however, it is recommended to run `docker-compose up database server customer-app` since the `database` and API (`server`) are required for its functionality.
+
+## simulation (Simulator and Scooter Program/Brain)
+
+[![simulation CI](https://github.com/Mooney91/vteam6-HT23/actions/workflows/simulation.yml/badge.svg)](https://github.com/Mooney91/vteam6-HT23/actions/workflows/simulation.yml)
+
+The simulation emulates the real-life use of the system. If you visit the big map in `admin-interface`, you can see the scooters move around and the users interacting with the system. `simulation` also includes the scooter's internal program.
+
+If you want to test this service individually, then you can execute `docker-compose up simulation`; however, it is recommended to run `docker-compose up database server simulation` since the `database` and API (`server`) are required  for its functionality. `admin-interface` would also be beneficial if you would like to see the simulation in action.
