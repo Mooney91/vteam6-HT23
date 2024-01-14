@@ -1,199 +1,129 @@
+
 <!doctype html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <title>Svenska Elsparkscyklar AB Server - a REST API</title>
 </head>
+
 <style>
+    body {
+        margin: 0 auto;
+        max-width: 700px;
+        margin-bottom: 4em;
+    }
 
-body {
-    margin: 0 auto;
-    max-width: 700px;
-    margin-bottom: 4em;
-}
+    h1 {
+        border-bottom: 4px double #666;
+    }
 
-h1 {
-    border-bottom: 4px double #666;
-}
+    h2 {
+        border-bottom: 1px solid #999;
+    }
 
-h2 {
-    border-bottom: 1px solid #999;
-}
+    h3 {
+        border-bottom: 1px solid #ccc;
+    }
 
-h3 {
-    border-bottom: 1px solid #ccc;
-}
+    code {
+        padding: 2px;
+        background-color: #eee;
+    }
 
-code {
-    padding: 2px;
-    background-color: #eee;
-}
+    pre {
+        background-color: #eee;
+        padding: 0.5em;
+        border-left: 2px solid #ccc;
+    }
 
-pre {
-    background-color: #eee;
-    padding: 0.5em;
-    border-left: 2px solid #ccc;
-}
+    button {
+        margin-top: 10px;
+    }
 
 </style>
+
 <body>
+    <h1>Welcome to the Svenska Elsparkscycklar AB API</h1>
+    <h2>Accessing the API</h2>
+    <p>If you require access to the API (v1), please use the form below to register for an API key for your application.</p>
+    <p><b>Please save this API Key as it will only be shown once.</b></p>
+    <p>Add the API key to the header of your request.</p>
 
-<div class="main-wrap">
-    <h1>Svenska Elsparkscyklar AB</h1>
-    <h2>A REST API for Scooter Rental (v1)</h2>
+    <form method="POST" id="regForm">
+        <fieldset>
+        <legend>Register for an API KEY</legend>
+        <p>
+            Fill in your application or company name to generate a new key.
+        </p>
+        <div class="formBox">
+            <label for="name">Name: </label>
+            <input id="name" type="text" autocomplete="off" />
+        </div>
+        <div class="formBox">
+            <button id="btnReg">Register</button>
+        </div>
+        <pre class="response">
+            <!-- response from server goes here -->
+        </pre>
+        </fieldset>
+    </form>
 
-    <p>This documentation will help you in getting started with the <em>Svenska Elsparkscyklar AB</em> API.</p>
-    <p>This guide will walk you through each endpoint and explain what can be achieved through using the API. If you have
-        any questions or requests concerning the API, please contact the development team directly.</p>
-
-    <p><em>Group 6 - Svenska Elsparkscyklar AB</em></p>
-
-    <h2>Try it</h2>
-
-    <p>You can try out the pre-populated dataset <code>City</code>.</p>
-
-    <ul>
-        <li><a href="localhost:1337/v1/city">Get all cities.</a></li>
-        <li><a href="localhost:1337/v1/city/3">Get Malmö with <code>id=3</code></a></li>
-    </ul>
-
-    <h2>Contents</h2>
-
-    <ul>
-        <li><a href="#activitytype">ActivityType</a></li>
-        <li><a href="#city">City</a></li>
-        <li><a href="#paymenttype">PaymentType</a></li>
-        <li><a href="#rentallog">RentalLog</a></li>
-        <li><a href="#scooter">Scooter</a></li>
-        <li><a href="#scooterlog">ScooterLog</a></li>
-        <li><a href="#station">Station</a></li>
-        <li><a href="#stationtype">StationType</a></li>
-        <li><a href="#user">User</a></li>
-    </ul>
-
-    <h2>ActivityType</h2>
-
-    <h3>Attributes</h3>
-    <code>ActivityType</code> has the following attributes:
-    <pre>
-    ActivityTypeID
-    ActivityTypeDesc
-    </pre>
+    <script>
+        const api_path = "http://localhost:1337";
     
-    <h3>Get the dataset</h3>
+        document.getElementById('btnReg').addEventListener('click', doReg);
+        let currentForm = null;
     
-    <p>Get the full <code>ActivityType</code> dataset.</p>
-    
-    <pre><code>GET /v1/activity-type</code></pre>
-    
-    <p>Results:</p>
-    
-    <pre><code>[
-        {
-            "ActivityTypeID": 1,
-            "ActivityTypeDesc": "Parked"
-        },
-        {
-            "ActivityTypeID": 2,
-            "ActivityTypeDesc": "Maintenance"
-        },
-        {
-            "ActivityTypeID": 3,
-            "ActivityTypeDesc": "Rental"
+        function doReg(ev) {
+            console.log("doReg")
+            ev.preventDefault();
+            currentForm = 'regForm';
+            let name = document.getElementById('name').value;
+            let data = JSON.stringify({ name });
+            send('register', data, 'POST');
         }
-    ]</code></pre>
     
-    <h3>Get one entry</h3>
-    
-    <p>Get one entry based on its id.</p>
-    
-    <pre><code>GET /v1/activity-type/:id</code></pre>
-    
-    <p>Results:</p>
-    
-    <pre><code>[
-        {
-            "ActivityTypeID": 1,
-            "ActivityTypeDesc": "Parked"
+        function send(endpoint, data, method) {
+            console.log("send")
+            let url;
+            url = `${api_path}/${endpoint}`;
+            let h = new Headers();
+            if (data) {
+              h.append('Content-Type', 'application/json');
+            }  
+            let req = new Request(url, {
+              method,
+              headers: h,
+              body: data,
+            });
+            console.log("send before fetch")
+            fetch(req)
+              .then((res) => res.json())
+              .then(success)
+              .catch(fail);
         }
-    ]</code></pre>
-    
-    <h3>Create a new entry</h3>
-    
-    <p>Add a new entry to the dataset. All attributes are required in the <code>body</code>, except for its id.</p>
-    
-    <pre><code>POST /v1/activity-type</code></pre>
-    
-    <p>Results:</p>
-    
-    <pre><code>{ "message": "The activity type was created successfully." }</code></pre>
-    
-    <h3>Update an entry</h3>
-    
-    <p>Update an entry by providing its id. All attributes are required in the <code>body</code>, except for the id.</p>
-    
-    <pre><code>PUT /v1/activity-type/:id</code></pre>
-    
-    <p>Results:</p>
-    
-    <pre><code>{ "message": "The activity type was updated successfully." }</code></pre>
-    
-    <h3>Delete all entries</h3>
-    
-    <p>Delete all entries in the dataset.</p>
-    
-    <pre><code>DELETE /v1/activity-type/</code></pre>
-    
-    <p>Results:</p>
-    
-    <pre><code>{ "message": "All activity types were deleted successfully." }</code></pre>
-    
-    <h3>Delete an entry</h3>
-    
-    <p>Delete an entry by its id.</p>
-    
-    <pre><code>DELETE /v1/activity-type/:id</code></pre>
-    
-    <p>Results:</p>
-    
-    <pre><code>{ "message": "The activity type was deleted successfully." }</code></pre>
-    
-    <!-- More sections... -->
 
-    <h2 id="city">City</h2>
+        function fail(err) {
+            //fetch call failed
+            console.warn(err.message);
+            let pre = document.querySelector(`#${currentForm} .response`);
+            pre.textContent = err.message;
+        }
 
-    <!-- City section content... -->
+        function success(content) {
+            //fetch call got JSON
+            if ('error' in content) {
+                fail(content.error);
+                return;
+            }
+            let data = content.data;
+            let pre = document.querySelector(`#${currentForm} .response`);
+            pre.textContent = JSON.stringify(data, '\n', 2);
+        }
 
-    <h2 id="paymenttype">PaymentType</h2>
+    </script>
 
-    <!-- PaymentType section content... -->
-
-    <h2 id="rentallog">RentalLog</h2>
-
-    <!-- RentalLog section content... -->
-
-    <h2 id="scooter">Scooter</h2>
-
-    <!-- Scooter section content... -->
-
-    <h2 id="scooterlog">ScooterLog</h2>
-
-    <!-- ScooterLog section content... -->
-
-    <h2 id="station">Station</h2>
-
-    <!-- Station section content... -->
-
-    <h2 id="stationtype">StationType</h2>
-
-    <!-- StationType section content... -->
-
-    <h2 id="user">User</h2>
-
-    <!-- User section content... -->
-
-    <h2>Source</h2>
-    <p>The source code for the <em>Svenska Elsparkscyklar AB</em> system can be found on <a
-            href="https://github.com/Mooney91/vteam6-HT23">GitHub</a>.</p>
 </body>
+
 </html>

@@ -1,0 +1,47 @@
+.add {
+    vertical-align: middle;
+    padding-right: 5px;
+    filter: invert(25%) sepia(68%) saturate(6837%) hue-rotate(116deg) brightness(94%) contrast(103%);
+}
+
+.edit {
+    filter: invert(62%) sepia(100%) saturate(1821%) hue-rotate(1deg) brightness(104%) contrast(103%);
+}
+
+.delete {
+    filter: invert(11%) sepia(98%) saturate(6844%) hue-rotate(7deg) brightness(109%) contrast(116%);
+}
+
+.charging {
+    filter: invert(60%) sepia(40%) saturate(1687%) hue-rotate(2deg) brightness(106%) contrast(104%);
+    height: 25px;
+    width: 25px;
+}
+
+.parking {
+    filter: invert(20%) sepia(91%) saturate(1754%) hue-rotate(180deg) brightness(95%) contrast(101%);
+    height: 25px;
+    width: 25px;
+}
+
+.scooter {
+    filter: invert(4%) sepia(97%) saturate(6587%) hue-rotate(341deg) brightness(112%) contrast(101%);
+    height: 25px;
+    width: 25px;
+}
+
+.custom-icon {
+    background: none;
+    border: none;
+}
+
+.map-icon {
+    filter: invert(0%) sepia(91%) saturate(7463%) hue-rotate(105deg) brightness(113%) contrast(108%);
+    height: 125px;
+    width: auto;
+    text-align: center;
+}
+
+.map-icon:hover {
+    filter: invert(100%) sepia(0%) saturate(31%) hue-rotate(156deg) brightness(107%) contrast(108%);
+}

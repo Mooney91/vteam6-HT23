@@ -17,15 +17,12 @@ services:
       ports:
         - "3306:3306"
       expose:
-        - "3306:3306"
+        - "3306"
       networks:
             vteam6:
       # Test the database by excuting: docker exec -it database mariadb -uroot -p
       
     server:
-      # image: "mrrobin/vteam6-server:0.1.0"
-      # volumes:
-      #     - "./server-data:/data"
       container_name: "vteam6_server"
       build:
         context: ./server
@@ -33,7 +30,7 @@ services:
       ports:
           - "1337:1337"
       expose:
-          - "1337:1337"
+          - "1337"
       networks:
           vteam6:
       environment:
@@ -55,24 +52,42 @@ services:
       ports:
           - "1338:1338"
       expose:
-          - "1338:1338"
+          - "1338"
       networks:
           vteam6:
 
-    # webbclient:
-    #     image: "mrrobin/vteam6-webbclient:0.1.0"
-    #     container_name: "vteam6_webbclient"
-    #     ports:
-    #         - "1338:1338"
-    #     networks:
-    #         vteam6:
-    #     links:
-    #         - "server:vteam6_server"
+    customer-interface: 
+      container_name: "vteam6_customer_interface"
+      build:
+        context: ./customer-interface
+        # dockerfile: ./customer-interface/Dockerfile
+      ports:
+          - "1339:1339"
+      expose:
+          - "1339"
+      networks:
+          vteam6:
 
-    # client:
-    #     image: "mrrobin/vteam6-client:0.1.0"
-    #     container_name: "vteam6_client"
-    #     networks:
-    #         vteam6:
-    #     links:
-    #         - "server:vteam6_server"
+    # customer-app: 
+    #   container_name: "vteam6_customer_app"
+    #   build:
+    #     context: ./customer-app
+    #     # dockerfile: ./customer-app/Dockerfile
+    #   ports:
+    #       - "1340:1340"
+    #   expose:
+    #       - "1340"
+    #   networks:
+    #       vteam6:
+
+    simulation: 
+      container_name: "vteam6_simulation"
+      build:
+        context: ./simulation
+        # dockerfile: ./simulation/Dockerfile
+      ports:
+          - "1341:1341"
+      expose:
+          - "1341"
+      networks:
+          vteam6:

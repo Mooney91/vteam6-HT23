@@ -1,9 +1,11 @@
 # Svenska Elsparkscyklar AB
 ## A REST API for Scooter Rental (v1)
 
-This documentation will help you in getting started with the _Svenska Elsparkscyklar AB_ API.
+This documentation will help you get started with the _Svenska Elsparkscyklar AB_ API.
 
 This guide will walk you through each endpoint and explain what can be achieved through using the API. If you have any questions or requests concerning the API, please contact the development team directly.
+
+**All requests must include an API key in Headers.**
 
 *Group 6 - Svenska Elsparkscyklar AB*
 
@@ -25,6 +27,7 @@ You can try out the pre-populated dataset `City`.
 * [Station](#station)
 * [StationType](#stationtype)
 * [User](#user)
+* [CostStructure](#coststructure)
 
 ## ActivityType
 
@@ -47,18 +50,26 @@ Results:
 
 ```json
 [
-    {
-        "ActivityTypeID": 1,
-        "ActivityTypeDesc": "Parked"
-    },
-    {
-        "ActivityTypeID": 2,
-        "ActivityTypeDesc": "Maintenance"
-    },
-    {
-        "ActivityTypeID": 3,
-        "ActivityTypeDesc": "Rental"
-    }
+  {
+    "ActivityTypeID": 1,
+    "ActivityTypeDesc": "Parked"
+  },
+  {
+    "ActivityTypeID": 2,
+    "ActivityTypeDesc": "Maintenance"
+  },
+  {
+    "ActivityTypeID": 3,
+    "ActivityTypeDesc": "Charging"
+  },
+  {
+    "ActivityTypeID": 4,
+    "ActivityTypeDesc": "In use"
+  },
+  {
+    "ActivityTypeID": 5,
+    "ActivityTypeDesc": "Free Parking"
+  }
 ]
 ```
 
@@ -143,6 +154,7 @@ Results:
 ```
 CityID
 CityName
+CityPosition
 ```
 
 ### Get the dataset
@@ -186,7 +198,7 @@ Results:
 [
     {
         "CityID": 1,
-        "CityName": "Stockholm"
+        "CityName": "Stockholm",
     }
 ]
 ```
@@ -481,6 +493,7 @@ Results:
 `RentalLog` has the following attributes:
 ```
 RentalLogID
+Active
 ScooterID
 UserID
 StartTime
@@ -503,61 +516,66 @@ Results:
 
 ```json
 [
-    {
-        "RentalLogID": 1,
-        "ScooterID": 1,
-        "UserID": 1,
-        "StartTime": "2023-01-01T09:00:00",
-        "EndTime": "2023-01-01T09:30:00",
-        "StartStation": 1,
-        "EndStation": 2,
-        "Cost": 10.00,
-        "Paid": true
-    },
-    {
-        "RentalLogID": 2,
-        "ScooterID": 2,
-        "UserID": 2,
-        "StartTime": "2023-01-02T10:00:00",
-        "EndTime": "2023-01-02T11:30:00",
-        "StartStation": 2,
-        "EndStation": 3,
-        "Cost": 15.00,
-        "Paid": true
-    },
-    {
-        "RentalLogID": 3,
-        "ScooterID": 3,
-        "UserID": 3,
-        "StartTime": "2023-01-03T12:00:00",
-        "EndTime": "2023-01-03T12:45:00",
-        "StartStation": 3,
-        "EndStation": 1,
-        "Cost": 8.00,
-        "Paid": true
-    },
-    {
-        "RentalLogID": 4,
-        "ScooterID": 4,
-        "UserID": 4,
-        "StartTime": "2023-01-04T14:00:00",
-        "EndTime": "2023-01-04T15:15:00",
-        "StartStation": 4,
-        "EndStation": 2,
-        "Cost": 12.00,
-        "Paid": true
-    },
-    {
-        "RentalLogID": 5,
-        "ScooterID": 5,
-        "UserID": 5,
-        "StartTime": "2023-01-05T16:00:00",
-        "EndTime": "2023-01-05T16:30:00",
-        "StartStation": 1,
-        "EndStation": 3,
-        "Cost": 9.00,
-        "Paid": true
-    }
+  {
+    "RentalLogID": 1,
+    "Active": 1,
+    "ScooterID": 179,
+    "UserID": 1,
+    "StartTime": "2023-12-05T13:45:00.000Z",
+    "EndTime": null,
+    "StartStation": 15,
+    "EndStation": null,
+    "Cost": "10.00",
+    "Paid": 0
+  },
+  {
+    "RentalLogID": 2,
+    "Active": 1,
+    "ScooterID": 184,
+    "UserID": 2,
+    "StartTime": "2023-12-06T10:30:00.000Z",
+    "EndTime": null,
+    "StartStation": 28,
+    "EndStation": null,
+    "Cost": "10.00",
+    "Paid": 0
+  },
+  {
+    "RentalLogID": 3,
+    "Active": 1,
+    "ScooterID": 189,
+    "UserID": 3,
+    "StartTime": "2023-12-07T15:20:00.000Z",
+    "EndTime": null,
+    "StartStation": 3,
+    "EndStation": null,
+    "Cost": "10.00",
+    "Paid": 0
+  },
+  {
+    "RentalLogID": 4,
+    "Active": 1,
+    "ScooterID": 194,
+    "UserID": 4,
+    "StartTime": "2023-12-08T12:15:00.000Z",
+    "EndTime": null,
+    "StartStation": 11,
+    "EndStation": null,
+    "Cost": "10.00",
+    "Paid": 0
+  },
+  {
+    "RentalLogID": 5,
+    "Active": 1,
+    "ScooterID": 199,
+    "UserID": 5,
+    "StartTime": "2023-12-09T09:45:00.000Z",
+    "EndTime": null,
+    "StartStation": 24,
+    "EndStation": null,
+    "Cost": "10.00",
+    "Paid": 0
+  }
 ]
 ```
 
@@ -573,23 +591,24 @@ Results:
 
 ```json
 [
-    {
-        "RentalLogID": 1,
-        "ScooterID": 1,
-        "UserID": 1,
-        "StartTime": "2023-01-01T09:00:00",
-        "EndTime": "2023-01-01T09:30:00",
-        "StartStation": 1,
-        "EndStation": 2,
-        "Cost": 10.00,
-        "Paid": true
-    }
+  {
+    "RentalLogID": 1,
+    "Active": 1,
+    "ScooterID": 179,
+    "UserID": 1,
+    "StartTime": "2023-12-05T13:45:00.000Z",
+    "EndTime": null,
+    "StartStation": 15,
+    "EndStation": null,
+    "Cost": "10.00",
+    "Paid": 0
+  }
 ]
 ```
 
-### Create a new entry
+### Create a Rental
 
-Add a new entry to the dataset. All attributes are required in the `body`, except for its id.
+Add a new entry to the dataset. `ScooterID`, `UserID`, and `StartStation` are required in the `body`, except for its id. If the Scooter is not being collected from a station, the `StationID` must be sent to `null`. A procedure will be called that adds the time, sets the Rental Log status as active, and the Scooter's status as `In use`.
 
 ```
 POST /v1/rental-log
@@ -601,12 +620,26 @@ Results:
 { "message": "The rental log was created successfully." }
 ```
 
-### Update an entry
+### Update a Rental
 
 Update an entry by providing its id. All attributes are required in the `body`, except for the id.
 
 ```
 PUT /v1/rental-log/:id
+```
+
+Results:
+
+```json
+{ "message": "The rental log was updated successfully." }
+```
+
+### Stop a Rental
+
+stop a rental by providing its id. The `EndStation` is required in the `body`, even if it is `null`.
+
+```
+PATCH /v1/rental-log/:id
 ```
 
 Results:
@@ -667,46 +700,46 @@ Results:
 
 ```json
 [
-    {
-        "ScooterID": 1,
-        "Status": "Available",
-        "Location": "59.3293, 18.0686",
-        "Speed": 10.5,
-        "Battery": 80,
-        "StationID": null
-    },
-    {
-        "ScooterID": 2,
-        "Status": "In Use",
-        "Location": "57.7089, 11.9746",
-        "Speed": 15.3,
-        "Battery": 60,
-        "StationID": null
-    },
-    {
-        "ScooterID": 3,
-        "Status": "Available",
-        "Location": "55.605, 13.0038",
-        "Speed": 12.7,
-        "Battery": 75,
-        "StationID": null
-    },
-    {
-        "ScooterID": 4,
-        "Status": "Under Maintenance",
-        "Location": "59.9139, 10.7522",
-        "Speed": 8.2,
-        "Battery": 90,
-        "StationID": null
-    },
-    {
-        "ScooterID": 5,
-        "Status": "Available",
-        "Location": "57.7055, 11.9668",
-        "Speed": 14.6,
-        "Battery": 70,
-        "StationID": null
-    }
+  {
+    "ScooterID": 1,
+    "Status": "Parked",
+    "Location": "59.3293, 18.0686",
+    "Speed": "0.00",
+    "Battery": 61,
+    "StationID": 1
+  },
+  {
+    "ScooterID": 2,
+    "Status": "Parked",
+    "Location": "59.3293, 18.0686",
+    "Speed": "0.00",
+    "Battery": 55,
+    "StationID": 1
+  },
+  {
+    "ScooterID": 3,
+    "Status": "Parked",
+    "Location": "59.3293, 18.0686",
+    "Speed": "0.00",
+    "Battery": 18,
+    "StationID": 1
+  },
+  {
+    "ScooterID": 4,
+    "Status": "Parked",
+    "Location": "59.3293, 18.0686",
+    "Speed": "0.00",
+    "Battery": 45,
+    "StationID": 1
+  },
+  {
+    "ScooterID": 5,
+    "Status": "Parked",
+    "Location": "59.3293, 18.0686",
+    "Speed": "0.00",
+    "Battery": 41,
+    "StationID": 1
+  }
 ]
 ```
 
@@ -724,11 +757,11 @@ Results:
 [
     {
         "ScooterID": 1,
-        "Status": "Available",
+        "Status": "Parked",
         "Location": "59.3293, 18.0686",
-        "Speed": 10.5,
-        "Battery": 80,
-        "StationID": null
+        "Speed": "0.00",
+        "Battery": 61,
+        "StationID": 1
     }
 ]
 ```
@@ -761,6 +794,34 @@ Results:
 { "message": "The scooter was updated successfully." }
 ```
 
+### Park a Scooter
+
+Update an entry by providing its `id` and `StationID`.
+
+```
+PUT /v1/scooter/:id/park/:StationID
+```
+
+Results:
+
+```json
+{ "RentalLogID": "301" }
+```
+
+### Unpark a Scooter
+
+Update an entry by providing its `id` and `StationID`.
+
+```
+PUT /v1/scooter/:id/unpark/:StationID
+```
+
+Results:
+
+```json
+{ "message": "The scooter was unparked successfully." }
+```
+
 ### Delete all entries
 
 Delete all entries in the dataset.
@@ -790,6 +851,8 @@ Results:
 ```
 
 ## ScooterLog
+
+**PLEASE NOTE THAT SCOOTERLOG IS NOT IN USE IN THIS VERSION.**
 
 ### Attributes
 `ScooterLog` has the following attributes:
@@ -957,8 +1020,8 @@ Results:
 [
     {
         "StationID": 1,
-        "StationName": "Station A",
-        "Location": "59.3293, 18.0686",
+        "StationName": "Central Station",
+        "Location": "59.3293,18.0686",
         "ScooterCapacity": 10,
         "ScooterOccupancy": 5,
         "StationType": 1,
@@ -966,39 +1029,39 @@ Results:
     },
     {
         "StationID": 2,
-        "StationName": "Station B",
-        "Location": "57.7089, 11.9746",
-        "ScooterCapacity": 12,
+        "StationName": "Sergels Torg",
+        "Location": "59.3346,18.0635",
+        "ScooterCapacity": 10,
         "ScooterOccupancy": 8,
         "StationType": 2,
-        "CityID": 2
+        "CityID": 1
     },
     {
         "StationID": 3,
-        "StationName": "Station C",
-        "Location": "55.605, 13.0038",
-        "ScooterCapacity": 15,
-        "ScooterOccupancy": 7,
+        "StationName": "Gamla Stan",
+        "Location": "59.3258,18.0719",
+        "ScooterCapacity": 10,
+        "ScooterOccupancy": 4,
         "StationType": 1,
-        "CityID": 3
+        "CityID": 1
     },
     {
         "StationID": 4,
-        "StationName": "Station D",
-        "Location": "59.9139, 10.7522",
-        "ScooterCapacity": 8,
-        "ScooterOccupancy": 2,
+        "StationName": "Södermalm",
+        "Location": "59.3154,18.0675",
+        "ScooterCapacity": 10,
+        "ScooterOccupancy": 6,
         "StationType": 2,
         "CityID": 1
     },
     {
         "StationID": 5,
-        "StationName": "Station E",
-        "Location": "57.7055, 11.9668",
+        "StationName": "Vasastan",
+        "Location": "59.3470,18.0487",
         "ScooterCapacity": 10,
-        "ScooterOccupancy": 6,
+        "ScooterOccupancy": 7,
         "StationType": 1,
-        "CityID": 2
+        "CityID": 1
     }
 ]
 ```
@@ -1017,8 +1080,8 @@ Results:
 [
     {
         "StationID": 1,
-        "StationName": "Station A",
-        "Location": "59.3293, 18.0686",
+        "StationName": "Central Station",
+        "Location": "59.3293,18.0686",
         "ScooterCapacity": 10,
         "ScooterOccupancy": 5,
         "StationType": 1,
@@ -1202,6 +1265,7 @@ Password
 Email
 AccountBalance
 PaymentType
+Role
 ```
 
 ### Get the dataset
@@ -1223,7 +1287,8 @@ Results:
         "Password": "password1",
         "Email": "elsa@example.com",
         "AccountBalance": 500.00,
-        "PaymentType": 1
+        "PaymentType": 1,
+        "Role": "Customer"
     },
     {
         "UserID": 2,
@@ -1232,7 +1297,8 @@ Results:
         "Password": "password2",
         "Email": "oskar@example.com",
         "AccountBalance": 700.00,
-        "PaymentType": 2
+        "PaymentType": 2,
+        "Role": "Customer"
     },
     {
         "UserID": 3,
@@ -1241,7 +1307,8 @@ Results:
         "Password": "password3",
         "Email": "maja@example.com",
         "AccountBalance": 300.00,
-        "PaymentType": 1
+        "PaymentType": 1,
+        "Role": "Customer"
     },
     {
         "UserID": 4,
@@ -1250,7 +1317,8 @@ Results:
         "Password": "password4",
         "Email": "erik@example.com",
         "AccountBalance": 900.00,
-        "PaymentType": 2
+        "PaymentType": 2,
+        "Role": "Customer"
     },
     {
         "UserID": 5,
@@ -1259,7 +1327,8 @@ Results:
         "Password": "password5",
         "Email": "hanna@example.com",
         "AccountBalance": 600.00,
-        "PaymentType": 1
+        "PaymentType": 1,
+        "Role": "Customer"
     }
 ]
 ```
@@ -1283,7 +1352,8 @@ Results:
         "Password": "password1",
         "Email": "elsa@example.com",
         "AccountBalance": 500.00,
-        "PaymentType": 1
+        "PaymentType": 1,
+        "Role": "Customer"
     }
 ]
 ```
@@ -1342,6 +1412,127 @@ Results:
 
 ```json
 { "message": "The user was deleted successfully." }
+```
+
+## CostStructure
+
+### Attributes
+`CostStructure` has the following attributes:
+```
+CostID
+CostDesc
+CostAmount
+```
+
+### Get the dataset
+
+Get the full `CostStructure` dataset.
+
+```
+GET /v1/cost-structure
+```
+
+Results:
+
+```json
+[
+  {
+    "CostID": 1,
+    "CostDesc": "Fixed",
+    "CostAmount": "10.00"
+  },
+  {
+    "CostID": 2,
+    "CostDesc": "Time-based",
+    "CostAmount": "3.00"
+  },
+  {
+    "CostID": 3,
+    "CostDesc": "Fine",
+    "CostAmount": "10.00"
+  },
+  {
+    "CostID": 4,
+    "CostDesc": "Discount",
+    "CostAmount": "-5.00"
+  }
+]
+```
+
+### Get one entry
+
+Get one entry based on its id.
+
+```
+GET /v1/cost-structure/:id
+```
+
+Results:
+
+```json
+[
+  {
+    "CostID": 1,
+    "CostDesc": "Fixed",
+    "CostAmount": "10.00"
+  }
+]
+```
+
+### Create a new entry
+
+Add a new entry to the dataset. All attributes are required in the `body`, except for its id.
+
+```
+POST /v1/cost-structure
+```
+
+Results:
+
+```json
+{ "message": "The cost structure was created successfully." }
+```
+
+### Update an entry
+
+Update an entry by providing its id. All attributes are required in the `body`, except for the id.
+
+```
+PUT /v1/cost-structure/:id
+```
+
+Results:
+
+```json
+{ "message": "The cost structure was updated successfully." }
+```
+
+### Delete all entries
+
+Delete all entries in the dataset.
+
+```
+DELETE /v1/cost-structure/
+```
+
+Results:
+
+```json
+{ "message": "All cost structures were deleted successfully." }
+```
+
+### Delete an entry
+
+Delete an entry by its id.
+
+```
+DELETE /v1/cost-structure/:id
+```
+
+Results:
+
+```json
+{ "message": "The cost structure was deleted successfully." }
 ```
 Source
 ------

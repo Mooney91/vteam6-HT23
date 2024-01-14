@@ -1,0 +1,45 @@
+@import './normalize.css';
+@import './navigation.css';
+@import './header.css';
+@import './table.css';
+@import './image.css';
+@import './form.css';
+@import './map.css';
+
+body {
+  margin: 0;
+  font-family: "Lato", sans-serif;
+}
+
+.main {
+  display: grid;
+  grid-template-columns: 0.5fr 1fr 1fr 1fr;
+  grid-template-rows: auto;
+  grid-template-areas: 
+    "header     header  header  header "
+    "navigation content content content"
+    "footer footer footer footer";
+  justify-items: stretch;
+  justify-content: space-between;
+}
+
+
+.logo {
+  /* grid-area: logo; */
+  margin: 10px;
+}
+
+.title {
+  /* grid-area: title; */
+  margin: 10px;
+}
+
+/* .login-button {
+  grid-area: login;
+} */
+
+.content {
+  grid-area: content;
+  padding: 1px 16px;
+  height: 1000px;
+}

@@ -1,0 +1,19 @@
+.form {
+    display: block;
+}
+
+.add-form {
+    height: 100%;
+    padding: 10px;
+    margin: 5px;
+    background-color: #90ee90;
+    border-radius: 25px;
+}
+
+.edit-form {
+    height: 100%;
+    padding: 10px;
+    margin: 5px;
+    background-color: #ffa07a;
+    border-radius: 25px;
+}
