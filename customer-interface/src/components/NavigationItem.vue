@@ -18,6 +18,7 @@ export default {
     <div v-if="isAuthenticated" class="navigation">
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/account">Account</RouterLink>
+        <RouterLink to="/users">All Users</RouterLink>
         <RouterLink to="/travel">Travel History</RouterLink>
         <RouterLink to="/payment">Payment</RouterLink>
         <RouterLink to="/about">About</RouterLink>

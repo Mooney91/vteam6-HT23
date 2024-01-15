@@ -9,6 +9,8 @@ import AccountView from '../views/AccountView.vue'
 import TravelView from '../views/TravelView.vue'
 import PaymentView from '../views/PaymentView.vue'
 
+import AllUsers from '../views/AllUsers.vue'
+
 
 import entryMiddleware from '../middleware/auth.js';
 import logoutMiddleware from '../middleware/logout.js';
@@ -36,6 +38,12 @@ const router = createRouter({
       path: '/account',
       name: 'account',
       component: AccountView,
+      beforeEnter: (to, from, next) => entryMiddleware({ next, router })
+    },
+    {
+      path: '/users',
+      name: 'users',
+      component: AllUsers,
       beforeEnter: (to, from, next) => entryMiddleware({ next, router })
     },
     {
