@@ -1,14 +1,10 @@
 const sqlite3 = require('sqlite3').verbose();
 
 const fetchHelper = {
-    // BASE_URL: "http://localhost:1337",
-    BASE_URL: "http://vteam6_server:1337",
-
-    // vteam6_server
+    BASE_URL: "http://localhost:1337",
+    // BASE_URL: "http://vteam6_server:1337",
 
     async getData(endpoint) {
-        const test = `${this.BASE_URL}/v1/${endpoint}`;
-        console.log("url: ", test);
         const response = await fetch(`${this.BASE_URL}/v1/${endpoint}`,
             {
                 method: "GET",
@@ -288,6 +284,15 @@ const publicHelper = {
         return scooter;
     },
 
+    // For testing
+    /*
+    async getSpecificScooter(id) {
+        const scooter = await fetchHelper.getData("scooter/" + id);
+    
+        return scooter[0];
+    },
+    */
+
     // Get a trip from SQLite database with location matching either origin or destination
     async getRandomMatchingTrip(location) {
         const matchingTrips = await tripHelper.getMatchingTrips(location);
@@ -310,6 +315,9 @@ const publicHelper = {
     },
 
     async startRent(user, scooter) {
+        // Temporary?
+        stationHelper.initStations();
+
         // 1. Create RentalLog entry (Active?, ScooterID, UserID, StartTime, StartStation) : RentalLogID
         const rentalLogID = await rentHelper.createRent(user, scooter);
 
@@ -334,7 +342,6 @@ const publicHelper = {
 
         // 2. Update Scooter (ScooterID) | (Status, Location?, Battery?, StationID)
         // 3. Update Station (StationID) | (ScooterOccupancy)
-        console.log(scooter);
         scooterHelper.parkScooter(scooter);
 
         // Recycle user and scooter

@@ -1,18 +1,21 @@
 const publicHelper = require("./utils").publicHelper;
 
 const interval = 1;
-let intervalID;
-
-let tripIndex = 0;
-
-let batteryDrainage = 0;
 
 class SimulatedClient {
+    static numClients = 0;
+
     constructor(user, scooter) {
+        SimulatedClient.numClients++;
+
         this.user = user;
         this.scooter = scooter;
         this.rentalLogID = null;
         this.trip = null;
+
+        this.intervalID;
+        this.tripIndex = 0;
+        this.batteryDrainage = 0;
 
         this.rentScooter();
     }
@@ -33,23 +36,22 @@ class SimulatedClient {
         this.trip = await publicHelper.getRandomMatchingTrip(this.scooter.Location.replace(/\s/g, ""));
         
         if (this.trip) {
-            console.log("trip len: ", this.trip.Waypoints.length);
-            intervalID = setInterval(() => this.moveScooter(), interval * 1000);
+            this.intervalID = setInterval(() => this.moveScooter(), interval * 1000);
         }
     }
 
     // Move scooter from one waypoint to another
     moveScooter() {
-        // batteryDrainage += 0.05;
-        batteryDrainage += 0.5;
+        // this.batteryDrainage += 0.05;
+        this.batteryDrainage += 0.5;
 
-        if (batteryDrainage === 1) {
+        if (this.batteryDrainage === 1) {
             this.scooter.Battery--;
-            batteryDrainage = 0;
+            this.batteryDrainage = 0;
         }
 
-        // if (tripIndex === this.trip.Waypoints.length) {
-        if (tripIndex === 10) {
+        // if (this.tripIndex === this.trip.Waypoints.length) {
+        if (this.tripIndex === 5) {
             const zero = 0;
             this.scooter.Speed = zero.toFixed(2);
 
@@ -60,22 +62,22 @@ class SimulatedClient {
 
             console.log("Moving scooter to: " + JSON.stringify(this.scooter.Location));
 
-            clearInterval(intervalID);
+            clearInterval(this.intervalID);
 
             this.returnScooter();
         } else {
             this.scooter.Speed = (Math.random() * 30).toFixed(2);
 
-            this.scooter.Location = this.trip.Waypoints[tripIndex];
+            this.scooter.Location = this.trip.Waypoints[this.tripIndex];
         
             // Update scooter in database every 5 waypoints
-            if (tripIndex % 5 === 0) {
+            if (this.tripIndex % 3 === 0) {
                 publicHelper.updateScooter(this.scooter);
             }
 
             console.log("Moving scooter to: " + JSON.stringify(this.scooter.Location));
 
-            tripIndex++;
+            this.tripIndex++;
         }
     }
 
@@ -84,10 +86,11 @@ class SimulatedClient {
     }
 
     // Return scooter
-    returnScooter() {
+    async returnScooter() {
+        SimulatedClient.numClients--;
         console.log("Returning a scooter!");
 
-        publicHelper.stopRent(this.rentalLogID, this.user, this.scooter);
+        await publicHelper.stopRent(this.rentalLogID, this.user, this.scooter);
     }
 }
 
