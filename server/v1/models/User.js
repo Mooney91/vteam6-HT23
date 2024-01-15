@@ -33,6 +33,23 @@ const user = {
     }
   },
 
+  getUserByEmail: async function (req, res) {
+    try {
+      const sql = `
+                SELECT
+                    *
+                FROM
+                    User
+                WHERE
+                    Email = ?
+            `
+      const rows = await pool.query(sql, req.params.id)
+      res.status(200).json(rows)
+    } catch (error) {
+      res.status(400).send(error.message)
+    }
+  },
+
   createUser: async function (req, res) {
     try {
       const sql = `
