@@ -53,7 +53,7 @@ const costStructure = {
                 UPDATE
                     CostStructure
                 SET
-                    CostDesc = ?
+                    CostDesc = ?,
                     CostAmount = ?
                 WHERE
                     CostID = ?;
@@ -62,7 +62,7 @@ const costStructure = {
       res.status(200).json({ message: 'The cost structures was updated successfully.' })
     } catch (error) {
       res.status(400).send(error.message)
-    }
+    } 
   },
 
   deleteAllCostStructures: async function (req, res) {
