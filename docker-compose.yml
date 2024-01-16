@@ -85,6 +85,8 @@ services:
       build:
         context: ./simulation
         # dockerfile: ./simulation/Dockerfile
+      restart:
+            "always"
       ports:
           - "1341:1341"
       expose:
