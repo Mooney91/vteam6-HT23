@@ -22,11 +22,7 @@ export default {
         }
     },
 
-    methods: {
-
-    },
-
-    async onMounted(){
+    async mounted() {
         try {
             const userCookie = Cookies.get('token');
             const user = JSON.parse(userCookie);
@@ -42,7 +38,7 @@ export default {
 <template>
     <div v-if="user">
         <h1>Payment View</h1>
-        <h2>Here you can change your account balance.</h2>
+        <h2>Here you can change your account balance and preferred method of payment.</h2>
         <PrepaidItem />
         <MembershipItem />
     </div>
