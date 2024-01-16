@@ -5,7 +5,7 @@
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         layer-type="base"
         name="OpenStreetMap"
-      ></l-tile-layer>>
+      ></l-tile-layer>
 
       <template :key="item.ScooterID" v-for="item in items">
         <l-marker :icon="redDotIcon" :lat-lng="item.Location.split(',')">
@@ -26,6 +26,8 @@
 </template>
   
 <script>
+  import L from 'leaflet';
+  // import leaflet from "leaflet/dist/leaflet-src.esm.js";
   import "leaflet/dist/leaflet.css";
   import {LMap, LTileLayer, LMarker, LPopup} from "@vue-leaflet/vue-leaflet";;
 

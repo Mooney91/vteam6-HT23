@@ -1,0 +1,103 @@
+<style>
+
+</style>
+
+<!--
+1. Kunden kan logga in på en webbplats och se detaljer om sitt konto.
+-->
+
+<template>
+    <!--<div v-if="isAuthenticated">-->
+    <h3>All users</h3>
+    <div v-if="users">
+        <table>
+            <tr>
+                <th>First name</th>
+                <th>Last name</th>
+                <th>Password</th>
+                <th>Email</th>
+                <th>AccountBalance</th>
+                <th>PaymentType</th>
+                <th>Role</th>
+            </tr>
+            <div v-for="user in users">
+            <tr>
+                <td>{{ user.FirstName }}</td>
+                <td>{{ user.LastName }}</td>
+                <td>{{ user.Password }}</td>
+                <td>{{ user.Email }}</td>
+                <td>{{ user.AccountBalance }}</td>
+                <td>{{ user.PaymentType }}</td>
+                <td>{{ user.Role }}</td>
+            </tr>
+            </div>
+        </table>
+    </div>
+    <!--</div>-->
+</template>
+
+<script>
+import Cookies from 'js-cookie';
+
+export default {
+    name: 'AccountView',
+    props: {
+        backend: String,
+    },
+    data() {
+        return {
+            users: null,
+        }
+    },
+    methods: {
+        async fetchUsers() {
+            try {
+                console.log("trying to fetch user data.");
+                console.log(this.backend);
+                const response = await fetch(`${this.backend}/v1/user/`, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-api-key': 'n7fov6opbjzqllsd53aduh1k1xcgx0mtqbi0'
+                    },
+                });
+                const result = await response.json();
+                console.log("result after fetch: ", result);
+                console.log("result after fetch[0]: ", result[0]);
+
+                this.users = result;
+                console.log(this.user);
+                return result;
+            } catch (error) {
+                console.error('Error fetching user data:', error);
+                throw error;
+            }
+        },
+        async fetchUser(activeUser) {
+            try {
+                console.log("trying to fetch user data.");
+                const response = await fetch(`${this.backend}/v1/user/${activeUser}`, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-api-key': 'n7fov6opbjzqllsd53aduh1k1xcgx0mtqbi0',
+                    },
+                });
+                const result = await response.json();
+                console.log("result after fetch: ", result);
+                this.user = result[0];
+                console.log(this.user);
+                return result;
+            } catch (error) {
+                console.error('Error fetching user data:', error);
+                throw error;
+            }
+        },
+    },
+    async mounted() {
+        try {
+            await this.fetchUsers();
+        } catch (error) {
+            console.error('Error in created lifecycle hook:', error);
+        }
+    }
+};
+</script>

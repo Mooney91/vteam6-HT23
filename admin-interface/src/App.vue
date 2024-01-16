@@ -3,6 +3,11 @@ import { RouterView } from 'vue-router'
 import TitleItem from './components/TitleItem.vue'
 import NavigationItem from './components/NavigationItem.vue'
 
+/**
+ * Vue component representing the main application.
+ * @name App
+ * @component
+ */
 export default {
     name: 'App',
     components: {
@@ -10,6 +15,10 @@ export default {
         NavigationItem,
         RouterView
     },
+    /* Data function that returns the backend.
+     * @function
+     * @returns {Object} The initial data object.
+     */
     data()  {
         return {
             backend: "http://localhost:1337"
