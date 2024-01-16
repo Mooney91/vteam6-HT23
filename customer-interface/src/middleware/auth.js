@@ -20,7 +20,7 @@ const verifyJWT = (req, res, next) => {
 import Cookies from 'js-cookie';
 
 
-export default async function entryMiddleware({ next, router }) {
+export default async function entryMiddleware({ next }) {
     try {
         console.log("MIDDLEWARE ACTIVATED");
         const cookie = Cookies.get('token');

@@ -30,6 +30,7 @@ export default {
         try {
             const userCookie = Cookies.get('token');
             const user = JSON.parse(userCookie);
+            this.user = user;
         } catch(error) {
             console.log("Error encountered in mounted lifecycle hook: ", error)
         }
@@ -39,17 +40,12 @@ export default {
 </script>
 
 <template>
-    <!--<div v-if="isAuthenticated">-->
-    <h1>Payment View</h1>
-    <h2>Here you can change your account balance.</h2>
     <div v-if="user">
-        {{ user }}
+        <h1>Payment View</h1>
+        <h2>Here you can change your account balance.</h2>
+        <PrepaidItem />
+        <MembershipItem />
     </div>
-    <Prepaid/>
-    <br>
-    <Membership/>
-    <!--</div>-->
-
 </template>
 
 

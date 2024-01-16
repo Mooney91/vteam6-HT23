@@ -36,7 +36,7 @@ export default {
         try {
             const userCookie = Cookies.get('token');
             const user = JSON.parse(userCookie);
-
+            this.user = user
         } catch(error){
             console.log("Error encountered in mounted lifecycle hook: ", error)
         }

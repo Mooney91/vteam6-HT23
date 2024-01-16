@@ -15,7 +15,7 @@
                 <th>PaymentType</th>
                 <th>Role</th>
             </tr>
-            <template v-for="user in users">
+            <template v-for="user in users" :key="user.UserID">
                 <tr>
                     <td>{{ user.FirstName }}</td>
                     <td>{{ user.LastName }}</td>
@@ -31,7 +31,6 @@
 </template>
 
 <script>
-import Cookies from 'js-cookie';
 
 export default {
     name: 'AccountView',

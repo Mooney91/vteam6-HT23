@@ -2,7 +2,7 @@
 
 import Cookies from 'js-cookie';
 
-export default async function logoutMiddleware({ next, router }) {
+export default async function logoutMiddleware({ next }) {
     try {
         console.log("LOGOUT MIDDLEWARE ACTIVATED");
         console.log("Cookie before removal", Cookies.get('token'));

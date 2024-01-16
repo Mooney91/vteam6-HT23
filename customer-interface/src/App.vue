@@ -1,5 +1,5 @@
 <script>
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterView } from 'vue-router'
 import TitleItem from './components/TitleItem.vue'
 import NavigationItem from './components/NavigationItem.vue'
 
