@@ -27,7 +27,6 @@
   
 <script>
   import L from 'leaflet';
-  // import leaflet from "leaflet/dist/leaflet-src.esm.js";
   import "leaflet/dist/leaflet.css";
   import {LMap, LTileLayer, LMarker, LPopup} from "@vue-leaflet/vue-leaflet";;
 

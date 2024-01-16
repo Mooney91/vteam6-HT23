@@ -159,6 +159,8 @@
                 } catch (error) {
                     console.error('Error creating rental:', error);
                     throw error;
+                } finally {
+                    this.forceRerender()
                 }
             },
             async updateRentalLog() {
@@ -187,6 +189,8 @@
                 } catch (error) {
                     console.error('Error updating rental log:', error);
                     throw error;
+                } finally {
+                    this.forceRerender()
                 }
             },
             toggleEditForm(RentalLogID) {
@@ -229,6 +233,8 @@
                 } catch (error) {
                     console.error('Error stopping rental log:', error);
                     throw error;
+                } finally {
+                    this.forceRerender()
                 }
             },
         },

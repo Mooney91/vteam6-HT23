@@ -156,7 +156,7 @@
               } catch (error) {
                   console.error('Error fetching scooter data:', error);
                   throw error;
-              }
+              } 
           },
 
           // async updateData() {

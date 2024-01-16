@@ -150,6 +150,8 @@
                 } catch (error) {
                     console.error('Error creating city:', error);
                     throw error;
+                } finally {
+                    this.forceRerender()
                 }
             },
             async updateCity() {
@@ -179,6 +181,8 @@
                 } catch (error) {
                     console.error('Error creating city:', error);
                     throw error;
+                } finally {
+                    this.forceRerender()
                 }
             },
             toggleEditForm(CityID) {

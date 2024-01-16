@@ -47,6 +47,11 @@ body {
 .logo {
   margin: 10px;
 }
+
+.red-notice {
+  font-weight: 600;
+  color: #ff0000;
+}
 /* @import './base.css'; */
 
 /* #app {

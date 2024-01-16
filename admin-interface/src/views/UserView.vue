@@ -2,7 +2,7 @@
     <div class="other">
         <h1>Users</h1>
         <h2>Manage all the users/customers in the system.</h2>
-
+        <p class="red-notice"> Please note that you cannot delete a User if they have rental logs.</p>
         <div v-if="addForm">
             <div @click="addForm = !addForm"><img alt="add icon" class="add" src="@/assets/circle-plus-solid.svg" width="30" height="30" />Add a new user</div>
         </div>
@@ -46,16 +46,16 @@
                 <tr>
                 <td>
                     <button>
-                            <router-link
-                                :to="{
-                                    name: 'UserSingle',
-                                    params: {
-                                        id: item.UserID
-                                    }
-                                }">
-                                {{ item.UserID }}
-                            </router-link>
-                    </button>    
+                        <router-link
+                            :to="{
+                                name: 'UserSingle',
+                                params: {
+                                    id: item.UserID
+                                }
+                            }">
+                            {{ item.UserID }}
+                        </router-link>
+                    </button>
                 </td>
                 <td>{{ item.FirstName }}</td>
                 <td>{{ item.LastName }}</td>
@@ -106,9 +106,13 @@
 
 <script>
     // import { getCurrentInstance } from 'vue';
+    import { RouterLink } from 'vue-router'
 
     export default {
         name: 'UserView',
+        components: {
+            RouterLink,
+        },
         props: {
             backend: String
         },
@@ -180,6 +184,8 @@
                 } catch (error) {
                     console.error('Error creating user:', error);
                     throw error;
+                } finally {
+                    this.forceRerender()
                 }
             },
             async updateUser() {
@@ -207,6 +213,8 @@
                 } catch (error) {
                     console.error('Error updating user:', error);
                     throw error;
+                } finally {
+                    this.forceRerender()
                 }
             },
             toggleEditForm(UserID) {
