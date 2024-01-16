@@ -19,7 +19,6 @@
                 <th>Paid</th>
                 <th></th>
                 <th></th>
-                <th></th>
             </tr>
             <template v-for="item in items" :key="item.UserID">
                 <tr>
@@ -37,9 +36,6 @@
                 </td>
                 <td @click="deleteRentalLog(item.RentalLogID)">
                     <img alt="delete icon" class="delete" src="@/assets/trash-can-solid.svg" width="15" height="15" />
-                </td>
-                <td @click="stopRentalLog(item.RentalLogID, null)">
-                    <button>Stop Rental</button>
                 </td>
                 </tr>
                 <tr v-if="editForms[item.RentalLogID]">
@@ -86,9 +82,10 @@
       },
       data() {
         return {
-          user: null,
-          editForms: {},
-          items: [],
+            componentKey: 0,
+            user: null,
+            editForms: {},
+            items: [],
         }
       },
       methods: {
@@ -136,6 +133,25 @@
                   throw error;
               }
           },
+          async deleteRentalLog(RentalLogID) {
+                try {
+                    const response = await fetch(`${this.backend}/v1/rental-log/${RentalLogID}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'x-api-key': '79mozjohim15b1xk79jfj7m6tfcj0tnczn5s',
+                        },
+                        })
+                    const result = await response.json();
+                    
+                    return result;
+                } catch (error) {
+                    console.error('Error deleting rental log:', error);
+                    throw error;
+                } finally {
+                    this.forceRerender()
+                }
+            },
           toggleEditForm(RentalLogID) {
                 this.editForms[RentalLogID] = !this.editForms[RentalLogID];
             },

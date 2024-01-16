@@ -36,7 +36,6 @@
                     <th></th>
                     <th></th>
                     <th></th>
-                    <th></th>
                 </tr>
                 <template v-for="item in items" :key="item.ScooterID">
                     <tr @click="zoomToScooter(item)">
@@ -58,16 +57,13 @@
                         <td @click="deleteScooter(item.ScooterID)">
                             <img alt="delete icon" class="delete" src="@/assets/trash-can-solid.svg" width="15" height="15" />
                         </td>
-                        <td @click="unparkScooter(item.ScooterID, item.StationID)">
-                            <img alt="delete icon" class="delete" src="@/assets/trash-can-solid.svg" width="15" height="15" />
-                        </td>
                     </tr>
                     <tr v-if="editForms[item.ScooterID]">
                         <div style="display: none;">
                             {{ ScooterID = item.ScooterID }}
                         </div>
                         <td colspan="5">
-                            <form @submit.prevent="updateScooter">
+                            <form @submit.prevent="updateScooter" class="edit-form">
                                 <label for="Status">Status:</label>
                                 <input type="text" id="Status" v-model="Status" required>
                                 <label for="Location">Location:</label>
@@ -231,6 +227,8 @@
                 } catch (error) {
                     console.error('Error creating scooter:', error);
                     throw error;
+                } finally {
+                    this.forceRerender()
                 }
             },
             async updateScooter() {
@@ -263,6 +261,8 @@
                 } catch (error) {
                     console.error('Error creating scooter:', error);
                     throw error;
+                } finally {
+                    this.forceRerender()
                 }
             },
 
@@ -287,6 +287,8 @@
                 } catch (error) {
                     console.error('Error updating scooter:', error);
                     throw error;
+                } finally {
+                    this.forceRerender()
                 }
             },
 
@@ -311,6 +313,8 @@
                 } catch (error) {
                     console.error('Error updating scooter:', error);
                     throw error;
+                } finally {
+                    this.forceRerender()
                 }
             },
 
@@ -374,6 +378,8 @@
                 } catch (error) {
                     console.error('Error updating scooter:', error);
                     throw error;
+                } finally {
+                    this.forceRerender()
                 }
             },
 

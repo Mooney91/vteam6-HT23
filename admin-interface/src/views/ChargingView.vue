@@ -3,6 +3,7 @@
       <div class="small-content">
       <h1>Charging Stations</h1>
       <h2>Manage the Charging Stations in the system.</h2>
+      <p class="red-notice"> Please note that you cannot delete a station if you have scooters there.</p>
       <p><img src="@/assets/charging-station-solid.svg" class="charging" alt="Charging Icon" style="vertical-align: middle; padding: 5px;">Charging Stations</p>
       <div v-if="addForm">
                 <div @click="addForm = !addForm"><img alt="add icon" class="add" src="@/assets/circle-plus-solid.svg" width="30" height="30" />Add a Charging Station</div>
@@ -121,21 +122,22 @@
       },
       data() {
         return {
-          zoom: 6,
-          addForm: true,
-          editForms: {},
-          coordinates: [57.5477, 14.0157],
-          charging: [],
-          parking: [],
-          StationID: '',
-          StationName: '',
+            componentKey: 0,
+            zoom: 6,
+            addForm: true,
+            editForms: {},
+            coordinates: [57.5477, 14.0157],
+            charging: [],
+            parking: [],
+            StationID: '',
+            StationName: '',
             Location: '',
             ScooterCapacity: '',
             ScooterOccupancy: '',
             StationType: '',
             CityID: '',
-          city: null,
-          scooters: null,
+            city: null,
+            scooters: null,
         }
       },
       methods: {
@@ -178,7 +180,9 @@
               } catch (error) {
                   console.error('Error fetching station data:', error);
                   throw error;
-              }
+              } finally {
+                    this.forceRerender()
+                }
           },
           async fetchScooters() {
             try {
@@ -199,7 +203,9 @@
             }
         },
         async deleteStation(StationID) {
+            console.log('Moo deleteStation called with StationID:', StationID);
                 try {
+                    console.log('deleteStation called with StationID:', StationID);
                     const response = await fetch(`${this.backend}/v1/station/${StationID}`, {
                         method: 'DELETE',
                         headers: {
@@ -241,6 +247,8 @@
                 } catch (error) {
                     console.error('Error creating station:', error);
                     throw error;
+                } finally {
+                    this.forceRerender()
                 }
             },
             async updateStation() {
@@ -272,6 +280,8 @@
                 } catch (error) {
                     console.error('Error updating station:', error);
                     throw error;
+                } finally {
+                    this.forceRerender()
                 }
             },
             toggleEditForm(StationID) {

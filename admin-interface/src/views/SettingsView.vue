@@ -128,6 +128,8 @@
                 } catch (error) {
                     console.error('Error creating cost structure:', error);
                     throw error;
+                } finally {
+                    this.forceRerender()
                 }
             },
 
