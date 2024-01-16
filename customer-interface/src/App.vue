@@ -11,7 +11,7 @@ export default {
         NavigationItem,
         RouterView
     },
-    data()  {
+    data() {
         return {
             backend: "http://localhost:1337"
         }

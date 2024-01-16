@@ -15,7 +15,7 @@
 import Cookies from 'js-cookie';
 
 export default {
-
+    name: "MembershipItem",
     props: {
         backend: String,
     },

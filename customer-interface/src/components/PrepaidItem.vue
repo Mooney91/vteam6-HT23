@@ -25,6 +25,7 @@
 import Cookies from 'js-cookie';
 
 export default {
+    name: "PrepaidItem",
     props: {
         backend: String,
     },

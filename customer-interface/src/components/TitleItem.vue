@@ -4,6 +4,7 @@
 
 
 export default {
+    name: "TitleItem",
     methods: {
         login() {
             this.$auth0.loginWithRedirect();
