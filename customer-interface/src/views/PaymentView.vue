@@ -13,7 +13,11 @@ export default {
     },
 
     props: {
-        backend: String,
+        backend: String
+    },
+
+    provide: {
+        backend: 'http://localhost:1337'
     },
 
     data() {
