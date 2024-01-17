@@ -1,9 +1,14 @@
 const publicHelper = require("./utils").publicHelper;
 
-const interval = 1;
-
 class SimulatedClient {
+    // Track number of clients currently active
     static numClients = 0;
+
+    // Time (in seconds) it takes for a scooter to move from one waypoint to another
+    static waypointInterval;
+
+    // Number of waypoints between a scooter's properties being updated in database
+    static updateInterval;
 
     constructor(user, scooter) {
         SimulatedClient.numClients++;
@@ -36,22 +41,22 @@ class SimulatedClient {
         this.trip = await publicHelper.getRandomMatchingTrip(this.scooter.Location.replace(/\s/g, ""));
         
         if (this.trip) {
-            this.intervalID = setInterval(() => this.moveScooter(), interval * 1000);
+            this.intervalID = setInterval(() => this.moveScooter(), SimulatedClient.waypointInterval * 1000);
         }
     }
 
     // Move scooter from one waypoint to another
     moveScooter() {
-        // this.batteryDrainage += 0.05;
-        this.batteryDrainage += 0.5;
+        this.batteryDrainage += 0.05;
+        // this.batteryDrainage += 0.5;
 
         if (this.batteryDrainage === 1) {
             this.scooter.Battery--;
             this.batteryDrainage = 0;
         }
 
-        // if (this.tripIndex === this.trip.Waypoints.length) {
-        if (this.tripIndex === 5) {
+        if (this.tripIndex === this.trip.Waypoints.length) {
+        // if (this.tripIndex === 5) {
             const zero = 0;
             this.scooter.Speed = zero.toFixed(2);
 
@@ -70,8 +75,8 @@ class SimulatedClient {
 
             this.scooter.Location = this.trip.Waypoints[this.tripIndex];
         
-            // Update scooter in database every 5 waypoints
-            if (this.tripIndex % 3 === 0) {
+            // Update scooter in database every x waypoints
+            if (this.tripIndex % SimulatedClient.updateInterval === 0) {
                 publicHelper.updateScooter(this.scooter);
             }
 
@@ -81,13 +86,10 @@ class SimulatedClient {
         }
     }
 
-    updateScooterLocation() {
-        // Update scooter location in database / web sockets
-    }
-
     // Return scooter
     async returnScooter() {
         SimulatedClient.numClients--;
+        
         console.log("Returning a scooter!");
 
         await publicHelper.stopRent(this.rentalLogID, this.user, this.scooter);
