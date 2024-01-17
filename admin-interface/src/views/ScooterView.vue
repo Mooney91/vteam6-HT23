@@ -72,6 +72,8 @@
                                 <input type="number" id="Speed" v-model="Speed" required>
                                 <label for="Battery">Battery:</label>
                                 <input type="number" id="Battery" v-model="Battery" required>
+                                <label for="StationID">StationID:</label>
+                                <input type="number" id="StationID" v-model="StationID" required>
                                 <button type="submit">Update Scooter</button>
                             </form>
                         </td>

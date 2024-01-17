@@ -46,7 +46,7 @@
                 <tr>
                 <td>
                     <button>
-                        <router-link
+                        <RouterLink
                             :to="{
                                 name: 'UserSingle',
                                 params: {
@@ -54,7 +54,7 @@
                                 }
                             }">
                             {{ item.UserID }}
-                        </router-link>
+                        </RouterLink>
                     </button>
                 </td>
                 <td>{{ item.FirstName }}</td>
@@ -105,7 +105,7 @@
 </template>
 
 <script>
-    // import { getCurrentInstance } from 'vue';
+    import { getCurrentInstance } from 'vue';
     import { RouterLink } from 'vue-router'
 
     export default {

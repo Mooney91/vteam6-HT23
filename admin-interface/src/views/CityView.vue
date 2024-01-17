@@ -3,7 +3,7 @@
         <div class="small-content">
             <h1>Cities</h1>
             <h2>Manage the cities in the system.</h2>
-
+            
             <div v-if="addForm">
                 <div @click="addForm = !addForm"><img alt="add icon" class="add" src="@/assets/circle-plus-solid.svg" width="30" height="30" />Add a city</div>
             </div>
@@ -30,15 +30,15 @@
                     <tr>
                         <td>
                             <button>
-                                <router-link
-                                :to="{
-                                    name: 'CitySingle',
-                                    params: {
-                                        id: item.CityID
-                                    }
-                                }">
-                                {{ item.CityID }}
-                                </router-link>
+                                <RouterLink
+                                    :to="{
+                                        name: 'CitySingle',
+                                        params: {
+                                            id: item.CityID
+                                        }
+                                    }">
+                                    {{ item.CityID }}
+                                </RouterLink>
                             </button>    
                         </td>
                         <td>{{ item.CityName }}</td>
