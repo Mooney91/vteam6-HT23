@@ -5,9 +5,12 @@
         <circle cx='20' cy='20' r='14' fill='#FF0000' stroke='#742227' stroke-width='2' />
         <circle cx='20' cy='20' r='4' fill='#742227' />
     </svg>Scooter  
+    <button @click="zoomToCity('59.334591, 18.063240')" class="city-button">Stockholm</button>
+    <button @click="zoomToCity('57.708870, 11.974560')" class="city-button">Gothenburg</button>
+    <button @click="zoomToCity('55.60587, 13.00073')" class="city-button">Malmö</button>
     </p>
       <div class="map" style="height:80vh; width:100%">
-      <l-map class="map" ref="map" v-model:zoom="zoom" :center="[57.5477, 14.0157]" :use-global-leaflet="false">
+      <l-map class="map" ref="map" v-model:zoom="zoom" v-model:center="coordinates" :use-global-leaflet="false">
         <l-tile-layer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           layer-type="base"
@@ -48,7 +51,7 @@
           </l-marker>
         </template>
   
-        <template :key="item.ScooterID" v-for="item in scooters">
+        <template :key="item.Location" v-for="item in scooters">
           <l-marker :icon="redDotIcon" :lat-lng="item.Location.split(',')">
             <l-popup>
               <div>
@@ -89,7 +92,7 @@
         return {
           // socket: null,
           zoom: 6,
-          coordinates: null,
+          coordinates: [57.5477, 14.0157],
           charging: [],
           parking: [],
           city: null,
@@ -138,7 +141,9 @@
               } catch (error) {
                   console.error('Error fetching station data:', error);
                   throw error;
-              }
+              } finally {
+                    this.forceRerender()
+                }
           },
           async fetchScooters() {
               try {
@@ -156,7 +161,9 @@
               } catch (error) {
                   console.error('Error fetching scooter data:', error);
                   throw error;
-              } 
+              } finally {
+                    this.forceRerender()
+                }
           },
 
           // async updateData() {
@@ -186,6 +193,10 @@
               this.coordinates = item.Location.split(',');
               this.zoom = 20;
           },
+          zoomToCity(coordinates) {
+              this.coordinates = coordinates.split(',')
+              this.zoom = 15;
+          },
       },
       async mounted() {
               try {
@@ -197,10 +208,12 @@
                   await this.fetchStations();
 
                   setInterval(async () => {
+                    console.log("Fetching!")
                     await this.fetchStations();
                     await this.fetchScooters();
                     // Add more data fetching and map updating if needed
-                  }, 3000);
+                    console.log('Data updated:', this.charging, this.parking, this.scooters);
+                  }, 1000);
 
                   // await this.updateData()
               } catch (error) {
