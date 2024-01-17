@@ -2,7 +2,7 @@ const publicHelper = require("./utils").publicHelper;
 const SC = require("./SimulatedClient").SimulatedClient;
 
 async function startSimulator() {
-    const maxClients = 5;
+    const maxClients = 500;
     const clientInterval = 5; 
 
     setInterval(() => {
