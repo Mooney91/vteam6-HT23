@@ -14,6 +14,10 @@ const waypointInterval = 1;
 const updateInterval = 1;
 
 async function startSimulator() {
+
+    const maxClients = 5;
+    const clientInterval = 5; 
+
     SC.waypointInterval = waypointInterval;
     SC.updateInterval = updateInterval;
 

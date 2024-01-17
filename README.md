@@ -30,6 +30,8 @@ You can run this service individually by executing `docker-compose up database`.
 
 This is the system's API. The current version is v1 and documentation can be found in the `server/v1` directory. 
 
+You can look at the API documentation [here](https://github.com/Mooney91/vteam6-HT23/blob/main/server/v1/API.md).
+
 You can run this service individually by executing `docker-compose up database server`. The database for the server/API to function.
 
 ## admin-interface (Administrative Interface)

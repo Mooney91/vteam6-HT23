@@ -60,7 +60,9 @@ class SimulatedClient {
             const zero = 0;
             this.scooter.Speed = zero.toFixed(2);
 
-            this.scooter.Location = this.trip.Destination;
+            const waypointCoordsString = String(this.trip.Destination)
+            this.scooter.Location = waypointCoordsString.replace(/[\[\]']+/g,'');
+            // this.scooter.Location = this.trip.Destination;
     
             // Update scooter in database when trip has ended
             publicHelper.updateScooter(this.scooter);
@@ -73,10 +75,13 @@ class SimulatedClient {
         } else {
             this.scooter.Speed = (Math.random() * 30).toFixed(2);
 
-            this.scooter.Location = this.trip.Waypoints[this.tripIndex];
+            const waypointCoordsString = String(this.trip.Waypoints[this.tripIndex])
+            this.scooter.Location = waypointCoordsString.replace(/[\[\]']+/g,'');
+            // this.scooter.Location = this.trip.Waypoints[this.tripIndex];
         
             // Update scooter in database every x waypoints
             if (this.tripIndex % SimulatedClient.updateInterval === 0) {
+
                 publicHelper.updateScooter(this.scooter);
             }
 

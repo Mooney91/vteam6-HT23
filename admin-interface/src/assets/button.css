@@ -1,0 +1,33 @@
+.city-button {
+    border-color: #000000;
+    border-width: 2px;
+    margin: 5px;
+    background-color: #f1f1f1;
+}
+
+
+.title-page-button {
+    border-color: #000000;
+    border-width: 2px;
+    margin: 5px;
+    background-color: #f1f1f1;
+    height: 100px;
+    width: 100px;
+}
+
+.title-page-button {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 5px;
+}
+
+.title-page-button div {
+    border-color: #000000;
+    border-width: 1px;
+    border-style: solid;
+    margin: 5px;
+    background-color: #f1f1f1;
+    height: 100px;
+    width: 100px;
+    aspect-ratio: 1;
+}

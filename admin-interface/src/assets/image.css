@@ -45,3 +45,10 @@
 .map-icon:hover {
     filter: invert(100%) sepia(0%) saturate(31%) hue-rotate(156deg) brightness(107%) contrast(108%);
 }
+
+.home-images {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+
+}
