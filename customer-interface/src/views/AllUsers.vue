@@ -2,13 +2,8 @@
 
 </style>
 
-<!--
-1. Kunden kan logga in på en webbplats och se detaljer om sitt konto.
--->
-
 <template>
-    <!--<div v-if="isAuthenticated">-->
-    <h3>All users</h3>
+    <h1>All users</h1>
     <div v-if="users">
         <table>
             <tr>
@@ -20,24 +15,22 @@
                 <th>PaymentType</th>
                 <th>Role</th>
             </tr>
-            <div v-for="user in users">
-            <tr>
-                <td>{{ user.FirstName }}</td>
-                <td>{{ user.LastName }}</td>
-                <td>{{ user.Password }}</td>
-                <td>{{ user.Email }}</td>
-                <td>{{ user.AccountBalance }}</td>
-                <td>{{ user.PaymentType }}</td>
-                <td>{{ user.Role }}</td>
-            </tr>
-            </div>
+            <template v-for="user in users" :key="user.UserID">
+                <tr>
+                    <td>{{ user.FirstName }}</td>
+                    <td>{{ user.LastName }}</td>
+                    <td>{{ user.Password }}</td>
+                    <td>{{ user.Email }}</td>
+                    <td>{{ user.AccountBalance }}</td>
+                    <td>{{ user.PaymentType }}</td>
+                    <td>{{ user.Role }}</td>
+                </tr>
+            </template>
         </table>
     </div>
-    <!--</div>-->
 </template>
 
 <script>
-import Cookies from 'js-cookie';
 
 export default {
     name: 'AccountView',

@@ -6,7 +6,7 @@
     <div v-if="isLoading">Loading...</div>
 
     <div v-if="isAuthenticated">
-      <h2>Welcome {{ user.name }}!</h2>
+      <h1>Welcome {{ user.name }}!</h1>
     </div>
     <div v-else>
       <h2>Welcome Customer!</h2>

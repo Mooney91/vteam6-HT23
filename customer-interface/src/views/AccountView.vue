@@ -7,10 +7,9 @@
 -->
 
 <template>
-    <!--<div v-if="isAuthenticated">-->
-    <h3>Account View</h3>
+    <h1>Account View</h1>
     <div v-if="user">
-        <h3>Welcome {{ user.FirstName }} {{ user.LastName }}!</h3><br>
+        <h3>{{ user.FirstName }} {{ user.LastName }}'s user details:</h3><br>
         <table>
             <tr>
                 <th>First name</th>
@@ -32,7 +31,6 @@
             </tr>
         </table>
     </div>
-    <!--</div>-->
 </template>
 
 <script>
@@ -90,29 +88,6 @@ export default {
                 throw error;
             }
         },
-        /*
-        async fetchUser(activeUser) {
-            try {
-                const response = await fetch(`${this.backend}/v1/user/${activeUser}`);
-                const result = await response.json();
-
-                this.user = result[0];
-                console.log(this.user)
-                return result;
-            } catch (error) {
-                console.error('Error fetching user data:', error);
-                throw error;
-            }
-        },
-        async fetchUserNew(activeUser) {
-            const url = "https://api.openrouteservice.org/v1/user"
-            const apiKey = "5b3ce3597851110001cf624820729cd7892e4b7488a775715f073283";
-            
-            const response = await fetch(`${url}/${activeUser}?api_key=${apiKey}`);
-            console.log("new type of fetch", response);
-            return response;
-        }
-        */
     },
     async mounted() {
         try {
