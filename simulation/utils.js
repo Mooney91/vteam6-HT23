@@ -1,8 +1,8 @@
 const sqlite3 = require('sqlite3').verbose();
 
 const fetchHelper = {
-    BASE_URL: "http://localhost:1337",
-    // BASE_URL: "http://vteam6_server:1337",
+    // BASE_URL: "http://localhost:1337",
+    BASE_URL: "http://vteam6_server:1337",
 
     async getData(endpoint) {
         const response = await fetch(`${this.BASE_URL}/v1/${endpoint}`,
@@ -149,9 +149,11 @@ const scooterHelper = {
 
     async updateScooter(scooter) {
         const data = {
+            "Status": scooter.Status,
             "Location": scooter.Location,
             "Speed": scooter.Speed,
-            "Battery": scooter.Battery
+            "Battery": scooter.Battery,
+            "StationID": scooter.StationID
         };
 
         const endpoint = `scooter/${scooter.ScooterID}`;
