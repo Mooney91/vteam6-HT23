@@ -1,5 +1,5 @@
 <script>
-// import { RouterLink, RouterView } from 'vue-router'
+import { RouterLink } from 'vue-router'
 // import { useAuth0 } from '@auth0/auth0-vue';
 
 export default {
@@ -23,14 +23,19 @@ export default {
 
 <template>
     <div class="header">
-        <img alt="scooter logo" class="logo" src="@/assets/scooter-logo.png" width="25" height="25" />
+        
+        <RouterLink to="/">
+            <img alt="scooter logo" class="logo" src="@/assets/scooter-logo.png" width="25" height="25" />
+        </RouterLink>
         <h2 class="title">Admin Interface - Svenska Elsparkscyklar AB</h2>
+        
         <!-- <template v-if="isAuthenticated">
         <div @click="logout" class="login-button">Logout</div>
         </template>
         <template v-else>
             <div @click="login" class="login-button">Login</div>
         </template> -->
+
     </div>
 </template>
 
