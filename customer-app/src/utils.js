@@ -151,7 +151,7 @@ export class utils {
         const data = {
             "ScooterID": scooterId,
             "UserID": userId,
-            "StartTime": helper.getCurrentDateTime(),
+            "StartTime": new Date().toUTCString(),
             // "EndTime": "2023-01-01T09:30:00",
             "StartStation": stationId,
             // "EndStation": 2,

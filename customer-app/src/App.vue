@@ -7,8 +7,8 @@
 </template>
 
 <script setup>
-import { useDark, useToggle } from '@vueuse/core'
-import { RouterLink, RouterView } from 'vue-router'
+import { useDark } from '@vueuse/core'
+import { RouterView } from 'vue-router'
 
 const isDarkTheme = useDark()
 </script>
