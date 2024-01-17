@@ -5,6 +5,7 @@
 @import './image.css';
 @import './form.css';
 @import './map.css';
+@import './button.css';
 
 body {
   margin: 0;
@@ -52,6 +53,8 @@ body {
   font-weight: 600;
   color: #ff0000;
 }
+
+
 /* @import './base.css'; */
 
 /* #app {
