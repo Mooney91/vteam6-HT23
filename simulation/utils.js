@@ -350,4 +350,4 @@ const publicHelper = {
     }
 }
 
-module.exports = { publicHelper };
+module.exports = { publicHelper, stationHelper, SQLiteHelper };

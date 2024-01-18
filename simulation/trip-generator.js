@@ -1,14 +1,14 @@
-const helper = require("./utils").helper;
-const SQLiter = require("./utils").SQLiter;
+const stationHelper = require("./utils").stationHelper;
+const SQLiteHelper = require("./utils").SQLiteHelper;
 
 let requestsMade = 0;
 
 // Generate trips for all stations
 async function generateTrips() {
-    const stations = await helper.getAllStations();
+    const stations = await stationHelper.getStations();
 
     // Open connection to SQLite database
-    const dbc = SQLiter.getDBConnection();
+    const dbc = SQLiteHelper.getDBConnection();
 
     for (i = 0; i < stations.length; i++) {
         const currentStation = stations[i];
@@ -29,7 +29,7 @@ async function generateTrips() {
     }
 
     // Close connection to SQLite database
-    SQLiter.closeDBConnection(dbc);
+    SQLiteHelper.closeDBConnection(dbc);
 }
 
 // Generate a single trip
