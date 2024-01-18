@@ -69,7 +69,7 @@ const router = createRouter({
     {
       path: '/map',
       name: 'BigMap',
-      component: BigMapView,
+      component: BigMapView
     }
     // {
     //   path: '/about',

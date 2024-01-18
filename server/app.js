@@ -45,12 +45,8 @@ app.post('/register', (req, res) => {
 })
 
 // VERSION 01
-// app.get(`/v1`, (req, res) => {
-//   const indexPath = __dirname ? path.join(__dirname, 'index.html') : 'index.html';
-//   res.sendFile(indexPath);
-// });
 
-app.get('/v1', function (req, res) {
+app.get('/doc/v1', function (req, res) {
   res.sendFile(path.join(__dirname, '/v1.html'))
 })
 

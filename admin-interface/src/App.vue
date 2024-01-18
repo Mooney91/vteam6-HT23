@@ -9,35 +9,32 @@ import NavigationItem from './components/NavigationItem.vue'
  * @component
  */
 export default {
-    name: 'App',
-    components: {
-        TitleItem,
-        NavigationItem,
-        RouterView
-    },
-    /* Data function that returns the backend.
-     * @function
-     * @returns {Object} The initial data object.
-     */
-    data()  {
-        return {
-            backend: "http://localhost:1337"
-        }
+  name: 'App',
+  components: {
+    TitleItem,
+    NavigationItem,
+    RouterView
+  },
+  /* Data function that returns the backend.
+   * @function
+   * @returns {Object} The initial data object.
+   */
+  data() {
+    return {
+      backend: 'http://localhost:1337'
     }
+  }
 }
-
 </script>
 
 <template>
-    <div class="main">
-        <TitleItem />
-        <NavigationItem />
-        <div class = "content">
-            <RouterView :backend="backend" :key="componentKey"/>
-        </div>
+  <div class="main">
+    <TitleItem />
+    <NavigationItem />
+    <div class="content">
+      <RouterView :backend="backend" :key="componentKey" />
     </div>
+  </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
