@@ -4,7 +4,7 @@
     <div class="flex flex-col items-center gap-8">
       <div class="flex flex-col items-center">
         <h1 class="text-3xl font-bold text-dark-bg-alt dark:text-light-bg-alt font-Roboto">
-          Welcome Back!
+          Welcome Back, {{ userName }}!
         </h1>
         <h2 class="text-md text-dark-bg-alt dark:text-light-bg-alt font-Roboto">
           You have no active scooter in progress.
@@ -44,10 +44,10 @@
           <option selected :disabled="selectedScooter === 'None'">None</option>
           <option
             v-for="scooter in availableScooters"
-            :key="scooter.id"
-            :value="scooter.id"
+            :key="scooter.ScooterID"
+            :value="scooter.ScooterID"
           >
-          {{ scooter.name }}
+          Scooter {{ scooter.ScooterID }} [{{ scooter.Battery }}%]
           </option>
         </select>
       </label>
@@ -69,21 +69,41 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { utils } from '../utils.js'
+import router from '../router'
 
+let userName = ref("null")
 let availableScooters = ref([])
+
 const selectedScooter = ref("None")
 
 onMounted(async () => {
-  availableScooters.value = await utils.getAvailableScooters()
+  if (!localStorage.user) {
+    router.push({ name: 'login' })
+    return
+  }
+
+  const user = JSON.parse(localStorage.user)
+
+  userName.value = user.FirstName
+
+  const scooters = await utils.getScooters()
+  availableScooters.value = scooters.filter(x => x.Status != "In Use").filter(x => x.Battery >= 30).slice(0, 20)
 })
 
 const rentScooter = async () => {
-  if (localStorage.userEmail) {
-
+  if (localStorage.user && selectedScooter.value != "None") {
     localStorage.scooterId = selectedScooter.value
     console.log(localStorage.scooterId)
 
-    await utils.createRent(localStorage.userEmail, localStorage.scooterId)
+    const result = await utils.createRent(localStorage.user.UserID, localStorage.scooterId)
+
+    if (!result) {
+      alert("Could not rent the scooter! Please try again in a few minutes.")
+      return
+    }
+
+    localStorage.rentId = result.RentalLogID
+    location.reload()
   }
 }
 </script>

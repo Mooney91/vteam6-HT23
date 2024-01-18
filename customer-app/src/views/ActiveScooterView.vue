@@ -24,6 +24,7 @@ import { ref, onMounted } from 'vue'
 import { utils } from '../utils.js'
 import ScooterImage from '../assets/img/Scooter.png'
 import CardItem from '../components/CardItem.vue'
+import router from '../router'
 
 let id = ref("null")
 let status = ref("null")
@@ -31,7 +32,12 @@ let speed = ref(0)
 let battery = ref(0)
 
 onMounted(async () => {
-  if (localStorage.scooterId) {
+  if (!localStorage.user) {
+    router.push({ name: 'login' })
+    return
+  }
+
+  if (localStorage.rentId && localStorage.scooterId) {
     try {
       const scooter = await utils.getScooter(localStorage.scooterId)
 
@@ -40,12 +46,14 @@ onMounted(async () => {
       speed.value = scooter.Speed
       battery.value = scooter.Battery
 
-      // const rent = await utils.getScooterRent(localStorage.scooterId)
-      // rent.Paid
-      // rent.StartTime
-      // rent.EndTime
-      // rent.StartStation
-      // rent.Cost
+      const rentDetails = await utils.getRentDetails(localStorage.rentId)
+      console.log(rentDetails)
+
+      // rentDetails.Paid
+      // rentDetails.StartTime
+      // rentDetails.EndTime
+      // rentDetails.StartStation
+      // rentDetails.Cost
 
     } catch (err) {
       console.error(err)
@@ -56,9 +64,16 @@ onMounted(async () => {
 const returnScooter = async () => {
   if (localStorage.scooterId) {
     try {
-      await utils.stopScooterRent(localStorage.scooterId)
+      const wasSuccessful = await utils.stopRent(localStorage.scooterId, 5 /* stopStationId */)
+
+      if (!wasSuccessful) {
+        alert("Could not return the scooter! Please try again in a few minutes.")
+        return
+      }
 
       localStorage.removeItem('scooterId')
+      localStorage.removeItem('rentId')
+
       window.location.reload()
     } catch (err) {
       console.error(err)
