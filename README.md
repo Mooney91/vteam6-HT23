@@ -1,7 +1,6 @@
 # vteam6-H23
 
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Mooney91/vteam6-HT23/badges/quality-score.png?b=main)](https://scrutinizer-ci.com/g/Mooney91/vteam6-HT23/?branch=main) [![Build Status](https://scrutinizer-ci.com/g/Mooney91/vteam6-HT23/badges/build.png?b=main)](https://scrutinizer-ci.com/g/Mooney91/vteam6-HT23/build-status/main)
-[![system CI](https://github.com/Mooney91/vteam6-HT23/actions/workflows/node.js.yml/badge.svg)](https://github.com/Mooney91/vteam6-HT23/actions/workflows/node.js.yml)
 
 This is the Git-repository for group 6 (Autumn semester - 2023) in the course *vteam* (*Software Development in Virtual Teams*) at Blekinge Tekniska Högskola. This course aims to develop skills and knowledge within software development whilst working in a mixed team of campus and distance students. This project develops a system for an imagined company *Svenska Elsparkcyklar AB* to handle the rental of electric scooters in Swedish cities.
 
