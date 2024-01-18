@@ -1,33 +1,29 @@
 .header {
-    position: sticky; 
-    top: 0;
-    height: 50px;
-    grid-area: header;
-    background-color: #333;
-    color: #fff;
-    padding: 10px;
-    vertical-align: middle;
-    z-index: 100;
-    display: flex;
-    align-items: center;
+  position: sticky;
+  top: 0;
+  height: 50px;
+  grid-area: header;
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
+  vertical-align: middle;
+  z-index: 100;
+  display: flex;
+  align-items: center;
 }
 
-/* .title {
-    grid-area: header;
-} */
-
 .login-button {
-    grid-area: login;
-    vertical-align: middle;
-    float: right;
-    color: #000000;
-    padding: 16px;
-    text-decoration: none;
-    background-color:#f1f1f1;
-    margin-left: auto;
+  grid-area: login;
+  vertical-align: middle;
+  float: right;
+  color: #000000;
+  padding: 16px;
+  text-decoration: none;
+  background-color: #f1f1f1;
+  margin-left: auto;
 }
 
 .login-button:hover {
-    background-color: #555;
-    color: white;
-  }
+  background-color: #555;
+  color: white;
+}

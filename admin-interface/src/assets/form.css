@@ -1,21 +1,21 @@
 .form {
-    display: block;
+  display: block;
 }
 
 .add-form {
-    height: 100%;
-    padding: 10px;
-    margin: 5px;
-    background-color: #90ee90;
-    border-radius: 25px;
-    display: block;
+  height: 100%;
+  padding: 10px;
+  margin: 5px;
+  background-color: #90ee90;
+  border-radius: 25px;
+  display: block;
 }
 
 .edit-form {
-    height: 100%;
-    padding: 10px;
-    margin: 5px;
-    background-color: #ffa07a;
-    border-radius: 25px;
-    display: block;
+  height: 100%;
+  padding: 10px;
+  margin: 5px;
+  background-color: #ffa07a;
+  border-radius: 25px;
+  display: block;
 }
