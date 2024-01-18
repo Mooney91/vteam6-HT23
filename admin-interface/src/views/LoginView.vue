@@ -1,12 +1,5 @@
-<script>
+<script></script>
 
-</script>
+<template>Login</template>
 
-<template>
-Login
-
-</template>
-
-<style>
-
-</style>
+<style></style>
