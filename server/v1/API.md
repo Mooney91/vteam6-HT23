@@ -171,15 +171,18 @@ Results:
 [
     {
         "CityID": 1,
-        "CityName": "Stockholm"
+        "CityName": "Stockholm",
+        "CityPosition": "59.334591, 18.063240"
     },
     {
         "CityID": 2,
-        "CityName": "Gothenburg"
+        "CityName": "Gothenburg",
+        "CityPosition": "57.708870, 11.974560"
     },
     {
         "CityID": 3,
-        "CityName": "Malmö"
+        "CityName": "Malmö",
+        "CityPosition": "55.60587, 13.00073"
     }
 ]
 ```
@@ -199,6 +202,7 @@ Results:
     {
         "CityID": 1,
         "CityName": "Stockholm",
+        "CityPosition": "59.334591, 18.063240"
     }
 ]
 ```
