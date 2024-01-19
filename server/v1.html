@@ -87,26 +87,26 @@ pre {
     <pre><code><span class="hljs-type">GET</span> /v1/activity-<span class="hljs-keyword">type</span>
     </code></pre><p>Results:</p>
     <pre><code class="lang-json">[
-    {
+      {
         <span class="hljs-attr">"ActivityTypeID"</span>: <span class="hljs-number">1</span>,
         <span class="hljs-attr">"ActivityTypeDesc"</span>: <span class="hljs-string">"Parked"</span>
-    },
-    {
+      },
+      {
         <span class="hljs-attr">"ActivityTypeID"</span>: <span class="hljs-number">2</span>,
         <span class="hljs-attr">"ActivityTypeDesc"</span>: <span class="hljs-string">"Maintenance"</span>
-    },
-    {
+      },
+      {
         <span class="hljs-attr">"ActivityTypeID"</span>: <span class="hljs-number">3</span>,
         <span class="hljs-attr">"ActivityTypeDesc"</span>: <span class="hljs-string">"Charging"</span>
-    },
-    {
+      },
+      {
         <span class="hljs-attr">"ActivityTypeID"</span>: <span class="hljs-number">4</span>,
         <span class="hljs-attr">"ActivityTypeDesc"</span>: <span class="hljs-string">"In use"</span>
-    },
-    {
+      },
+      {
         <span class="hljs-attr">"ActivityTypeID"</span>: <span class="hljs-number">5</span>,
         <span class="hljs-attr">"ActivityTypeDesc"</span>: <span class="hljs-string">"Free Parking"</span>
-    }
+      }
     ]
     </code></pre>
     <h3 id="get-one-entry">Get one entry</h3>
@@ -157,15 +157,18 @@ pre {
     <pre><code class="lang-json">[
         {
             <span class="hljs-attr">"CityID"</span>: <span class="hljs-number">1</span>,
-            <span class="hljs-attr">"CityName"</span>: <span class="hljs-string">"Stockholm"</span>
+            <span class="hljs-attr">"CityName"</span>: <span class="hljs-string">"Stockholm"</span>,
+            <span class="hljs-attr">"CityPosition"</span>: <span class="hljs-string">"59.334591, 18.063240"</span>
         },
         {
             <span class="hljs-attr">"CityID"</span>: <span class="hljs-number">2</span>,
-            <span class="hljs-attr">"CityName"</span>: <span class="hljs-string">"Gothenburg"</span>
+            <span class="hljs-attr">"CityName"</span>: <span class="hljs-string">"Gothenburg"</span>,
+            <span class="hljs-attr">"CityPosition"</span>: <span class="hljs-string">"57.708870, 11.974560"</span>
         },
         {
             <span class="hljs-attr">"CityID"</span>: <span class="hljs-number">3</span>,
-            <span class="hljs-attr">"CityName"</span>: <span class="hljs-string">"Malmö"</span>
+            <span class="hljs-attr">"CityName"</span>: <span class="hljs-string">"Malmö"</span>,
+            <span class="hljs-attr">"CityPosition"</span>: <span class="hljs-string">"55.60587, 13.00073"</span>
         }
     ]
     </code></pre>
@@ -177,6 +180,7 @@ pre {
         {
             <span class="hljs-attr">"CityID"</span>: <span class="hljs-number">1</span>,
             <span class="hljs-attr">"CityName"</span>: <span class="hljs-string">"Stockholm"</span>,
+            <span class="hljs-attr">"CityPosition"</span>: <span class="hljs-string">"59.334591, 18.063240"</span>
         }
     ]
     </code></pre>
@@ -346,7 +350,7 @@ pre {
     <pre><code><span class="hljs-keyword">GET</span> /v1/rental-<span class="hljs-built_in">log</span>
     </code></pre><p>Results:</p>
     <pre><code class="lang-json">[
-    {
+      {
         <span class="hljs-attr">"RentalLogID"</span>: <span class="hljs-number">1</span>,
         <span class="hljs-attr">"Active"</span>: <span class="hljs-number">1</span>,
         <span class="hljs-attr">"ScooterID"</span>: <span class="hljs-number">179</span>,
@@ -357,8 +361,8 @@ pre {
         <span class="hljs-attr">"EndStation"</span>: <span class="hljs-literal">null</span>,
         <span class="hljs-attr">"Cost"</span>: <span class="hljs-string">"10.00"</span>,
         <span class="hljs-attr">"Paid"</span>: <span class="hljs-number">0</span>
-    },
-    {
+      },
+      {
         <span class="hljs-attr">"RentalLogID"</span>: <span class="hljs-number">2</span>,
         <span class="hljs-attr">"Active"</span>: <span class="hljs-number">1</span>,
         <span class="hljs-attr">"ScooterID"</span>: <span class="hljs-number">184</span>,
@@ -369,8 +373,8 @@ pre {
         <span class="hljs-attr">"EndStation"</span>: <span class="hljs-literal">null</span>,
         <span class="hljs-attr">"Cost"</span>: <span class="hljs-string">"10.00"</span>,
         <span class="hljs-attr">"Paid"</span>: <span class="hljs-number">0</span>
-    },
-    {
+      },
+      {
         <span class="hljs-attr">"RentalLogID"</span>: <span class="hljs-number">3</span>,
         <span class="hljs-attr">"Active"</span>: <span class="hljs-number">1</span>,
         <span class="hljs-attr">"ScooterID"</span>: <span class="hljs-number">189</span>,
@@ -381,8 +385,8 @@ pre {
         <span class="hljs-attr">"EndStation"</span>: <span class="hljs-literal">null</span>,
         <span class="hljs-attr">"Cost"</span>: <span class="hljs-string">"10.00"</span>,
         <span class="hljs-attr">"Paid"</span>: <span class="hljs-number">0</span>
-    },
-    {
+      },
+      {
         <span class="hljs-attr">"RentalLogID"</span>: <span class="hljs-number">4</span>,
         <span class="hljs-attr">"Active"</span>: <span class="hljs-number">1</span>,
         <span class="hljs-attr">"ScooterID"</span>: <span class="hljs-number">194</span>,
@@ -393,8 +397,8 @@ pre {
         <span class="hljs-attr">"EndStation"</span>: <span class="hljs-literal">null</span>,
         <span class="hljs-attr">"Cost"</span>: <span class="hljs-string">"10.00"</span>,
         <span class="hljs-attr">"Paid"</span>: <span class="hljs-number">0</span>
-    },
-    {
+      },
+      {
         <span class="hljs-attr">"RentalLogID"</span>: <span class="hljs-number">5</span>,
         <span class="hljs-attr">"Active"</span>: <span class="hljs-number">1</span>,
         <span class="hljs-attr">"ScooterID"</span>: <span class="hljs-number">199</span>,
@@ -405,7 +409,7 @@ pre {
         <span class="hljs-attr">"EndStation"</span>: <span class="hljs-literal">null</span>,
         <span class="hljs-attr">"Cost"</span>: <span class="hljs-string">"10.00"</span>,
         <span class="hljs-attr">"Paid"</span>: <span class="hljs-number">0</span>
-    }
+      }
     ]
     </code></pre>
     <h3 id="get-one-entry">Get one entry</h3>
@@ -413,7 +417,7 @@ pre {
     <pre><code>GET /v1/rental-<span class="hljs-built_in">log</span>/:<span class="hljs-built_in">id</span>
     </code></pre><p>Results:</p>
     <pre><code class="lang-json">[
-    {
+      {
         <span class="hljs-attr">"RentalLogID"</span>: <span class="hljs-number">1</span>,
         <span class="hljs-attr">"Active"</span>: <span class="hljs-number">1</span>,
         <span class="hljs-attr">"ScooterID"</span>: <span class="hljs-number">179</span>,
@@ -424,7 +428,7 @@ pre {
         <span class="hljs-attr">"EndStation"</span>: <span class="hljs-literal">null</span>,
         <span class="hljs-attr">"Cost"</span>: <span class="hljs-string">"10.00"</span>,
         <span class="hljs-attr">"Paid"</span>: <span class="hljs-number">0</span>
-    }
+      }
     ]
     </code></pre>
     <h3 id="create-a-rental">Create a Rental</h3>
@@ -471,46 +475,46 @@ pre {
     <pre><code><span class="hljs-symbol">GET</span> /<span class="hljs-built_in">v1</span>/scooter
     </code></pre><p>Results:</p>
     <pre><code class="lang-json">[
-    {
+      {
         <span class="hljs-attr">"ScooterID"</span>: <span class="hljs-number">1</span>,
         <span class="hljs-attr">"Status"</span>: <span class="hljs-string">"Parked"</span>,
         <span class="hljs-attr">"Location"</span>: <span class="hljs-string">"59.3293, 18.0686"</span>,
         <span class="hljs-attr">"Speed"</span>: <span class="hljs-string">"0.00"</span>,
         <span class="hljs-attr">"Battery"</span>: <span class="hljs-number">61</span>,
         <span class="hljs-attr">"StationID"</span>: <span class="hljs-number">1</span>
-    },
-    {
+      },
+      {
         <span class="hljs-attr">"ScooterID"</span>: <span class="hljs-number">2</span>,
         <span class="hljs-attr">"Status"</span>: <span class="hljs-string">"Parked"</span>,
         <span class="hljs-attr">"Location"</span>: <span class="hljs-string">"59.3293, 18.0686"</span>,
         <span class="hljs-attr">"Speed"</span>: <span class="hljs-string">"0.00"</span>,
         <span class="hljs-attr">"Battery"</span>: <span class="hljs-number">55</span>,
         <span class="hljs-attr">"StationID"</span>: <span class="hljs-number">1</span>
-    },
-    {
+      },
+      {
         <span class="hljs-attr">"ScooterID"</span>: <span class="hljs-number">3</span>,
         <span class="hljs-attr">"Status"</span>: <span class="hljs-string">"Parked"</span>,
         <span class="hljs-attr">"Location"</span>: <span class="hljs-string">"59.3293, 18.0686"</span>,
         <span class="hljs-attr">"Speed"</span>: <span class="hljs-string">"0.00"</span>,
         <span class="hljs-attr">"Battery"</span>: <span class="hljs-number">18</span>,
         <span class="hljs-attr">"StationID"</span>: <span class="hljs-number">1</span>
-    },
-    {
+      },
+      {
         <span class="hljs-attr">"ScooterID"</span>: <span class="hljs-number">4</span>,
         <span class="hljs-attr">"Status"</span>: <span class="hljs-string">"Parked"</span>,
         <span class="hljs-attr">"Location"</span>: <span class="hljs-string">"59.3293, 18.0686"</span>,
         <span class="hljs-attr">"Speed"</span>: <span class="hljs-string">"0.00"</span>,
         <span class="hljs-attr">"Battery"</span>: <span class="hljs-number">45</span>,
         <span class="hljs-attr">"StationID"</span>: <span class="hljs-number">1</span>
-    },
-    {
+      },
+      {
         <span class="hljs-attr">"ScooterID"</span>: <span class="hljs-number">5</span>,
         <span class="hljs-attr">"Status"</span>: <span class="hljs-string">"Parked"</span>,
         <span class="hljs-attr">"Location"</span>: <span class="hljs-string">"59.3293, 18.0686"</span>,
         <span class="hljs-attr">"Speed"</span>: <span class="hljs-string">"0.00"</span>,
         <span class="hljs-attr">"Battery"</span>: <span class="hljs-number">41</span>,
         <span class="hljs-attr">"StationID"</span>: <span class="hljs-number">1</span>
-    }
+      }
     ]
     </code></pre>
     <h3 id="get-one-entry">Get one entry</h3>
@@ -930,26 +934,26 @@ pre {
     <pre><code><span class="hljs-keyword">GET</span> /v1/cost-<span class="hljs-keyword">structure</span>
     </code></pre><p>Results:</p>
     <pre><code class="lang-json">[
-    {
+      {
         <span class="hljs-attr">"CostID"</span>: <span class="hljs-number">1</span>,
         <span class="hljs-attr">"CostDesc"</span>: <span class="hljs-string">"Fixed"</span>,
         <span class="hljs-attr">"CostAmount"</span>: <span class="hljs-string">"10.00"</span>
-    },
-    {
+      },
+      {
         <span class="hljs-attr">"CostID"</span>: <span class="hljs-number">2</span>,
         <span class="hljs-attr">"CostDesc"</span>: <span class="hljs-string">"Time-based"</span>,
         <span class="hljs-attr">"CostAmount"</span>: <span class="hljs-string">"3.00"</span>
-    },
-    {
+      },
+      {
         <span class="hljs-attr">"CostID"</span>: <span class="hljs-number">3</span>,
         <span class="hljs-attr">"CostDesc"</span>: <span class="hljs-string">"Fine"</span>,
         <span class="hljs-attr">"CostAmount"</span>: <span class="hljs-string">"10.00"</span>
-    },
-    {
+      },
+      {
         <span class="hljs-attr">"CostID"</span>: <span class="hljs-number">4</span>,
         <span class="hljs-attr">"CostDesc"</span>: <span class="hljs-string">"Discount"</span>,
         <span class="hljs-attr">"CostAmount"</span>: <span class="hljs-string">"-5.00"</span>
-    }
+      }
     ]
     </code></pre>
     <h3 id="get-one-entry">Get one entry</h3>
@@ -957,11 +961,11 @@ pre {
     <pre><code><span class="hljs-keyword">GET</span> /v1/cost-<span class="hljs-keyword">structure</span>/:id
     </code></pre><p>Results:</p>
     <pre><code class="lang-json">[
-    {
+      {
         <span class="hljs-attr">"CostID"</span>: <span class="hljs-number">1</span>,
         <span class="hljs-attr">"CostDesc"</span>: <span class="hljs-string">"Fixed"</span>,
         <span class="hljs-attr">"CostAmount"</span>: <span class="hljs-string">"10.00"</span>
-    }
+      }
     ]
     </code></pre>
     <h3 id="create-a-new-entry">Create a new entry</h3>
