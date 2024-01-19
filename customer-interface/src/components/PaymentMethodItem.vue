@@ -5,18 +5,13 @@
 
 
 <template v-if="user">
-    <h3>Sign up for a monthly payment plan:</h3>
-    <h4>This will give you access to our bikes for free for a month.</h4>
+    <h3>Select your preferred method of payment</h3>
+    <div>Your preferred method of payment is: {{ paymentMethod }}</div>
 
-    <h4>You must enter your email and password before signing up.</h4>
-    <form v-on:submit.prevent="monthlySignUp" class="month-form">
-        <label for="email">Email:</label><br>
-        <input type="email" name="email" id="month-email" required placeholder="enter your email.." v-model="meEmail"/><br>
-        <label for="password">Password:</label><br>
-        <input type="password" name="password" id="month-password" required placeholder="enter your password.." v-model="mePassword"/><br>
-
-        <button type="submit">Sign up!</button>
-    </form>
+    <input type="radio" id="Card" value="Card" v-model="paymentMethod" @click="changePaymentMethod(1)" />
+    <label for="Card">Card</label>
+    <input type="radio" id="Swish" value="Swish" v-model="paymentMethod" @click="changePaymentMethod(2)" />
+    <label for="Swish">Swish</label>
 
 </template>
 
@@ -30,11 +25,10 @@ export default {
 
     data() {
         return {
+            //user: null,
             userDB: null,
-            monthlyPlan: null,
-            componentKey: 0,
-            meEmail: null,
-            mePassword: null,
+            paymentMethod: null,
+            componentKey: 0
         }
     },
 
@@ -63,13 +57,19 @@ export default {
                     PaymentType: result[0].PaymentType,
                     Role: result[0].Role
                 };
+                
+                if (result[0].PaymentType === 1) {
+                    this.paymentMethod = 'Card';
+                } else if (result[0].PaymentType === 2) {
+                    this.paymentMethod = 'Swish';
+                }
                 return result;
             } catch (error) {
                 console.error('Error fetching user data:', error);
                 throw error;
             }
         },
-        async updatePlan(newPaymentMethod) {
+        async updateUser(newPaymentMethod) {
             try {
                 console.log("UPDATE USER:");
                 console.log("newPaymentMethod parameter: ", newPaymentMethod);
@@ -101,10 +101,22 @@ export default {
                 this.forceRerender()
             }
         },
-        async monthlySignUp(userID) {
+        async changePaymentMethod(newMethod) {
             try {
-                console.log(`Signing up for monthly payment plan.`);
-                await this.updatePlan(userID)
+                console.log(`Changing preferred method of payment to ${newMethod}.`);
+                console.log("this.paymentMethod: ", this.paymentMethod);
+                const methodIsCard = this.paymentMethod === 'Card';
+                const methodIsSwish = this.paymentMethod === 'Swish';
+
+                if (methodIsCard && newMethod === 1) {
+                    console.log("Preferred method is already card, no need to change.");
+                    return
+                } else if (methodIsSwish && newMethod === 2) {
+                    console.log("Preferred method is already Swish, no need to change.");
+                    return
+                } else {
+                    await this.updateUser(newMethod)
+                }
             } catch(error) {
                 console.log("error when changing payment method", error);
             }

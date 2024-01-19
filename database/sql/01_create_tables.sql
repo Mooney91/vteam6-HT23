@@ -97,6 +97,14 @@ CREATE TABLE IF NOT EXISTS `CostStructure` (
     `CostAmount` DECIMAL(15,2)
 );
 
+-- Create PaymentPlan
+CREATE TABLE IF NOT EXISTS `PaymentPlan` (
+    `PlanID` INT AUTO_INCREMENT PRIMARY KEY,
+    `UserID` INT,
+    `Cost` DECIMAL(7, 2),
+    `Unpaid` INT
+);
+
 -- ADD THE FOREIGN KEYS!
 ALTER TABLE `Scooter` ADD FOREIGN KEY (`StationID`) REFERENCES `Station`(`StationID`);
 ALTER TABLE `Station` ADD FOREIGN KEY (`CityID`) REFERENCES `City`(`CityID`);
@@ -107,3 +115,4 @@ ALTER TABLE `RentalLog` ADD FOREIGN KEY (`ScooterID`) REFERENCES `Scooter`(`Scoo
 ALTER TABLE `RentalLog` ADD FOREIGN KEY (`UserID`) REFERENCES `User`(`UserID`);
 ALTER TABLE `RentalLog` ADD FOREIGN KEY (`StartStation`) REFERENCES `Station`(`StationID`);
 ALTER TABLE `RentalLog` ADD FOREIGN KEY (`EndStation`) REFERENCES `Station`(`StationID`);
+ALTER TABLE `PaymentPlan` ADD FOREIGN KEY (`UserID`) REFERENCES `User`(`UserID`);
