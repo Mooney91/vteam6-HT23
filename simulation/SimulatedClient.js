@@ -38,10 +38,16 @@ class SimulatedClient {
     async useScooter() {
         console.log(`User ${this.user.FirstName} with ID ${this.user.UserID} using Scooter with ID ${this.scooter.ScooterID}!`);
 
-        this.trip = await publicHelper.getRandomMatchingTrip(this.scooter.Location.replace(/\s/g, ""));
-        
+        if (this.scooter.Status != "Free Parking") {
+            this.trip = await publicHelper.getRandomMatchingTrip(this.scooter.Location.replace(/\s/g, ""));
+        } else {
+            this.trip = await publicHelper.generateFreeTrip(this.scooter.Location.replace(/\s/g, ""));
+        }
+
         if (this.trip) {
             this.intervalID = setInterval(() => this.moveScooter(), SimulatedClient.waypointInterval * 1000);
+        } else {
+            console.log("No trip available.");
         }
     }
 
@@ -85,7 +91,7 @@ class SimulatedClient {
                 publicHelper.updateScooter(this.scooter);
             }
 
-            console.log("Moving scooter to: " + JSON.stringify(this.scooter.Location));
+            // console.log("Moving scooter to: " + JSON.stringify(this.scooter.Location));
 
             this.tripIndex++;
         }
@@ -94,7 +100,7 @@ class SimulatedClient {
     // Return scooter
     async returnScooter() {
         SimulatedClient.numClients--;
-        
+
         console.log("Returning a scooter!");
 
         await publicHelper.stopRent(this.rentalLogID, this.user, this.scooter);
