@@ -38,10 +38,16 @@ class SimulatedClient {
     async useScooter() {
         console.log(`User ${this.user.FirstName} with ID ${this.user.UserID} using Scooter with ID ${this.scooter.ScooterID}!`);
 
-        this.trip = await publicHelper.getRandomMatchingTrip(this.scooter.Location.replace(/\s/g, ""));
-        
+        if (this.scooter.Status != "Free Parking") {
+            this.trip = await publicHelper.getRandomMatchingTrip(this.scooter.Location.replace(/\s/g, ""));
+        } else {
+            this.trip = await publicHelper.generateFreeTrip(this.scooter.Location.replace(/\s/g, ""));
+        }
+
         if (this.trip) {
             this.intervalID = setInterval(() => this.moveScooter(), SimulatedClient.waypointInterval * 1000);
+        } else {
+            console.log("No trip available.");
         }
     }
 
@@ -60,7 +66,9 @@ class SimulatedClient {
             const zero = 0;
             this.scooter.Speed = zero.toFixed(2);
 
-            this.scooter.Location = this.trip.Destination;
+            const waypointCoordsString = String(this.trip.Destination)
+            this.scooter.Location = waypointCoordsString.replace(/[\[\]']+/g,'');
+            // this.scooter.Location = this.trip.Destination;
     
             // Update scooter in database when trip has ended
             publicHelper.updateScooter(this.scooter);
@@ -73,14 +81,17 @@ class SimulatedClient {
         } else {
             this.scooter.Speed = (Math.random() * 30).toFixed(2);
 
-            this.scooter.Location = this.trip.Waypoints[this.tripIndex];
+            const waypointCoordsString = String(this.trip.Waypoints[this.tripIndex])
+            this.scooter.Location = waypointCoordsString.replace(/[\[\]']+/g,'');
+            // this.scooter.Location = this.trip.Waypoints[this.tripIndex];
         
             // Update scooter in database every x waypoints
             if (this.tripIndex % SimulatedClient.updateInterval === 0) {
+
                 publicHelper.updateScooter(this.scooter);
             }
 
-            console.log("Moving scooter to: " + JSON.stringify(this.scooter.Location));
+            // console.log("Moving scooter to: " + JSON.stringify(this.scooter.Location));
 
             this.tripIndex++;
         }
@@ -89,7 +100,7 @@ class SimulatedClient {
     // Return scooter
     async returnScooter() {
         SimulatedClient.numClients--;
-        
+
         console.log("Returning a scooter!");
 
         await publicHelper.stopRent(this.rentalLogID, this.user, this.scooter);

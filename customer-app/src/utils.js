@@ -1,5 +1,5 @@
-const BASE_URL = "http://localhost:1337";
-const API_KEY = "n7fov6opbjzqllsd53aduh1k1xcgx0mtqbi0"
+const BASE_URL = `${location.protocol}//${location.hostname}:1337`
+const API_KEY = "p6jzni39z780u50kd3p0d14sh7uekpby5qpz"
 
 export class utils {
     /**
@@ -9,7 +9,7 @@ export class utils {
      */
     static async getUser(email) {
         try {
-            const response = await fetch(`${this.backend}/v1/user/${email}`, {
+            const response = await fetch(`${BASE_URL}/v1/user/email/${email}`, {
                 headers: {
                     'Content-Type': 'application/json',
                     'x-api-key': API_KEY,
@@ -17,10 +17,23 @@ export class utils {
             })
 
             const result = await response.json()
-            console.log("Result: ", result)
+            return result[0]
 
-            return result
+        } catch (err) {
+            console.error(err)
+        }
+    }
 
+    /**
+     * Tries to login the specific user
+     * @param email The user's email
+     * @param password The user's password
+     * @return A boolean, whether the user was logged in successfully.
+     */
+    static async loginUser(email, password) {
+        try {
+            const user = await this.getUser(email)
+            return user.Password == password
         } catch (err) {
             console.error(err)
         }
@@ -36,20 +49,21 @@ export class utils {
      * @param role The user's email
      * @return A message
      */
-    static async updateUser(firstName, lastName, password, email, paymentType, role) {
+    static async updateUser(user) {
         try {
             const data = {
-                'FirstName': firstName,
-                'LastName': lastName,
-                'Password': password,
-                'Email': email,
-                'PaymentType': paymentType,
-                'Role': role,
+                'FirstName': user.FirstName,
+                'LastName': user.LastName,
+                'Password': user.Password,
+                'Email': user.Email,
+                'AccountBalance': user.AccountBalance,
+                'PaymentType': user.PaymentType,
+                'Role': user.Role,
             }
 
-            const response = await fetch(`${BASE_URL}/v1/rental-log`,
+            const response = await fetch(`${BASE_URL}/v1/user/${user.UserID}`,
             {
-                method: 'POST',
+                method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                     'x-api-key': API_KEY,
@@ -97,7 +111,8 @@ export class utils {
                 }
             })
 
-            return await response.json()
+            const res = await response.json()
+            return res[0]
         } catch (err) {
             console.error(err)
         }
@@ -151,13 +166,8 @@ export class utils {
         const data = {
             "ScooterID": scooterId,
             "UserID": userId,
-            "StartTime": new Date().toUTCString(),
-            // "EndTime": "2023-01-01T09:30:00",
             "StartStation": stationId,
-            // "EndStation": 2,
-            // "Cost": 10.00,
-            // "Paid": true
-        };
+        }
 
         const response = await fetch(`${BASE_URL}/v1/rental-log`,
         {
@@ -167,7 +177,7 @@ export class utils {
                 'x-api-key': API_KEY,
             },
             body: JSON.stringify(data),
-        });
+        })
 
         return response.json()
     }
@@ -178,7 +188,7 @@ export class utils {
      * @param endStation The end station's id (optional).
      * @return A message
      */
-    static async getScooterRent(scooterId) {
+    static async getRentDetails(scooterId) {
         const response = await fetch(`${BASE_URL}/v1/rental-log/${scooterId}`,
         {
             method: 'GET',
@@ -197,7 +207,7 @@ export class utils {
      * @param endStation The end station's id (optional).
      * @return A message
      */
-    static async stopScooterRent(scooterId, endStation = null) {
+    static async stopRent(scooterId, endStation) {
         const data = {
             'EndStation': endStation,
         }
