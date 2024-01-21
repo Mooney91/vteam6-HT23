@@ -13,16 +13,18 @@
     <h3>Sign up for a monthly payment plan for 600kr/month!</h3>
     <h4>This will give you access to our bikes for free for a month.</h4>
 
-    <div v-if="signedBool"><strong> {{signedBool }}</strong></div>
-    <form v-on:submit.prevent="monthlySignUp" class="month-form">
-        <label for="email">Email:</label><br>
-        <input type="email" name="email" id="month-email" required placeholder="enter your email.." v-model="meEmail"/><br>
-        <label for="password">Password:</label><br>
-        <input type="password" name="password" id="month-password" required placeholder="enter your password.." v-model="mePassword"/><br>
+    <div v-if="signedBool"><strong><em> {{signedBool }} </em></strong></div>
 
-        <button type="submit" id="member-submit">Sign up!</button>
-    </form>
+    <div v-if="unsigned">
+        <form v-on:submit.prevent="monthlySignUp" class="month-form">
+            <label for="email">Email:</label><br>
+            <input type="email" name="email" id="month-email" required placeholder="enter your email.." v-model="meEmail"/><br>
+            <label for="password">Password:</label><br>
+            <input type="password" name="password" id="month-password" required placeholder="enter your password.." v-model="mePassword"/><br>
 
+            <button type="submit" id="member-submit">Sign up!</button>
+        </form>
+    </div>
 </template>
 
 <script>
@@ -41,6 +43,7 @@ export default {
             meEmail: null,
             mePassword: null,
             signedBool: null,
+            unsigned: true,
             Cost: 0,
             Unpaid: true
         }
@@ -164,7 +167,8 @@ export default {
                 console.log(`Signing up for monthly payment plan.`);
                 this.signedBool = 'Success you are signed up!';
                 await this.createPlan();
-                await this.fetchPlan(this.UserDB.UserID)
+                await this.fetchPlan(this.UserDB.UserID);
+                this.unsigned = false;
                 this.forceRerender();
             } catch(error) {
                 console.log("error when changing payment method", error);

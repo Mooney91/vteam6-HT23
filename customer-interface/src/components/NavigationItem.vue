@@ -21,7 +21,7 @@ export default {
         <RouterLink to="/users">All Users</RouterLink>
         <RouterLink to="/travel">Travel History</RouterLink>
         <RouterLink to="/payment">Payment</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
+        <!--<RouterLink to="/about">About</RouterLink>-->
     </div>
 </template>
 

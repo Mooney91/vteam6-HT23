@@ -156,8 +156,12 @@ export default {
             <button type="submit" id="change-submit">Submit changes</button>
         </form><br>
 
-        <PaymentMethodItem /><br>
-        <MembershipItem />
+        <div class="method-item">
+            <PaymentMethodItem />
+        </div>
+        <div class="membership-item">
+            <MembershipItem />
+        </div>
     </div>
 
 </template>
@@ -167,6 +171,18 @@ export default {
 
 .payment-details {
     padding: 2em;
+    padding-bottom: 3em;
+    max-width: 45%;
+}
+
+.method-item {
+    padding-bottom: 3em;
+    border-top: solid;
+}
+
+.membership-item {
+    padding-bottom: 3em;
+    border-top: solid;
 }
 
 #change-submit {
