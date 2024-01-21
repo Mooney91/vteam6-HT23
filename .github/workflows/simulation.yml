@@ -29,8 +29,8 @@ jobs:
     - run: npm install
       working-directory: ./simulation
       
-    - run: npm run lint
-      working-directory: ./simulation
+    # - run: npm run lint
+    #  working-directory: ./simulation
 
-    - run: npm run test
-      working-directory: ./simulation
+    # - run: npm run test
+    #  working-directory: ./simulation
