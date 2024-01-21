@@ -14,7 +14,7 @@
     "eslint-plugin-vue": "^9.18.1"
   },
   "dependencies": {
-    "node": "^21.1.0",
-    "sqlite3": "^5.1.6"
+    "jsdoc": "^4.0.2",
+    "node": "^21.1.0"
   }
 }
