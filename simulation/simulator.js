@@ -1,35 +1,37 @@
 const publicHelper = require("./utils").publicHelper;
 const SC = require("./SimulatedClient").SimulatedClient;
 
-// let timeoutID;
+// Max number of clients at any given time
+const maxClients = 500;
 
-// With a random time interval, simulate a user opening the app and going through the lifecycle
+// Time (in seconds) between new clients being activated
+const clientInterval = 3;
+
+// Time (in seconds) it takes for a scooter to move from one waypoint to another
+const waypointInterval = 1;
+
+// Number of waypoints between a scooter's properties being updated in database
+const updateInterval = 3;
+
 async function startSimulator() {
-    createNewClient();
+    SC.waypointInterval = waypointInterval;
+    SC.updateInterval = updateInterval;
 
-    /*
-    // Set a random timer between 1 and 5 seconds
-    const seconds = helper.getRndInteger(1, 5) * 1000;
-
-    timeoutID = setTimeout(() => {
-        // Clear timeout after timer finishes
-        clearTimeout(timeoutID);
-
-        // Create a new simulated client
-        createNewClient();
-    }, seconds);
-    */
+    setInterval(() => {
+        if (SC.numClients < maxClients) {
+            createNewClient();
+        }
+    }, clientInterval * 1000);
 }
 
 async function createNewClient() {
     const user = await publicHelper.getRandomAvailableUser();
-    console.log(user);
+    // console.log(user);
     
     const scooter = await publicHelper.getRandomAvailableScooter();
-    console.log(scooter);
+    // console.log(scooter);
 
     new SC(user, scooter);
 }
 
 startSimulator();
-

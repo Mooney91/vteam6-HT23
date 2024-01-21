@@ -4,11 +4,7 @@ const fetchHelper = {
     // BASE_URL: "http://localhost:1337",
     BASE_URL: "http://vteam6_server:1337",
 
-    // vteam6_server
-
     async getData(endpoint) {
-        const test = `${this.BASE_URL}/v1/${endpoint}`;
-        console.log("url: ", test);
         const response = await fetch(`${this.BASE_URL}/v1/${endpoint}`,
             {
                 method: "GET",
@@ -88,6 +84,7 @@ const rentHelper = {
 
 const stationHelper = {
     stations: [],
+    requestsMade: 0,
 
     async initStations() {
         if (this.stations.length === 0) {
@@ -110,6 +107,72 @@ const stationHelper = {
             if (station.Location === location) {
                 return station.StationID;
             }
+        }
+    },
+
+    // Get a trip to a random station in same city as freely parked scooter
+    async getTripToStationInCity(location) {
+        await this.initStations();
+
+        if (this.requestsMade >= 40) {
+            return;
+        }
+
+        let index = publicHelper._getRndInteger(0, this.stations.length - 1);
+        let station = this.stations[index];
+
+        while (station.Location.charAt(1) != location.charAt(1)) {
+            index = publicHelper._getRndInteger(0, this.stations.length - 1);
+            station = this.stations[index];
+        }
+
+        const waypoints = await this.fetchWaypoints(location, station.Location);
+
+        const trip = {
+            Origin: location,
+            Destination: station.Location,
+            Waypoints: waypoints
+        };
+
+        return trip;
+    },
+
+    // Fetch waypoints between origin and destination from API
+    async fetchWaypoints(origin, destination) {
+        const url = "https://api.openrouteservice.org/v2/directions/cycling-electric"
+        const apiKey = "5b3ce3597851110001cf624820729cd7892e4b7488a775715f073283";
+        
+        const originArr = origin.split(",");
+        const destinationArr = destination.split(",");
+
+        const response = await fetch(`${url}?api_key=${apiKey}&start=${originArr[1]},${originArr[0]}&end=${destinationArr[1]},${destinationArr[0]}`);
+        
+        this.requestsMade++;
+
+        if (this.requestsMade === 40) {
+            const timeoutID = setTimeout(function() {
+                this.requestsMade = 0;
+                clearTimeout(timeoutID);
+            }.bind(this), 60 * 1000);
+        }
+
+        const obj = await response.json();
+        
+        const waypoints = obj.features[0].geometry.coordinates;
+
+        this.switchLatLon(waypoints);
+
+        return waypoints;
+    },
+
+    // Swap the order of lat and lon in coordinates
+    switchLatLon(waypoints) {
+        for (const waypoint of waypoints) {
+            const lat = waypoint[1];
+            const lon = waypoint[0];
+
+            waypoint[0] = lat;
+            waypoint[1] = lon;
         }
     }
 }
@@ -153,9 +216,11 @@ const scooterHelper = {
 
     async updateScooter(scooter) {
         const data = {
+            "Status": scooter.Status,
             "Location": scooter.Location,
             "Speed": scooter.Speed,
-            "Battery": scooter.Battery
+            "Battery": scooter.Battery,
+            "StationID": scooter.StationID
         };
 
         const endpoint = `scooter/${scooter.ScooterID}`;
@@ -279,7 +344,7 @@ const publicHelper = {
 
         let index = this._getRndInteger(0, scooters.length - 1);
 
-        while (scooters[index].Status != "Parked") {
+        while (scooters[index].Status === "In Use") {
             index = this._getRndInteger(0, scooters.length - 1);
         }
     
@@ -287,6 +352,15 @@ const publicHelper = {
     
         return scooter;
     },
+
+    // For testing
+    /*
+    async getSpecificScooter(id) {
+        const scooter = await fetchHelper.getData("scooter/" + id);
+    
+        return scooter[0];
+    },
+    */
 
     // Get a trip from SQLite database with location matching either origin or destination
     async getRandomMatchingTrip(location) {
@@ -309,7 +383,16 @@ const publicHelper = {
         return selectedTrip;
     },
 
+    async generateFreeTrip(location) {
+        const trip = await stationHelper.getTripToStationInCity(location);
+
+        return trip;
+    },
+
     async startRent(user, scooter) {
+        // Temporary?
+        stationHelper.initStations();
+
         // 1. Create RentalLog entry (Active?, ScooterID, UserID, StartTime, StartStation) : RentalLogID
         const rentalLogID = await rentHelper.createRent(user, scooter);
 
@@ -334,7 +417,6 @@ const publicHelper = {
 
         // 2. Update Scooter (ScooterID) | (Status, Location?, Battery?, StationID)
         // 3. Update Station (StationID) | (ScooterOccupancy)
-        console.log(scooter);
         scooterHelper.parkScooter(scooter);
 
         // Recycle user and scooter
@@ -343,4 +425,4 @@ const publicHelper = {
     }
 }
 
-module.exports = { publicHelper };
+module.exports = { publicHelper, stationHelper, SQLiteHelper };

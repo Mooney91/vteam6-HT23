@@ -68,24 +68,25 @@ services:
       networks:
           vteam6:
 
-    # customer-app: 
-    #   container_name: "vteam6_customer_app"
-    #   build:
-    #     context: ./customer-app
-    #     # dockerfile: ./customer-app/Dockerfile
-    #   ports:
-    #       - "1340:1340"
-    #   expose:
-    #       - "1340"
-    #   networks:
-    #       vteam6:
+    customer-app: 
+      container_name: "vteam6_customer_app"
+      build:
+        context: ./customer-app
+        # dockerfile: ./customer-app/Dockerfile
+      ports:
+          - "1340:1340"
+      expose:
+          - "1340"
+      networks:
+          vteam6:
 
     simulation: 
       container_name: "vteam6_simulation"
       build:
         context: ./simulation
         # dockerfile: ./simulation/Dockerfile
-      restart: always
+      restart:
+            "always"
       ports:
           - "1341:1341"
       expose:

@@ -1,9 +1,19 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 import HomeView from '../views/HomeView.vue'
+import AuthCallbackView from '../views/AuthCallbackView.vue'
+import LogoutView from '../views/LogoutView.vue'
+
 import AboutView from '../views/AboutView.vue'
 import AccountView from '../views/AccountView.vue'
-import PrepaidView from '../views/PrepaidView.vue'
+import TravelView from '../views/TravelView.vue'
+import PaymentView from '../views/PaymentView.vue'
+
+import AllUsers from '../views/AllUsers.vue'
+
+
+import entryMiddleware from '../middleware/auth.js';
+import logoutMiddleware from '../middleware/logout.js';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -14,19 +24,45 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path: '/account',
-      name: 'account',
-      component: AccountView
+      path: '/authCallback',
+      name: 'authCallback',
+      component: AuthCallbackView
     },
     {
-      path: '/prepaid',
-      name: 'prepaid',
-      component: PrepaidView
+      path: '/logout',
+      name: 'logout',
+      component: LogoutView,
+      beforeEnter: (to, from, next) => logoutMiddleware({ next, router })
+    },
+    {
+      path: '/account',
+      name: 'account',
+      component: AccountView,
+      beforeEnter: (to, from, next) => entryMiddleware({ next, router })
+    },
+    {
+      path: '/users',
+      name: 'users',
+      component: AllUsers,
+      beforeEnter: (to, from, next) => entryMiddleware({ next, router })
+    },
+    {
+      path: '/travel',
+      name: 'travel',
+      component: TravelView,
+      beforeEnter: (to, from, next) => entryMiddleware({ next, router })
+    },
+    {
+      path: '/payment',
+      name: 'payment',
+      component: PaymentView,
+      beforeEnter: (to, from, next) => entryMiddleware({ next, router })
     },
     {
       path: '/about',
       name: 'about',
-      component: AboutView
+      component: AboutView,
+      beforeEnter: (to, from, next) => entryMiddleware({ next, router })
     }
   ]
 })

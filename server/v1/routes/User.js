@@ -5,6 +5,7 @@ const user = require('../models/User.js')
 
 router.get('/', (req, res) => user.getAllUsers(req, res))
 router.get('/:id', (req, res) => user.getSingleUser(req, res))
+router.get('/email/:id', (req, res) => user.getUserByEmail(req, res))
 
 router.post('/', (req, res) => user.createUser(req, res))
 
