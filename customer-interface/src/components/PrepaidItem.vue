@@ -21,7 +21,6 @@
 </template>
 
 <script>
-import Cookies from 'js-cookie';
 
 export default {
     name: "PrepaidItem",

@@ -1,16 +1,25 @@
-<style>
+<style scoped>
+
+
+#card {
+    padding: 1.2em;
+}
+
+#swish {
+    padding: 1.2em;
+}
 
 </style>
 
 
 
-<template v-if="user">
+<template v-if="user" class="payment-method">
     <h3>Select your preferred method of payment</h3>
-    <div>Your preferred method of payment is: {{ paymentMethod }}</div>
+    <div><strong>Your preferred method of payment is: {{ paymentMethod }}</strong></div>
 
-    <input type="radio" id="Card" value="Card" v-model="paymentMethod" @click="changePaymentMethod(1)" />
+    <input type="radio" id="card" value="Card" v-model="paymentMethod" @click="changePaymentMethod(1)" />
     <label for="Card">Card</label>
-    <input type="radio" id="Swish" value="Swish" v-model="paymentMethod" @click="changePaymentMethod(2)" />
+    <input type="radio" id="swish" value="Swish" v-model="paymentMethod" @click="changePaymentMethod(2)" />
     <label for="Swish">Swish</label>
 
 </template>

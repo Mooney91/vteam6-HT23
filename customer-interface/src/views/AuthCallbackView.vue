@@ -22,15 +22,10 @@ export default {
                 console.log("")
                 watch(() => user.value, async (newUser) => {
                     if (newUser) {
-                        console.log("LOGIN INITIATED.");
                         // User object is available, loading is complete
                         auth0Loading.value = false;
-                        const loginMethod = getUserLoginMethod(newUser);
-                        console.log('Login Method:', loginMethod);
-
+                        getUserLoginMethod(newUser);
                         Cookies.remove('token', { sameSite: 'lax', secure: true });
-                        console.log("Cookie after removal:", Cookies.get('token'));
-
                         const tokenStructure = {
                             "name": newUser.name,
                             "nickname": newUser.nickname,
@@ -39,16 +34,12 @@ export default {
                             "picture": newUser.picture,
                             "isAuthenticated": isAuthenticated.value
                         };
-                        // Set cookie
                         Cookies.set('token', JSON.stringify(tokenStructure), { sameSite: 'lax', expires: 10, secure: true });
 
-                        // CHECK IF USER DOES NOT EXIST IN DB:
                         const dbResult = await fetchUser(newUser.email);
-                        console.log("database result after trying to fetch user by email: ", dbResult);
                         if (dbResult == undefined) {
                             console.log("User doesn't exist in the database.. create new user.");
                             const usersNames = newUser.nickname.split('.');
-
                             const someUser = {
                                 FirstName: usersNames[0],
                                 LastName: usersNames[1],
@@ -65,7 +56,6 @@ export default {
 
                         // Redirect to home
                         setTimeout(() => {
-                            console.log("Login complete. Redirecting to /");
                             router.push('/');
                         }, 1);
                     }
@@ -77,22 +67,16 @@ export default {
         const getUserLoginMethod = (user) => {
             if (user && user.sub) {
                 const loginMethod = user.sub.split('|')[0];
-                console.log("login method", loginMethod);
                 if (loginMethod === 'google-oauth2') {
                     return 'Google';
                 }
                 return 'Unknown';
             }
-            // Defaults to email/password
             return 'Email/Password';
         };
 
-
-
         const fetchUser = async (activeUser) => {
             try {
-                console.log("Fetching user data for: ", activeUser);
-                console.log(activeUser);
                 const response = await fetch(`http://localhost:1337/v1/user/email/${activeUser}`, {
                     headers: {
                         'Content-Type': 'application/json',
@@ -100,7 +84,6 @@ export default {
                     },
                 });
                 const result = await response.json();
-                console.log("Result after fetch: ", result);
                 return result[0];
             } catch (error) {
                 console.error('Error fetching user data:', error);
@@ -108,7 +91,6 @@ export default {
             }
         };
 
-        // CREATE USER
         const createUser = async (newUser) => {
             try {
                 const response = await fetch(`http://localhost:1337/v1/user`, {
@@ -134,7 +116,6 @@ export default {
                 throw error;
             }
         };
-
 
         return {
             auth0Loading,

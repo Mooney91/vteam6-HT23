@@ -1,6 +1,5 @@
 <script>
 
-//import { useAuth0 } from '@auth0/auth0-vue';
 
 
 export default {
@@ -9,10 +8,6 @@ export default {
         login() {
             this.$auth0.loginWithRedirect();
         },
-        /*
-        logout() {
-            this.$auth0.logout();
-        },*/
         logout() {
             this.$auth0.logout({ logoutParams: "http://localhost:1339/logout" });
         }
@@ -23,7 +18,6 @@ export default {
             isAuthenticated: this.$auth0.isAuthenticated
         };
     }
-
 };
 
 

@@ -20,6 +20,7 @@ const ScooterLogV1 = require('./v1/routes/ScooterLog')
 const StationV1 = require('./v1/routes/Station')
 const StationTypeV1 = require('./v1/routes/StationType')
 const UserV1 = require('./v1/routes/User')
+const PlanV1 = require('./v1/routes/PaymentPlan')
 
 // MIDDLEWARE
 const { validateKey } = require('./middleware/apikeys')
@@ -61,6 +62,7 @@ app.use('/v1/scooter-log', ScooterLogV1)
 app.use('/v1/Station', StationV1)
 app.use('/v1/station-type', StationTypeV1)
 app.use('/v1/user', UserV1)
+app.use('/v1/plan', PlanV1)
 
 // CREATE SERVER
 const http = require('http')

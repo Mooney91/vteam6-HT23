@@ -1,4 +1,3 @@
-
 <script>
 //import PrepaidItem from '../components/PrepaidItem.vue';
 import MembershipItem from '../components/MembershipItem.vue';
@@ -10,7 +9,8 @@ export default {
     name: 'PaymentView',
 
     components: {
-        PaymentMethodItem
+        PaymentMethodItem,
+        MembershipItem,
     },
 
     props: {
@@ -76,8 +76,6 @@ export default {
 
         async updateUser(newBalance) {
             try {
-                console.log("UPDATE USER:");
-                console.log("newBalance parameter: ", newBalance);
                 const response = await fetch(`${this.backend}/v1/user/${this.userDB.UserID}`, {
                     method: 'PUT',
                     headers: {
@@ -109,8 +107,6 @@ export default {
         async fetchUser(activeUser) {
             try {
                 console.log("trying to fetch user data for: ", activeUser);
-                console.log(this.backend);
-                console.log(activeUser);
                 const response = await fetch(`${this.backend}/v1/user/email/${activeUser}`, {
                     headers: {
                         'Content-Type': 'application/json',
@@ -119,10 +115,7 @@ export default {
                 });
                 const result = await response.json();
                 console.log("result after fetch: ", result);
-                console.log("result[0].FirstName", result[0].FirstName);
-                // Saving values
-                console.log("PAYMENT SAVING VALUES");
-                // this.user = result[0];
+
                 this.userDB = {
                     UserID: result[0].UserID,
                     FirstName: result[0].FirstName,
@@ -133,8 +126,6 @@ export default {
                     PaymentType: result[0].PaymentType,
                     Role: result[0].Role
                 };
-
-                console.log("SAVING COMPLETE!");
                 return result;
             } catch (error) {
                 console.error('Error fetching user data:', error);
@@ -148,7 +139,7 @@ export default {
 </script>
 
 <template>
-    <div v-if="user">
+    <div v-if="user" class="payment-details">
         <h1>Payment Details</h1>
 
         <h3>Charge your prepaid: </h3>
@@ -162,15 +153,26 @@ export default {
 
             <label for="change-balance">Change your balance:</label><br>
             <input type="number" name="change-balance" id="change-balance" required v-model="formBalance"/><br>
-            <button type="submit">Submit changes</button>
-        </form>
+            <button type="submit" id="change-submit">Submit changes</button>
+        </form><br>
 
-        <PaymentMethodItem />
+        <PaymentMethodItem /><br>
+        <MembershipItem />
     </div>
+
 </template>
 
 
 <style>
+
+.payment-details {
+    padding: 2em;
+}
+
+#change-submit {
+    padding-right: 1.5em;
+    padding-left: 1.5em;
+}
 
 </style>
 

@@ -1,21 +1,26 @@
-<style>
+
+<style scoped>
+
+
+#member-submit {
+    padding-right: 1.5em;
+    padding-left: 1.5em;
+}
 
 </style>
 
-
-
-<template v-if="user">
-    <h3>Sign up for a monthly payment plan:</h3>
+<template v-if="user" class="membership-signup">
+    <h3>Sign up for a monthly payment plan for 600kr/month!</h3>
     <h4>This will give you access to our bikes for free for a month.</h4>
 
-    <h4>You must enter your email and password before signing up.</h4>
+    <div v-if="signedBool"><strong> {{signedBool }}</strong></div>
     <form v-on:submit.prevent="monthlySignUp" class="month-form">
         <label for="email">Email:</label><br>
         <input type="email" name="email" id="month-email" required placeholder="enter your email.." v-model="meEmail"/><br>
         <label for="password">Password:</label><br>
         <input type="password" name="password" id="month-password" required placeholder="enter your password.." v-model="mePassword"/><br>
 
-        <button type="submit">Sign up!</button>
+        <button type="submit" id="member-submit">Sign up!</button>
     </form>
 
 </template>
@@ -24,17 +29,20 @@
 import Cookies from 'js-cookie';
 
 export default {
-    name: "PaymentMethodItem",
+    name: "MembershipItem",
 
     inject: ['backend', 'user'],
 
     data() {
         return {
-            userDB: null,
+            UserDB: null,
             monthlyPlan: null,
             componentKey: 0,
             meEmail: null,
             mePassword: null,
+            signedBool: null,
+            Cost: 0,
+            Unpaid: true
         }
     },
 
@@ -53,7 +61,7 @@ export default {
                 });
                 const result = await response.json();
                 console.log("result after fetch: ", result);
-                this.userDB = {
+                this.UserDB = {
                     UserID: result[0].UserID,
                     FirstName: result[0].FirstName,
                     LastName: result[0].LastName,
@@ -69,42 +77,95 @@ export default {
                 throw error;
             }
         },
-        async updatePlan(newPaymentMethod) {
+        async fetchPlan(activeUser) {
             try {
-                console.log("UPDATE USER:");
-                console.log("newPaymentMethod parameter: ", newPaymentMethod);
-                const response = await fetch(`${this.backend}/v1/user/${this.userDB.UserID}`, {
+                const response = await fetch(`${this.backend}/v1/plan/${activeUser}`, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-api-key': 'n7fov6opbjzqllsd53aduh1k1xcgx0mtqbi0',
+                    },
+                });
+                const result = await response.json();
+                console.log("result after fetch: ", result);
+                this.plan = result[0];
+                return result;
+            } catch (error) {
+                console.error('Error fetching user data:', error);
+                throw error;
+            }
+        },
+        async createPlan() {
+            try {
+                const response = await fetch(`${this.backend}/v1/plan`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-api-key': '79mozjohim15b1xk79jfj7m6tfcj0tnczn5s'
+                },
+                body: JSON.stringify({
+                    UserID: this.UserDB.UserID,
+                    Cost: 600,
+                    Unpaid: true
+                })
+                })
+                const result = await response.json()
+                return result
+            } catch (error) {
+                console.error('Error creating user:', error)
+                throw error
+            } finally {
+                this.forceRerender()
+            }
+        },
+        async updatePlan() {
+            try {
+                const response = await fetch(`${this.backend}/v1/plan/${this.UserDB.UserID}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
                         'x-api-key': 'n7fov6opbjzqllsd53aduh1k1xcgx0mtqbi0',
                     },
                     body: JSON.stringify({
-                        UserID: this.userDB.UserID,
-                        FirstName: this.userDB.FirstName,
-                        LastName: this.userDB.LastName,
-                        Password: this.userDB.Password,
-                        Email: this.userDB.Email,
-                        AccountBalance: this.AccountBalance,
-                        PaymentType: newPaymentMethod,
-                        Role: this.userDB.Role
+                        UserID: this.UserDB.UserID,
+                        Cost: this.Cost,
+                        Unpaid: this.Unpaid
                     }),
                     })
                 const result = await response.json();
-                console.log("result after PUT fetch: ", result);
-                this.userDB.PaymentType = newPaymentMethod;
                 return result;
             } catch (error) {
-                console.error('Error updating user:', error);
+                console.error('Error updating plan:', error);
                 throw error;
             } finally {
                 this.forceRerender()
             }
         },
-        async monthlySignUp(userID) {
+        async deletePlan(UserID) {
+            try {
+                const response = await fetch(`${this.backend}/v1/plan/${UserID}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-api-key': '79mozjohim15b1xk79jfj7m6tfcj0tnczn5s'
+                }
+                })
+                const result = await response.json()
+
+                return result
+            } catch (error) {
+                console.error('Error deleting user:', error)
+                throw error
+            } finally {
+                this.forceRerender()
+            }
+        },
+        async monthlySignUp() {
             try {
                 console.log(`Signing up for monthly payment plan.`);
-                await this.updatePlan(userID)
+                this.signedBool = 'Success you are signed up!';
+                await this.createPlan();
+                await this.fetchPlan(this.UserDB.UserID)
+                this.forceRerender();
             } catch(error) {
                 console.log("error when changing payment method", error);
             }
@@ -125,4 +186,3 @@ export default {
 }
 
 </script>
-
