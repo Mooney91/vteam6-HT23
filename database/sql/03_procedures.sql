@@ -82,6 +82,9 @@ DELIMITER ;
 
 DROP PROCEDURE IF EXISTS RemoveScooterOccupancy;
 
+
+
+
 DELIMITER ;;
 
 CREATE PROCEDURE RemoveScooterOccupancy(IN a_StationID INT, IN a_RentalLogID INT)
